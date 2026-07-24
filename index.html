@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>てとて 相談フォーム</title>
+
+<!--
+  ==========================================================
+  【このファイルについて】
+  LINEの中で開く「入口フォーム（①）」の実際に動くコードです。
+  以下2点を準備できたら、下の LIFF_ID の部分を書き換えてください。
+
+  1. LINE Developersコンソールで、このLINE公式アカウントに対応する
+     チャネルに「LIFF」を追加し、LIFF IDを発行する
+     （エンドポイントURLには、このファイルを公開した後のURLを設定）
+  2. このHTMLファイルをどこかにホスティングし、そのURLを1のエンドポイントURLに設定する
+     （GitHub PagesやGoogle Apps ScriptのWebアプリ公開など、無料の方法で可能）
+
+  準備ができたら、下の "YOUR_LIFF_ID" を実際のLIFF IDに書き換えてください。
+  ==========================================================
+-->
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+<style>
+  body { font-family: -apple-system, "Hiragino Kaku Gothic ProN", sans-serif; background: #f5f5f0; margin: 0; padding: 0; }
+  .screen { max-width: 480px; margin: 0 auto; min-height: 100vh; background: #fafafa; }
+  .header { background: #06c755; color: #fff; padding: 16px; font-size: 15px; font-weight: 600; }
+  .formbody { padding: 20px 16px; display: flex; flex-direction: column; gap: 16px; }
+  .field p.label { margin: 0 0 6px; font-weight: 600; font-size: 13px; color: #333; }
+  .field p.note { margin: 0 0 6px; font-size: 11px; color: #999; }
+  select, input[type=text] {
+    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px;
+    box-sizing: border-box; font-size: 14px; background: #fff;
+  }
+  .submit {
+    background: #06c755; color: #fff; border: none; border-radius: 8px;
+    padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%;
+    margin-top: 8px;
+  }
+  .submit:disabled { background: #ccc; }
+  .status { text-align: center; font-size: 13px; color: #666; padding: 40px 16px; }
+  .privacy { font-size: 11px; color: #999; margin-top: -4px; }
+</style>
+</head>
+<body>
+
+<div class="screen">
+  <div class="header">てとて 相談フォーム</div>
+
+  <div id="form-area" class="formbody">
+
+    <div class="field">
+      <p class="label">お名前（ニックネーム可）＊</p>
+      <input type="text" id="user_name" placeholder="相談者" value="相談者" required>
+    </div>
+
+    <div class="field">
+      <p class="label">ご年代＊</p>
+      <select id="age_group" required>
+        <option value="" disabled selected>選択してください</option>
+        <option>10代</option>
+        <option>20代</option>
+        <option>30代</option>
+        <option>40代</option>
+        <option>50代</option>
+        <option>60代</option>
+        <option>70代以上</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <p class="label">性別＊</p>
+      <select id="gender" required>
+        <option value="" disabled selected>選択してください</option>
+        <option>男性</option>
+        <option>女性</option>
+        <option>その他</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <p class="label">一番の悩み＊</p>
+      <select id="main_issue" required>
+        <option value="" disabled selected>選択してください</option>
+        <option>仕事</option>
+        <option>学校の問題</option>
+        <option>住まい・居住の悩み</option>
+        <option>経済・生活費</option>
+        <option>人間関係</option>
+        <option>ひきこもり</option>
+        <option>家族・家庭環境</option>
+        <option>生きるのがつらい・限界を感じている</option>
+        <option>メンタル不調（精神疾患含む）</option>
+        <option>身体の悩み</option>
+        <option>性の悩み</option>
+        <option>LGBT（性的指向・性自認に関する悩み）</option>
+        <option>障害について</option>
+        <option>DV・虐待</option>
+        <option>犯罪・被害</option>
+        <option>その他</option>
+      </select>
+      <p class="privacy">※この情報はご相談への対応のためだけに利用します。</p>
+    </div>
+
+    <div class="field">
+      <p class="label">それに伴うその他の悩み1（任意）</p>
+      <select id="sub_issue_1">
+        <option value="">選択しない</option>
+        <option>仕事</option>
+        <option>学校の問題</option>
+        <option>住まい・居住の悩み</option>
+        <option>経済・生活費</option>
+        <option>人間関係</option>
+        <option>ひきこもり</option>
+        <option>家族・家庭環境</option>
+        <option>生きるのがつらい・限界を感じている</option>
+        <option>メンタル不調（精神疾患含む）</option>
+        <option>身体の悩み</option>
+        <option>性の悩み</option>
+        <option>LGBT（性的指向・性自認に関する悩み）</option>
+        <option>障害について</option>
+        <option>DV・虐待</option>
+        <option>犯罪・被害</option>
+        <option>その他</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <p class="label">それに伴うその他の悩み2（任意）</p>
+      <select id="sub_issue_2">
+        <option value="">選択しない</option>
+        <option>仕事</option>
+        <option>学校の問題</option>
+        <option>住まい・居住の悩み</option>
+        <option>経済・生活費</option>
+        <option>人間関係</option>
+        <option>ひきこもり</option>
+        <option>家族・家庭環境</option>
+        <option>生きるのがつらい・限界を感じている</option>
+        <option>メンタル不調（精神疾患含む）</option>
+        <option>身体の悩み</option>
+        <option>性の悩み</option>
+        <option>LGBT（性的指向・性自認に関する悩み）</option>
+        <option>障害について</option>
+        <option>DV・虐待</option>
+        <option>犯罪・被害</option>
+        <option>その他</option>
+      </select>
+    </div>
+
+    <button class="submit" id="submitBtn" onclick="submitForm()">チャットを開始</button>
+  </div>
+
+  <div id="status-area" class="status" style="display:none;"></div>
+</div>
+
+<script>
+  // ここを実際のLIFF IDに書き換えてください（LINE Developersで発行）
+  const LIFF_ID = "YOUR_LIFF_ID";
+
+  function showStatus(text) {
+    document.getElementById('form-area').style.display = 'none';
+    const s = document.getElementById('status-area');
+    s.style.display = 'block';
+    s.innerText = text;
+  }
+
+  async function initLiff() {
+    try {
+      await liff.init({ liffId: LIFF_ID });
+      if (!liff.isInClient()) {
+        // LINE以外(PCブラウザ等)で開いた場合の確認用。実際の相談者は必ずLINE内から開く想定。
+        console.log('LIFF outside LINE client - form will still render for preview purposes.');
+      }
+    } catch (err) {
+      // 開発中の確認（LIFF_IDが未設定の場合など）はフォームをそのまま表示し、コンソールにのみ記録する。
+      // 本番でLIFF_IDを正しく設定すれば、通常はここには来ない。
+      console.error('LIFF init failed (LIFF_IDが未設定の場合は正常です):', err);
+    }
+  }
+
+  function buildMessageText() {
+    const name = document.getElementById('user_name').value.trim() || '相談者';
+    const age = document.getElementById('age_group').value;
+    const gender = document.getElementById('gender').value;
+    const main = document.getElementById('main_issue').value;
+    const sub1 = document.getElementById('sub_issue_1').value;
+    const sub2 = document.getElementById('sub_issue_2').value;
+
+    const parts = [`呼び名：${name}`];
+    if (age) parts.push(`年代：${age}`);
+    if (gender) parts.push(`性別：${gender}`);
+    if (main) parts.push(`一番の悩み：${main}`);
+    if (sub1) parts.push(`その他の悩み1：${sub1}`);
+    if (sub2) parts.push(`その他の悩み2：${sub2}`);
+
+    return parts.join('／');
+  }
+
+  function validateRequired() {
+    const requiredIds = ['user_name', 'age_group', 'gender', 'main_issue'];
+    const missing = [];
+    requiredIds.forEach(id => {
+      const el = document.getElementById(id);
+      el.style.borderColor = '#ccc';
+      if (!el.value || !el.value.trim()) {
+        missing.push(id);
+        el.style.borderColor = '#e74c3c';
+      }
+    });
+    return missing;
+  }
+
+  async function submitForm() {
+    const missing = validateRequired();
+    if (missing.length > 0) {
+      alert('赤枠の項目を入力・選択してください。');
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerText = '送信中…';
+
+    const text = buildMessageText();
+
+    try {
+      const inClient = liff.isInClient && liff.isInClient();
+      if (inClient) {
+        await liff.sendMessages([{ type: 'text', text: text }]);
+        liff.closeWindow();
+      } else {
+        // LINE外・LIFF未初期化での動作確認用
+        alert('（LINE内・LIFF ID設定済みであればここでチャットに送信されます）\n\n' + text);
+        btn.disabled = false;
+        btn.innerText = 'チャットを開始';
+      }
+    } catch (err) {
+      console.error(err);
+      showStatus('送信に失敗しました。お手数ですが、LINEのトーク画面からもう一度お試しください。');
+    }
+  }
+
+  initLiff();
+</script>
+
+</body>
+</html>
