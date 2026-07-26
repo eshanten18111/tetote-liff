@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>てとて 詳細確認フォーム</title>
+
+<!--
+  ==========================================================
+  【このファイルについて】
+  相談員への引き継ぎに同意いただいた相談者へ、LINEから自動で
+  お送りする「詳細確認フォーム（②）」の実際に動くコードです。
+
+  ①入口フォームと同様、以下2点を準備できたら
+  下の LIFF_ID の部分を書き換えてください。
+
+  1. LINE Developersコンソールで、①とは別に新しいLIFFを追加し、
+     LIFF IDを発行する（エンドポイントURLには、このファイルを
+     公開した後のURLを設定）
+  2. このHTMLファイルをどこかにホスティングし、そのURLを1の
+     エンドポイントURLに設定する（①と同じ場所でよい）
+
+  準備ができたら、下の "YOUR_LIFF_ID_2" を実際のLIFF IDに
+  書き換えてください。
+  ==========================================================
+-->
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+<style>
+  body { font-family: -apple-system, "Hiragino Kaku Gothic ProN", sans-serif; background: #f5f5f0; margin: 0; padding: 0; }
+  .screen { max-width: 480px; margin: 0 auto; min-height: 100vh; background: #fafafa; }
+  .header { background: #06c755; color: #fff; padding: 16px; font-size: 15px; font-weight: 600; }
+  .intro { padding: 16px 16px 0; font-size: 13px; color: #555; line-height: 1.6; }
+  .formbody { padding: 20px 16px; display: flex; flex-direction: column; gap: 16px; }
+  .field p.label { margin: 0 0 6px; font-weight: 600; font-size: 13px; color: #333; }
+  .field p.note { margin: 0 0 6px; font-size: 11px; color: #999; }
+  select, input[type=text] {
+    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px;
+    box-sizing: border-box; font-size: 14px; background: #fff;
+  }
+  .checkgroup, .radiogroup { display: flex; flex-direction: column; gap: 8px; }
+  .checkgroup label, .radiogroup label {
+    display: flex; align-items: center; gap: 8px; font-size: 14px; color: #333;
+    background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 10px 12px;
+  }
+  .safety-section { background: #fff7f0; border: 1px solid #f0d9c0; border-radius: 10px; padding: 14px; }
+  .safety-section .sec-title { font-weight: 700; font-size: 13px; color: #b35c00; margin: 0 0 10px; }
+  .emergency-box {
+    display: none; margin-top: 12px; background: #fdecec; border: 1px solid #f0b8b8;
+    border-radius: 8px; padding: 12px; font-size: 12px; color: #a83232; line-height: 1.7;
+  }
+  .emergency-box.show { display: block; }
+  .consent-box {
+    display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #444;
+    background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px;
+  }
+  .consent-box input { margin-top: 3px; }
+  .submit {
+    background: #06c755; color: #fff; border: none; border-radius: 8px;
+    padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%;
+    margin-top: 8px;
+  }
+  .submit:disabled { background: #ccc; }
+  .status { text-align: center; font-size: 13px; color: #666; padding: 40px 16px; }
+  .privacy { font-size: 11px; color: #999; margin-top: -4px; }
+</style>
+</head>
+<body>
+
+<div class="screen">
+  <div class="header">てとて 詳細確認フォーム</div>
+  <p class="intro">相談員からご連絡する際に必要な情報をお聞きします。特に「安全確認」の項目は、正直にお答えいただくことで、より安全な形でご連絡できるようになりますので、ご協力をお願いします＊</p>
+
+  <div id="form-area" class="formbody">
+
+    <div class="field">
+      <p class="label">連絡方法の希望＊</p>
+      <select id="contact_method" required onchange="onContactMethodChange()">
+        <option value="" disabled selected>選択してください</option>
+        <option>電話</option>
+        <option>LINE（このトーク画面）</option>
+      </select>
+    </div>
+
+    <div class="field" id="phone-field" style="display:none;">
+      <p class="label">電話番号＊</p>
+      <input type="text" id="phone_number" placeholder="090-1234-5678">
+    </div>
+
+    <div class="field">
+      <p class="label">連絡可能な曜日・時間帯（複数選択可）</p>
+      <div class="checkgroup">
+        <label><input type="checkbox" name="time_slot" value="平日午前（9時〜12時）">平日午前（9時〜12時）</label>
+        <label><input type="checkbox" name="time_slot" value="平日午後（12時〜17時）">平日午後（12時〜17時）</label>
+        <label><input type="checkbox" name="time_slot" value="土日">土日</label>
+      </div>
+    </div>
+
+    <div class="safety-section">
+      <p class="sec-title">安全に連絡を取るための確認</p>
+
+      <div class="field">
+        <p class="label">電話やLINEの通知を、ご本人以外が見る可能性はありますか＊</p>
+        <div class="radiogroup">
+          <label><input type="radio" name="safety_q1" value="はい">はい</label>
+          <label><input type="radio" name="safety_q1" value="いいえ">いいえ</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <p class="label">今、周囲の方にこのご相談を知られたくない状況ですか＊</p>
+        <div class="radiogroup">
+          <label><input type="radio" name="safety_q2" value="はい">はい</label>
+          <label><input type="radio" name="safety_q2" value="いいえ">いいえ</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <p class="label">今すぐ身の安全に関わる危険がありますか＊</p>
+        <div class="radiogroup">
+          <label><input type="radio" name="safety_q3" value="はい" onclick="toggleEmergencyBox(true)">はい</label>
+          <label><input type="radio" name="safety_q3" value="いいえ" onclick="toggleEmergencyBox(false)">いいえ</label>
+        </div>
+      </div>
+
+      <div id="emergency-box" class="emergency-box">
+        今すぐ危険な状況にある場合は、このフォームの返信を待たず、下記へ直接ご連絡ください。<br>
+        警察：110／救急：119<br>
+        DV相談ナビ：＃8008（プッシュ回線・光電話から）<br>
+        性犯罪・性暴力被害者のためのワンストップ支援センター：＃8103<br>
+        このフォームは送信いただいて構いません。内容をもとに、相談員も安全に配慮してご連絡します。
+      </div>
+    </div>
+
+    <div class="consent-box">
+      <input type="checkbox" id="consent" required>
+      <label for="consent">上記の内容をもとに、相談員からご連絡することに同意します＊</label>
+    </div>
+
+    <button class="submit" id="submitBtn" onclick="submitForm()">送信する</button>
+  </div>
+
+  <div id="status-area" class="status" style="display:none;"></div>
+</div>
+
+<script>
+  // ここを実際のLIFF IDに書き換えてください（LINE Developersで発行、①とは別のLIFF）
+  const LIFF_ID = "YOUR_LIFF_ID_2";
+
+  function onContactMethodChange() {
+    const method = document.getElementById('contact_method').value;
+    document.getElementById('phone-field').style.display = (method === '電話') ? 'block' : 'none';
+  }
+
+  function toggleEmergencyBox(show) {
+    document.getElementById('emergency-box').classList.toggle('show', show);
+  }
+
+  function showStatus(text) {
+    document.getElementById('form-area').style.display = 'none';
+    const s = document.getElementById('status-area');
+    s.style.display = 'block';
+    s.innerText = text;
+  }
+
+  async function initLiff() {
+    try {
+      await liff.init({ liffId: LIFF_ID });
+      if (!liff.isInClient()) {
+        console.log('LIFF outside LINE client - form will still render for preview purposes.');
+      }
+    } catch (err) {
+      console.error('LIFF init failed (LIFF_IDが未設定の場合は正常です):', err);
+    }
+  }
+
+  function getRadioValue(name) {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : '';
+  }
+
+  function buildMessageText() {
+    const method = document.getElementById('contact_method').value;
+    const phone = document.getElementById('phone_number').value.trim();
+    const slots = Array.from(document.querySelectorAll('input[name="time_slot"]:checked')).map(el => el.value);
+    const q1 = getRadioValue('safety_q1');
+    const q2 = getRadioValue('safety_q2');
+    const q3 = getRadioValue('safety_q3');
+
+    const parts = ['詳細確認フォーム回答'];
+    parts.push(`連絡方法：${method}`);
+    if (method === '電話') parts.push(`電話番号：${phone}`);
+    parts.push(`連絡可能時間帯：${slots.length ? slots.join('、') : '指定なし'}`);
+    parts.push(`安全確認1（他者に見られる可能性）：${q1}`);
+    parts.push(`安全確認2（周囲に知られたくない）：${q2}`);
+    parts.push(`安全確認3（今すぐ危険）：${q3}`);
+    parts.push('同意：あり');
+
+    return parts.join('／');
+  }
+
+  function validateRequired() {
+    const missing = [];
+
+    const method = document.getElementById('contact_method');
+    method.style.borderColor = '#ccc';
+    if (!method.value) { missing.push('contact_method'); method.style.borderColor = '#e74c3c'; }
+
+    if (method.value === '電話') {
+      const phone = document.getElementById('phone_number');
+      phone.style.borderColor = '#ccc';
+      if (!phone.value.trim()) { missing.push('phone_number'); phone.style.borderColor = '#e74c3c'; }
+    }
+
+    ['safety_q1', 'safety_q2', 'safety_q3'].forEach(name => {
+      if (!getRadioValue(name)) missing.push(name);
+    });
+
+    if (!document.getElementById('consent').checked) missing.push('consent');
+
+    return missing;
+  }
+
+  async function submitForm() {
+    const missing = validateRequired();
+    if (missing.length > 0) {
+      alert('未回答の必須項目（＊）があります。ご確認ください。');
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerText = '送信中…';
+
+    const text = buildMessageText();
+
+    try {
+      const inClient = liff.isInClient && liff.isInClient();
+      if (inClient) {
+        await liff.sendMessages([{ type: 'text', text: text }]);
+        liff.closeWindow();
+      } else {
+        alert('（LINE内・LIFF ID設定済みであればここでチャットに送信されます）\n\n' + text);
+        btn.disabled = false;
+        btn.innerText = '送信する';
+      }
+    } catch (err) {
+      console.error(err);
+      showStatus('送信に失敗しました。お手数ですが、LINEのトーク画面からもう一度お試しください。');
+    }
+  }
+
+  initLiff();
+</script>
+
+</body>
+</html>
