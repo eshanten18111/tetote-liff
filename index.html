@@ -91,9 +91,23 @@
     </div>
 
     <div class="field">
-      <p class="label">お住まいの市区町村＊</p>
-      <input type="text" id="city" placeholder="例：秋田市" required>
-      <p class="privacy">※連携先の割り振りなど、対応のためだけに利用します。番地までは不要です。</p>
+      <p class="label">お住まいの都道府県＊</p>
+      <select id="prefecture" required>
+        <option value="" disabled selected>選択してください</option>
+        <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option>
+        <option>秋田県</option><option>山形県</option><option>福島県</option><option>茨城県</option>
+        <option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option>
+        <option>東京都</option><option>神奈川県</option><option>新潟県</option><option>富山県</option>
+        <option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
+        <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option>
+        <option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option>
+        <option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option>
+        <option>岡山県</option><option>広島県</option><option>山口県</option><option>徳島県</option>
+        <option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option>
+        <option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option>
+        <option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
+      </select>
+      <p class="privacy">※市区町村など詳しいご住所は、相談員がご連絡する際に改めてお聞きします。</p>
     </div>
 
     <div class="field">
@@ -201,7 +215,7 @@
     const name = document.getElementById('user_name').value.trim() || '相談者';
     const age = document.getElementById('age_group').value;
     const gender = document.getElementById('gender').value;
-    const city = document.getElementById('city').value.trim();
+    const prefecture = document.getElementById('prefecture').value;
     const main = document.getElementById('main_issue').value;
     const sub1 = document.getElementById('sub_issue_1').value;
     const sub2 = document.getElementById('sub_issue_2').value;
@@ -209,7 +223,7 @@
     const parts = [`呼び名：${name}`];
     if (age) parts.push(`年代：${age}`);
     if (gender) parts.push(`性別：${gender}`);
-    if (city) parts.push(`市区町村：${city}`);
+    if (prefecture) parts.push(`都道府県：${prefecture}`);
     if (main) parts.push(`一番の悩み：${main}`);
     if (sub1) parts.push(`その他の悩み1：${sub1}`);
     if (sub2) parts.push(`その他の悩み2：${sub2}`);
@@ -218,7 +232,7 @@
   }
 
   function validateRequired() {
-    const requiredIds = ['user_name', 'age_group', 'gender', 'city', 'main_issue'];
+    const requiredIds = ['user_name', 'age_group', 'gender', 'prefecture', 'main_issue'];
     const missing = [];
     requiredIds.forEach(id => {
       const el = document.getElementById(id);

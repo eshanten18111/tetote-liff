@@ -98,6 +98,31 @@
       </div>
     </div>
 
+    <div class="field">
+      <p class="label">お住まいの都道府県＊</p>
+      <select id="prefecture" required>
+        <option value="" disabled selected>選択してください</option>
+        <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option>
+        <option>秋田県</option><option>山形県</option><option>福島県</option><option>茨城県</option>
+        <option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option>
+        <option>東京都</option><option>神奈川県</option><option>新潟県</option><option>富山県</option>
+        <option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
+        <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option>
+        <option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option>
+        <option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option>
+        <option>岡山県</option><option>広島県</option><option>山口県</option><option>徳島県</option>
+        <option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option>
+        <option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option>
+        <option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <p class="label">お住まいの市区町村＊</p>
+      <input type="text" id="city" placeholder="例：秋田市">
+      <p class="privacy">※番地までは不要です。</p>
+    </div>
+
     <div class="safety-section">
       <p class="sec-title">安全に連絡を取るための確認</p>
 
@@ -147,7 +172,7 @@
 
 <script>
   // ここを実際のLIFF IDに書き換えてください（LINE Developersで発行、①とは別のLIFF）
-  const LIFF_ID = "YOUR_LIFF_ID_2";
+  const LIFF_ID = "2010836980-ms5nFPQE";
 
   function onContactMethodChange() {
     const method = document.getElementById('contact_method').value;
@@ -185,6 +210,8 @@
     const method = document.getElementById('contact_method').value;
     const phone = document.getElementById('phone_number').value.trim();
     const slots = Array.from(document.querySelectorAll('input[name="time_slot"]:checked')).map(el => el.value);
+    const prefecture = document.getElementById('prefecture').value;
+    const city = document.getElementById('city').value.trim();
     const q1 = getRadioValue('safety_q1');
     const q2 = getRadioValue('safety_q2');
     const q3 = getRadioValue('safety_q3');
@@ -193,6 +220,8 @@
     parts.push(`連絡方法：${method}`);
     if (method === '電話') parts.push(`電話番号：${phone}`);
     parts.push(`連絡可能時間帯：${slots.length ? slots.join('、') : '指定なし'}`);
+    parts.push(`都道府県：${prefecture}`);
+    parts.push(`市区町村：${city}`);
     parts.push(`安全確認1（他者に見られる可能性）：${q1}`);
     parts.push(`安全確認2（周囲に知られたくない）：${q2}`);
     parts.push(`安全確認3（今すぐ危険）：${q3}`);
@@ -213,6 +242,14 @@
       phone.style.borderColor = '#ccc';
       if (!phone.value.trim()) { missing.push('phone_number'); phone.style.borderColor = '#e74c3c'; }
     }
+
+    const prefecture = document.getElementById('prefecture');
+    prefecture.style.borderColor = '#ccc';
+    if (!prefecture.value) { missing.push('prefecture'); prefecture.style.borderColor = '#e74c3c'; }
+
+    const city = document.getElementById('city');
+    city.style.borderColor = '#ccc';
+    if (!city.value.trim()) { missing.push('city'); city.style.borderColor = '#e74c3c'; }
 
     ['safety_q1', 'safety_q2', 'safety_q3'].forEach(name => {
       if (!getRadioValue(name)) missing.push(name);
