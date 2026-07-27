@@ -70,7 +70,7 @@
 
 <div class="screen">
   <div class="header">てとて 詳細確認フォーム</div>
-  <p class="intro">相談員からご連絡する際に必要な情報をお聞きします。特に「安全確認」の項目は、正直にお答えいただくことで、より安全な形でご連絡できるようになりますので、ご協力をお願いします＊</p>
+  <p class="intro">相談員からご連絡する際に必要な情報をお聞きします。特に「安全確認」の項目は、正直にお答えいただくことで、より安全な形でご連絡できるようになりますので、ご協力をお願いします。</p>
 
   <div id="form-area" class="formbody">
 
@@ -93,6 +93,7 @@
       <div class="checkgroup">
         <label><input type="checkbox" name="time_slot" value="平日午前（9時〜12時）">平日午前（9時〜12時）</label>
         <label><input type="checkbox" name="time_slot" value="平日午後（12時〜17時）">平日午後（12時〜17時）</label>
+        <label><input type="checkbox" name="time_slot" value="平日夜（17時〜21時）">平日夜（17時〜21時）</label>
         <label><input type="checkbox" name="time_slot" value="土日">土日</label>
       </div>
     </div>
@@ -135,7 +136,7 @@
 
     <div class="consent-box">
       <input type="checkbox" id="consent" required>
-      <label for="consent">上記の内容をもとに、相談員からご連絡することに同意します＊</label>
+      <label for="consent">この内容は法人内の対応でのみ共有し、ご本人の許可なく外部に伝えることはありません（ただし、安全確保のため緊急の対応が必要と判断した場合はこの限りではありません）。この内容をもとに相談員からご連絡することに同意します＊</label>
     </div>
 
     <button class="submit" id="submitBtn" onclick="submitForm()">送信する</button>
@@ -146,7 +147,7 @@
 
 <script>
   // ここを実際のLIFF IDに書き換えてください（LINE Developersで発行、①とは別のLIFF）
-  const LIFF_ID = "2010836980-ms5nFPQE";
+  const LIFF_ID = "YOUR_LIFF_ID_2";
 
   function onContactMethodChange() {
     const method = document.getElementById('contact_method').value;

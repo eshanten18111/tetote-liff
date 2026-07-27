@@ -42,12 +42,22 @@
   .submit:disabled { background: #ccc; }
   .status { text-align: center; font-size: 13px; color: #666; padding: 40px 16px; }
   .privacy { font-size: 11px; color: #999; margin-top: -4px; }
+  .notice-box {
+    margin: 16px 16px 0; background: #fff7e6; border: 1px solid #f0d9a0; border-radius: 10px;
+    padding: 14px; font-size: 12px; color: #6b4e00; line-height: 1.7;
+  }
+  .notice-box .notice-title { font-weight: 700; margin: 0 0 6px; }
 </style>
 </head>
 <body>
 
 <div class="screen">
   <div class="header">てとて 相談フォーム</div>
+
+  <div class="notice-box">
+    <p class="notice-title">ご相談を始める前に</p>
+    このチャットでは、回答の作成にAIを使用しています。より安全にご利用いただくため、この後のチャットの中では、お名前・ご住所・電話番号など、個人を特定できる情報の書き込みはできるだけお控えください。
+  </div>
 
   <div id="form-area" class="formbody">
 
@@ -78,6 +88,12 @@
         <option>女性</option>
         <option>その他</option>
       </select>
+    </div>
+
+    <div class="field">
+      <p class="label">お住まいの市区町村＊</p>
+      <input type="text" id="city" placeholder="例：秋田市" required>
+      <p class="privacy">※連携先の割り振りなど、対応のためだけに利用します。番地までは不要です。</p>
     </div>
 
     <div class="field">
@@ -185,6 +201,7 @@
     const name = document.getElementById('user_name').value.trim() || '相談者';
     const age = document.getElementById('age_group').value;
     const gender = document.getElementById('gender').value;
+    const city = document.getElementById('city').value.trim();
     const main = document.getElementById('main_issue').value;
     const sub1 = document.getElementById('sub_issue_1').value;
     const sub2 = document.getElementById('sub_issue_2').value;
@@ -192,6 +209,7 @@
     const parts = [`呼び名：${name}`];
     if (age) parts.push(`年代：${age}`);
     if (gender) parts.push(`性別：${gender}`);
+    if (city) parts.push(`市区町村：${city}`);
     if (main) parts.push(`一番の悩み：${main}`);
     if (sub1) parts.push(`その他の悩み1：${sub1}`);
     if (sub2) parts.push(`その他の悩み2：${sub2}`);
@@ -200,7 +218,7 @@
   }
 
   function validateRequired() {
-    const requiredIds = ['user_name', 'age_group', 'gender', 'main_issue'];
+    const requiredIds = ['user_name', 'age_group', 'gender', 'city', 'main_issue'];
     const missing = [];
     requiredIds.forEach(id => {
       const el = document.getElementById(id);
