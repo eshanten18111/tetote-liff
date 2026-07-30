@@ -83,9 +83,9 @@
       </select>
     </div>
 
-    <div class="field" id="phone-field" style="display:none;">
+    <div class="field" id="phone-field">
       <p class="label">電話番号＊</p>
-      <input type="text" id="phone_number" placeholder="090-1234-5678">
+      <input type="text" id="phone_number" placeholder="090-1234-5678" required>
     </div>
 
     <div class="field">
@@ -175,8 +175,7 @@
   const LIFF_ID = "2010836980-ms5nFPQE";
 
   function onContactMethodChange() {
-    const method = document.getElementById('contact_method').value;
-    document.getElementById('phone-field').style.display = (method === '電話') ? 'block' : 'none';
+    // 電話番号は常時必須表示のため、表示切替は行わない
   }
 
   function toggleEmergencyBox(show) {
@@ -237,11 +236,9 @@
     method.style.borderColor = '#ccc';
     if (!method.value) { missing.push('contact_method'); method.style.borderColor = '#e74c3c'; }
 
-    if (method.value === '電話') {
-      const phone = document.getElementById('phone_number');
-      phone.style.borderColor = '#ccc';
-      if (!phone.value.trim()) { missing.push('phone_number'); phone.style.borderColor = '#e74c3c'; }
-    }
+    const phone = document.getElementById('phone_number');
+    phone.style.borderColor = '#ccc';
+    if (!phone.value.trim()) { missing.push('phone_number'); phone.style.borderColor = '#e74c3c'; }
 
     const prefecture = document.getElementById('prefecture');
     prefecture.style.borderColor = '#ccc';
