@@ -64,7 +64,11 @@
   .submit:disabled { background: #ccc; }
   .status { text-align: center; font-size: 13px; color: #666; padding: 40px 16px; }
   .privacy { font-size: 11px; color: #999; margin-top: -4px; }
-</style>
+  textarea {
+    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px;
+    box-sizing: border-box; font-size: 14px; background: #fff; font-family: inherit; resize: vertical;
+  }
+  </style>
 </head>
 <body>
 
@@ -167,6 +171,16 @@
     <button class="submit" id="submitBtn" onclick="submitForm()">送信する</button>
   </div>
 
+  <div id="addendum-area" class="formbody" style="display:none;">
+
+    <div class="field">
+      <p class="label">追加でお伝えしたいこと＊</p>
+      <textarea id="addendum_text" rows="6" placeholder="気になることや、状況の変化などをご自由にご記入ください"></textarea>
+    </div>
+
+    <button class="submit" id="addendumSubmitBtn" onclick="submitAddendum()">送信する</button>
+  </div>
+
   <div id="status-area" class="status" style="display:none;"></div>
 </div>
 
@@ -187,6 +201,48 @@
     const s = document.getElementById('status-area');
     s.style.display = 'block';
     s.innerText = text;
+  }
+
+  function getMode() {
+    return new URLSearchParams(window.location.search).get('mode') || '';
+  }
+
+  function setupMode() {
+    if (getMode() === 'addendum') {
+      document.querySelector('.header').innerText = 'てとて 追記フォーム';
+      document.querySelector('.intro').innerText = '引き継ぎ済みのご相談に、追加でお伝えしたいことがあればこちらからご記入ください。内容は記録され、担当スタッフが確認いたします。';
+      document.getElementById('form-area').style.display = 'none';
+      document.getElementById('addendum-area').style.display = 'block';
+    }
+  }
+
+  async function submitAddendum() {
+    const text = document.getElementById('addendum_text').value.trim();
+    if (!text) {
+      alert('内容をご入力ください。');
+      return;
+    }
+
+    const btn = document.getElementById('addendumSubmitBtn');
+    btn.disabled = true;
+    btn.innerText = '送信中…';
+
+    const message = '追記フォーム回答：' + text;
+
+    try {
+      const inClient = liff.isInClient && liff.isInClient();
+      if (inClient) {
+        await liff.sendMessages([{ type: 'text', text: message }]);
+        liff.closeWindow();
+      } else {
+        alert('（LINE内・LIFF ID設定済みであればここでチャットに送信されます）\n\n' + message);
+        btn.disabled = false;
+        btn.innerText = '送信する';
+      }
+    } catch (err) {
+      console.error(err);
+      showStatus('送信に失敗しました。お手数ですが、LINEのトーク画面からもう一度お試しください。');
+    }
   }
 
   async function initLiff() {
@@ -286,6 +342,7 @@
     }
   }
 
+  setupMode();
   initLiff();
 </script>
 
