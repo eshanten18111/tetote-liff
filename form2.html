@@ -1,350 +1,591 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>てとて 詳細確認フォーム</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ご連絡先の確認</title>
 <!--
-  ==========================================================
-  【このファイルについて】
-  相談員への引き継ぎに同意いただいた相談者へ、LINEから自動で
-  お送りする「詳細確認フォーム（②）」の実際に動くコードです。
-
-  ①入口フォームと同様、以下2点を準備できたら
-  下の LIFF_ID の部分を書き換えてください。
-
-  1. LINE Developersコンソールで、①とは別に新しいLIFFを追加し、
-     LIFF IDを発行する（エンドポイントURLには、このファイルを
-     公開した後のURLを設定）
-  2. このHTMLファイルをどこかにホスティングし、そのURLを1の
-     エンドポイントURLに設定する（①と同じ場所でよい）
-
-  準備ができたら、下の "YOUR_LIFF_ID_2" を実際のLIFF IDに
-  書き換えてください。
-  ==========================================================
+  てとて 相談引き継ぎフォーム（LIFF）
+ 
+  【この版で変わったこと ＝ C案】
+  これまでは liff.sendMessages() でフォームの中身を「相談者本人の発言」として
+  トークに流していた。そのため電話番号や氏名がトーク画面に残り、
+  同居者に見られる可能性があった。
+ 
+  この版では、中身は fetch で中継サーバー（Cloudflare Worker）へ直接送る。
+  トークに出るのは「受付しました」という短い合図だけ。
+ 
+  【モード】 ?mode= で切り替える。タイトルは全モード共通（どちらのフォームか
+  相手に分からせない）。
+    ask     … 冒頭1問だけ聞いて general / safety に振り分ける（AIが迷ったとき）
+    general … 折り返しのご予約（こちらからお電話する）
+    safety  … 安全に配慮したご予約（相談者からLINE通話でかけてもらう）
+    rebook  … 再予約（無機質。日時と状況だけ）
+    note    … 備考・特記事項（予約後の連絡、状況の変化）
+    close   … 終了確認（相談員が手動で送る）
 -->
-<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-
 <style>
-  body { font-family: -apple-system, "Hiragino Kaku Gothic ProN", sans-serif; background: #f5f5f0; margin: 0; padding: 0; }
-  .screen { max-width: 480px; margin: 0 auto; min-height: 100vh; background: #fafafa; }
-  .header { background: #06c755; color: #fff; padding: 16px; font-size: 15px; font-weight: 600; }
-  .intro { padding: 16px 16px 0; font-size: 13px; color: #555; line-height: 1.6; }
-  .formbody { padding: 20px 16px; display: flex; flex-direction: column; gap: 16px; }
-  .field p.label { margin: 0 0 6px; font-weight: 600; font-size: 13px; color: #333; }
-  .field p.note { margin: 0 0 6px; font-size: 11px; color: #999; }
-  select, input[type=text] {
-    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px;
-    box-sizing: border-box; font-size: 14px; background: #fff;
+  :root{
+    --bg:#f7f7f5; --card:#fff; --ink:#23282b; --sub:#5f6b70;
+    --line:#dfe3e2; --accent:#3c7a68; --accent-ink:#fff;
+    --warn:#8a4b2a; --warn-bg:#fdf3ec; --req:#b4472e;
   }
-  .checkgroup, .radiogroup { display: flex; flex-direction: column; gap: 8px; }
-  .checkgroup label, .radiogroup label {
-    display: flex; align-items: center; gap: 8px; font-size: 14px; color: #333;
-    background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 10px 12px;
-  }
-  .safety-section { background: #fff7f0; border: 1px solid #f0d9c0; border-radius: 10px; padding: 14px; }
-  .safety-section .sec-title { font-weight: 700; font-size: 13px; color: #b35c00; margin: 0 0 10px; }
-  .emergency-box {
-    display: none; margin-top: 12px; background: #fdecec; border: 1px solid #f0b8b8;
-    border-radius: 8px; padding: 12px; font-size: 12px; color: #a83232; line-height: 1.7;
-  }
-  .emergency-box.show { display: block; }
-  .consent-box {
-    display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #444;
-    background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px;
-  }
-  .consent-box input { margin-top: 3px; }
-  .submit {
-    background: #06c755; color: #fff; border: none; border-radius: 8px;
-    padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%;
-    margin-top: 8px;
-  }
-  .submit:disabled { background: #ccc; }
-  .status { text-align: center; font-size: 13px; color: #666; padding: 40px 16px; }
-  .privacy { font-size: 11px; color: #999; margin-top: -4px; }
-  textarea {
-    width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px;
-    box-sizing: border-box; font-size: 14px; background: #fff; font-family: inherit; resize: vertical;
-  }
-  </style>
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    font-size:16px;line-height:1.75;-webkit-text-size-adjust:100%}
+  .wrap{max-width:560px;margin:0 auto;padding:20px 16px 64px}
+  h1{font-size:19px;margin:4px 0 6px;letter-spacing:.02em}
+  .lead{color:var(--sub);font-size:14px;margin:0 0 20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 16px;margin-bottom:14px}
+  .q{font-weight:600;font-size:15px;margin:0 0 4px}
+  .hint{color:var(--sub);font-size:13px;margin:0 0 10px}
+  .req{color:var(--req);font-size:12px;margin-left:4px;font-weight:600}
+  label.opt{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;margin-bottom:8px;
+    border:1px solid var(--line);border-radius:9px;background:#fff;cursor:pointer}
+  label.opt:last-child{margin-bottom:0}
+  label.opt input{margin:5px 0 0;flex:none;width:19px;height:19px;accent-color:var(--accent)}
+  label.opt span{flex:1}
+  input[type=text],input[type=tel],input[type=date],select,textarea{
+    width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;
+    background:#fff;font-size:16px;font-family:inherit;color:var(--ink)}
+  textarea{min-height:110px;resize:vertical;line-height:1.7}
+  .row{display:flex;gap:10px}
+  .row>*{flex:1}
+  .notice{background:var(--warn-bg);border-left:3px solid var(--warn);
+    border-radius:0 8px 8px 0;padding:12px 14px;font-size:13.5px;color:#4a3428;margin-bottom:14px}
+  .notice b{color:var(--warn)}
+  .btn{display:block;width:100%;padding:15px;border:0;border-radius:10px;
+    background:var(--accent);color:var(--accent-ink);font-size:16px;font-weight:600;
+    font-family:inherit;cursor:pointer;margin-top:6px}
+  .btn:disabled{opacity:.5}
+  .btn.sub{background:#fff;color:var(--accent);border:1.5px solid var(--accent);margin-top:10px}
+  .err{color:var(--req);font-size:13px;margin-top:6px;display:none}
+  .err.on{display:block}
+  #status{text-align:center;padding:28px 8px;color:var(--sub);font-size:14.5px}
+  .done{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 18px}
+  .done h2{font-size:17px;margin:0 0 12px}
+  .done p{font-size:14.5px;margin:0 0 12px;line-height:1.85}
+  .done .tip{background:#f0f4f2;border-radius:9px;padding:13px 14px;font-size:13.5px;color:#3d4a45}
+  .hidden{display:none!important}
+</style>
 </head>
 <body>
-
-<div class="screen">
-  <div class="header">てとて 詳細確認フォーム</div>
-  <p class="intro">相談員からご連絡する際に必要な情報をお聞きします。特に「安全確認」の項目は、正直にお答えいただくことで、より安全な形でご連絡できるようになりますので、ご協力をお願いします。</p>
-
-  <div id="form-area" class="formbody">
-
-    <div class="field">
-      <p class="label">連絡方法の希望＊</p>
-      <select id="contact_method" required onchange="onContactMethodChange()">
-        <option value="" disabled selected>選択してください</option>
-        <option>電話</option>
-        <option>LINE（このトーク画面）</option>
-      </select>
-    </div>
-
-    <div class="field" id="phone-field">
-      <p class="label">電話番号＊</p>
-      <input type="text" id="phone_number" placeholder="090-1234-5678" required>
-    </div>
-
-    <div class="field">
-      <p class="label">連絡可能な曜日・時間帯（複数選択可）</p>
-      <div class="checkgroup">
-        <label><input type="checkbox" name="time_slot" value="平日午前（9時〜12時）">平日午前（9時〜12時）</label>
-        <label><input type="checkbox" name="time_slot" value="平日午後（12時〜17時）">平日午後（12時〜17時）</label>
-        <label><input type="checkbox" name="time_slot" value="平日夜（17時〜21時）">平日夜（17時〜21時）</label>
-        <label><input type="checkbox" name="time_slot" value="土日">土日</label>
-      </div>
-    </div>
-
-    <div class="field">
-      <p class="label">お住まいの都道府県＊</p>
-      <select id="prefecture" required>
-        <option value="" disabled selected>選択してください</option>
-        <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option>
-        <option>秋田県</option><option>山形県</option><option>福島県</option><option>茨城県</option>
-        <option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option>
-        <option>東京都</option><option>神奈川県</option><option>新潟県</option><option>富山県</option>
-        <option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
-        <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option>
-        <option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option>
-        <option>奈良県</option><option>和歌山県</option><option>鳥取県</option><option>島根県</option>
-        <option>岡山県</option><option>広島県</option><option>山口県</option><option>徳島県</option>
-        <option>香川県</option><option>愛媛県</option><option>高知県</option><option>福岡県</option>
-        <option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option>
-        <option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <p class="label">お住まいの市区町村＊</p>
-      <input type="text" id="city" placeholder="例：秋田市">
-      <p class="privacy">※番地までは不要です。</p>
-    </div>
-
-    <div class="safety-section">
-      <p class="sec-title">安全に連絡を取るための確認</p>
-
-      <div class="field">
-        <p class="label">電話やLINEの通知を、ご本人以外が見る可能性はありますか＊</p>
-        <div class="radiogroup">
-          <label><input type="radio" name="safety_q1" value="はい">はい</label>
-          <label><input type="radio" name="safety_q1" value="いいえ">いいえ</label>
-        </div>
-      </div>
-
-      <div class="field">
-        <p class="label">今、周囲の方にこのご相談を知られたくない状況ですか＊</p>
-        <div class="radiogroup">
-          <label><input type="radio" name="safety_q2" value="はい">はい</label>
-          <label><input type="radio" name="safety_q2" value="いいえ">いいえ</label>
-        </div>
-      </div>
-
-      <div class="field">
-        <p class="label">今すぐ身の安全に関わる危険がありますか＊</p>
-        <div class="radiogroup">
-          <label><input type="radio" name="safety_q3" value="はい" onclick="toggleEmergencyBox(true)">はい</label>
-          <label><input type="radio" name="safety_q3" value="いいえ" onclick="toggleEmergencyBox(false)">いいえ</label>
-        </div>
-      </div>
-
-      <div id="emergency-box" class="emergency-box">
-        今すぐ危険な状況にある場合は、このフォームの返信を待たず、下記へ直接ご連絡ください。<br>
-        警察：110／救急：119<br>
-        DV相談ナビ：＃8008（プッシュ回線・光電話から）<br>
-        性犯罪・性暴力被害者のためのワンストップ支援センター：＃8103<br>
-        このフォームは送信いただいて構いません。内容をもとに、相談員も安全に配慮してご連絡します。
-      </div>
-    </div>
-
-    <div class="consent-box">
-      <input type="checkbox" id="consent" required>
-      <label for="consent">この内容は法人内の対応でのみ共有し、ご本人の許可なく外部に伝えることはありません（ただし、安全確保のため緊急の対応が必要と判断した場合はこの限りではありません）。この内容をもとに相談員からご連絡することに同意します＊</label>
-    </div>
-
-    <button class="submit" id="submitBtn" onclick="submitForm()">送信する</button>
-  </div>
-
-  <div id="addendum-area" class="formbody" style="display:none;">
-
-    <div class="field">
-      <p class="label">追加でお伝えしたいこと＊</p>
-      <textarea id="addendum_text" rows="6" placeholder="気になることや、状況の変化などをご自由にご記入ください"></textarea>
-    </div>
-
-    <button class="submit" id="addendumSubmitBtn" onclick="submitAddendum()">送信する</button>
-  </div>
-
-  <div id="status-area" class="status" style="display:none;"></div>
+<div class="wrap">
+  <div id="app" class="hidden"></div>
+  <div id="status">読み込んでいます…</div>
 </div>
-
+ 
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
-  // ここを実際のLIFF IDに書き換えてください（LINE Developersで発行、①とは別のLIFF）
-  const LIFF_ID = "2010836980-ms5nFPQE";
-
-  function onContactMethodChange() {
-    // 電話番号は常時必須表示のため、表示切替は行わない
+/* ============================================================
+   設定
+   ============================================================ */
+var LIFF_ID  = '2010836980-ms5nFPQE';
+var ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/form';
+ 
+/* 受付時間 9:00〜22:00 に合わせた選択肢 */
+var TIME_BANDS = [
+  '9時〜12時', '12時〜15時', '15時〜18時', '18時〜20時', '20時〜22時'
+];
+/*
+   お約束は「時刻」ではなく「1時間の枠」で取る。
+   担当者はその1時間のあいだ待機する。相談者の側も、分単位で合わせる負担がなくなる。
+   value は開始時刻（GAS側で +1時間して締切を出すため）、表示は枠で見せる。
+*/
+var CLOCK = (function(){
+  var a = [];
+  for (var h = 9; h <= 21; h++) {
+    a.push({ v: ('0'+h).slice(-2) + ':00', label: h + '時〜' + (h+1) + '時' });
   }
-
-  function toggleEmergencyBox(show) {
-    document.getElementById('emergency-box').classList.toggle('show', show);
-  }
-
-  function showStatus(text) {
-    document.getElementById('form-area').style.display = 'none';
-    const s = document.getElementById('status-area');
-    s.style.display = 'block';
-    s.innerText = text;
-  }
-
-  function getMode() {
-    return new URLSearchParams(window.location.search).get('mode') || '';
-  }
-
-  function setupMode() {
-    if (getMode() === 'addendum') {
-      document.querySelector('.header').innerText = 'てとて 追記フォーム';
-      document.querySelector('.intro').innerText = '引き継ぎ済みのご相談に、追加でお伝えしたいことがあればこちらからご記入ください。内容は記録され、担当スタッフが確認いたします。';
-      document.getElementById('form-area').style.display = 'none';
-      document.getElementById('addendum-area').style.display = 'block';
-    }
-  }
-
-  async function submitAddendum() {
-    const text = document.getElementById('addendum_text').value.trim();
-    if (!text) {
-      alert('内容をご入力ください。');
+  return a;
+})();
+ 
+var PREFS = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
+ 
+var idToken = null;
+var mode = 'ask';
+ 
+/* ============================================================
+   起動
+   ============================================================ */
+function boot() {
+  var p = new URLSearchParams(location.search);
+  mode = p.get('mode') || 'ask';
+  // 旧版のリンク（?mode=addendum）が残っているあいだの受け皿。
+  // Difyを入れ替えるまで、古い案内文からこのリンクが送られてくるため。
+  if (mode === 'addendum') mode = 'note';
+ 
+  liff.init({ liffId: LIFF_ID }).then(function () {
+    if (!liff.isLoggedIn()) { liff.login(); return; }
+    idToken = liff.getIDToken();
+    if (!idToken) {
+      // openid スコープが無いとここに来る。黙って壊れないように出す。
+      show('<div class="card"><p class="q">開き直してください</p>'
+        + '<p class="hint">お手数ですが、トーク画面に戻ってからもう一度リンクを開いてください。'
+        + 'それでも表示されない場合は、その旨をトークにお送りください。</p></div>');
       return;
     }
-
-    const btn = document.getElementById('addendumSubmitBtn');
-    btn.disabled = true;
-    btn.innerText = '送信中…';
-
-    const message = '追記フォーム回答：' + text;
-
-    try {
-      const inClient = liff.isInClient && liff.isInClient();
-      if (inClient) {
-        await liff.sendMessages([{ type: 'text', text: message }]);
-        liff.closeWindow();
-      } else {
-        alert('（LINE内・LIFF ID設定済みであればここでチャットに送信されます）\n\n' + message);
-        btn.disabled = false;
-        btn.innerText = '送信する';
-      }
-    } catch (err) {
-      console.error(err);
-      showStatus('送信に失敗しました。お手数ですが、LINEのトーク画面からもう一度お試しください。');
-    }
+    render();
+  }).catch(function (e) {
+    show('<div class="card"><p class="q">開けませんでした</p>'
+      + '<p class="hint">通信の状態をご確認のうえ、もう一度お試しください。'
+      + 'うまくいかないときは、その旨をトークにお送りいただければ大丈夫です。</p></div>');
+    console.log(e);
+  });
+}
+ 
+function show(html) {
+  document.getElementById('status').classList.add('hidden');
+  var app = document.getElementById('app');
+  app.innerHTML = html;
+  app.classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+ 
+/* ============================================================
+   画面の組み立て
+   ============================================================ */
+function render() {
+  if (mode === 'ask')     return show(viewAsk());
+  if (mode === 'safety')  return show(viewSafety());
+  if (mode === 'rebook')  return show(viewRebook());
+  if (mode === 'note')    return show(viewNote());
+  if (mode === 'close')   return show(viewClose());
+  return show(viewGeneral());
+}
+ 
+/* ---------- 冒頭1問（振り分け） ---------- */
+/*
+   AIが会話から判断しきれなかったときに開く画面。
+   ここで「はい」を選んだ方には、こちらから電話をかけない設計に切り替える。
+   聞くのは1問だけにする。答えづらい質問を重ねないため。
+*/
+function viewAsk() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<p class="lead">お話をうかがうために、いくつか確認させてください。まず1つだけお聞きします。</p>'
+  + '<div class="card">'
+  +   '<p class="q">あなたに危害を及ぼす可能性のある人が、電話やLINEの通知を見る可能性はありますか<span class="req">必須</span></p>'
+  +   '<p class="hint">同居している方、頻繁に会う方などが、着信履歴や通知画面を見られる状況かどうかをお聞きしています。判断がつかない場合は「わからない」をお選びください。</p>'
+  +   '<label class="opt"><input type="radio" name="risk" value="no"><span>いいえ、見られる心配はありません</span></label>'
+  +   '<label class="opt"><input type="radio" name="risk" value="yes"><span>はい、見られる可能性があります</span></label>'
+  +   '<label class="opt"><input type="radio" name="risk" value="unknown"><span>わからない</span></label>'
+  +   '<p class="err" id="e-risk">お選びください。</p>'
+  + '</div>'
+  + '<button class="btn" onclick="goNext()">次へ</button>';
+}
+ 
+function goNext() {
+  var v = radio('risk');
+  if (!v) { return err('e-risk', true); }
+  err('e-risk', false);
+  mode = (v === 'no') ? 'general' : 'safety';
+  render();
+}
+ 
+/* ---------- 一般：折り返しのご予約 ---------- */
+function viewGeneral() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<p class="lead">担当者からお電話を差し上げます。下記をご記入ください。</p>'
+  + '<div class="notice">'
+  +   '<b>お電話について</b><br>'
+  +   '担当者から<b>なるべく早くお電話いたします。遅くとも1週間から10日以内</b>にはご連絡します。'
+  +   '日時のご指定は目安として使わせていただきます。<br>'
+  +   'お出になれなかった場合は、<b>おつながりするまで日を改めておかけ直しします</b>。'
+  +   '知らない番号からの着信になりますので、あらかじめご了承ください。'
+  + '</div>'
+  + fieldName()
+  + fieldArea()
+  + fieldPhoneGeneral()
+  + fieldBands()
+  + fieldSafety3()
+  + fieldNote()
+  + fieldConsent()
+  + '<button class="btn" id="submit" onclick="submitForm(\'general\')">この内容で送る</button>'
+  + '<p class="err" id="e-all">未記入の項目があります。上にお戻りください。</p>';
+}
+ 
+/* ---------- 安全配慮：LINE通話のご予約 ---------- */
+function viewSafety() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<p class="lead">お話をうかがう時間を決めさせてください。下記をご記入ください。</p>'
+  + '<div class="notice">'
+  +   '<b>お電話のかけ方について</b><br>'
+  +   '通知や着信履歴が他の方の目に触れる恐れがある場合、こちらから電話をおかけすることで、'
+  +   'かえって危険が生じることがあります。そのため<b>お客さまのほうから、LINEの無料通話でおかけいただく</b>形にしています。<br>'
+  +   'LINEのトーク画面から通話ボタンを押してください。通話料はかかりません。<br>'
+  +   'お時間は<b>1時間の幅</b>でお決めいただきます。その1時間のあいだ担当者がお待ちしますので、'
+  +   'いつおかけいただいても構いません。<br>'
+  +   'ご都合が悪くなった場合は、<b>あらためて日時を決め直していただけます</b>。'
+  +   'その1時間のあいだにお話しできなかったときは、こちらから日時の入力フォームをお送りします。'
+  + '</div>'
+  + fieldName()
+  + fieldArea()
+  + fieldPhoneSafety()
+  + fieldAppointment('お話しできる日時', 'ご都合のよい日と時間帯を1つお選びください。受付は9時〜22時です。')
+  + fieldSituation()
+  + fieldSafety3()
+  + fieldNote()
+  + fieldConsent()
+  + '<button class="btn" id="submit" onclick="submitForm(\'safety\')">この内容で送る</button>'
+  + '<p class="err" id="e-all">未記入の項目があります。上にお戻りください。</p>';
+}
+ 
+/* ---------- 再予約（無機質） ---------- */
+/*
+   お約束の時間に通話がなかった方へ送る。
+   ここで責める言い方をしない。理由も問い詰めない。
+   短く、事務的に、もう一度だけ枠を差し出す。
+*/
+function viewRebook() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<div class="notice">'
+  +   'お約束のお時間にお話しできませんでした。ご都合が合わなかったのだと思います。<br>'
+  +   'あらためて日時をお決めいただけますでしょうか。1時間の幅でお選びいただき、'
+  +   'そのあいだ担当者がお待ちします。'
+  + '</div>'
+  + fieldAppointment('あらためてのご希望日時', '日と時間帯を1つお選びください。受付は9時〜22時です。')
+  + '<div class="card">'
+  +   '<p class="q">ご事情がありましたらお書きください</p>'
+  +   '<p class="hint">差し支えない範囲で構いません。空欄のままでも送れます。</p>'
+  +   '<textarea id="situation" placeholder="例）その時間は家に人がいて話せませんでした"></textarea>'
+  + '</div>'
+  + '<button class="btn" id="submit" onclick="submitForm(\'rebook\')">この内容で送る</button>'
+  + '<p class="err" id="e-all">日時をお選びください。</p>';
+}
+ 
+/* ---------- 備考・特記事項 ---------- */
+function viewNote() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<p class="lead">お伝えいただいた内容は、担当者が確認いたします。</p>'
+  + '<div class="card">'
+  +   '<p class="q">お伝えになりたいことをお書きください<span class="req">必須</span></p>'
+  +   '<p class="hint">状況が変わった、お伝えし忘れたことがある、聞いておきたいことがある — どれでも構いません。'
+  +   '短くても大丈夫です。</p>'
+  +   '<textarea id="note" placeholder="例）前にお話ししたときより、体調が悪くなっています"></textarea>'
+  +   '<p class="err" id="e-note">ご記入ください。</p>'
+  + '</div>'
+  + '<button class="btn" id="submit" onclick="submitForm(\'note\')">この内容で送る</button>';
+}
+ 
+/* ---------- 終了確認（相談員が手動で送る） ---------- */
+function viewClose() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<div class="notice">'
+  +   'これまでのご相談を、いったん終了とさせていただいてよろしいでしょうか。<br>'
+  +   '終了したあとでも、またいつでもこのトークからご連絡いただけます。'
+  + '</div>'
+  + '<div class="card">'
+  +   '<p class="q">ご相談を終了しますか<span class="req">必須</span></p>'
+  +   '<label class="opt"><input type="radio" name="close" value="はい、終了します"><span>はい、終了します</span></label>'
+  +   '<label class="opt"><input type="radio" name="close" value="いいえ、続けたいです"><span>いいえ、もう少し続けたいです</span></label>'
+  +   '<p class="err" id="e-close">お選びください。</p>'
+  + '</div>'
+  + '<div class="card">'
+  +   '<p class="q">お伝えになりたいことがあればお書きください</p>'
+  +   '<p class="hint">空欄のままでも送れます。</p>'
+  +   '<textarea id="note" placeholder=""></textarea>'
+  + '</div>'
+  + '<button class="btn" id="submit" onclick="submitForm(\'close\')">この内容で送る</button>';
+}
+ 
+/* ============================================================
+   部品
+   ============================================================ */
+function fieldName() {
+  return '<div class="card">'
+  + '<p class="q">お呼びする名前<span class="req">必須</span></p>'
+  + '<p class="hint">本名でなくて構いません。お電話のときにお呼びする呼び名をお書きください。</p>'
+  + '<input type="text" id="name" placeholder="例）たなか、みかん">'
+  + '<p class="err" id="e-name">ご記入ください。</p>'
+  + '</div>';
+}
+ 
+function fieldArea() {
+  var opts = '<option value="">選んでください</option>';
+  for (var i = 0; i < PREFS.length; i++) opts += '<option>' + PREFS[i] + '</option>';
+  return '<div class="card">'
+  + '<p class="q">お住まいの地域<span class="req">必須</span></p>'
+  + '<p class="hint">お近くで使える制度や窓口をお探しするために使います。番地までは必要ありません。</p>'
+  + '<div class="row">'
+  +   '<select id="prefecture">' + opts + '</select>'
+  +   '<input type="text" id="city" placeholder="市区町村">'
+  + '</div>'
+  + '<p class="err" id="e-area">都道府県と市区町村をご記入ください。</p>'
+  + '</div>';
+}
+ 
+function fieldPhoneGeneral() {
+  return '<div class="card">'
+  + '<p class="q">お電話番号<span class="req">必須</span></p>'
+  + '<p class="hint">この番号におかけします。ハイフンはあってもなくても構いません。</p>'
+  + '<input type="tel" id="phone" inputmode="tel" placeholder="09012345678">'
+  + '<p class="err" id="e-phone">ご記入ください。</p>'
+  + '</div>';
+}
+ 
+function fieldPhoneSafety() {
+  return '<div class="card">'
+  + '<p class="q">お電話番号<span class="req">必須</span></p>'
+  + '<p class="hint">'
+  +   '<b>この番号に、こちらからおかけすることはありません。</b><br>'
+  +   'お預かりするのは、万が一、事故や事件に直結するおそれがあると判断した場合に、'
+  +   '安全の確認とご本人の確認をするためだけです。<br>'
+  +   'ご用件のご連絡、お知らせ、ご様子うかがいなど、それ以外の目的で'
+  +   'こちらからお電話することは一切ありません。'
+  + '</p>'
+  + '<input type="tel" id="phone" inputmode="tel" placeholder="09012345678">'
+  + '<p class="err" id="e-phone">ご記入ください。</p>'
+  + '</div>';
+}
+ 
+function fieldBands() {
+  var h = '<div class="card">'
+  + '<p class="q">お電話しやすい時間帯<span class="req">必須</span></p>'
+  + '<p class="hint">あてはまるものをいくつでもお選びください。多いほど、おつなぎしやすくなります。</p>'
+  + '<label class="opt"><input type="checkbox" name="band" value="いつでも可" onchange="onAnytime(this)"><span>いつでも可</span></label>';
+  for (var i = 0; i < TIME_BANDS.length; i++) {
+    h += '<label class="opt"><input type="checkbox" name="band" value="' + TIME_BANDS[i] + '"><span>' + TIME_BANDS[i] + '</span></label>';
   }
-
-  async function initLiff() {
-    try {
-      await liff.init({ liffId: LIFF_ID });
-      if (!liff.isInClient()) {
-        console.log('LIFF outside LINE client - form will still render for preview purposes.');
-      }
-    } catch (err) {
-      console.error('LIFF init failed (LIFF_IDが未設定の場合は正常です):', err);
-    }
+  h += '<label class="opt"><input type="checkbox" name="band" value="平日のみ"><span>平日のみ</span></label>'
+    +  '<label class="opt"><input type="checkbox" name="band" value="土日祝のみ"><span>土日祝のみ</span></label>'
+    +  '<p class="err" id="e-band">1つ以上お選びください。</p></div>';
+  return h;
+}
+ 
+/* 「いつでも可」を選んだら他の時間帯は外す。矛盾した指定を残さないため。 */
+function onAnytime(el) {
+  if (!el.checked) return;
+  var xs = document.getElementsByName('band');
+  for (var i = 0; i < xs.length; i++) {
+    if (xs[i] !== el && TIME_BANDS.indexOf(xs[i].value) >= 0) xs[i].checked = false;
   }
-
-  function getRadioValue(name) {
-    const el = document.querySelector(`input[name="${name}"]:checked`);
-    return el ? el.value : '';
+}
+ 
+function fieldAppointment(title, hint) {
+  var o = '<option value="">時間帯</option>';
+  for (var i = 0; i < CLOCK.length; i++) {
+    o += '<option value="' + CLOCK[i].v + '">' + CLOCK[i].label + '</option>';
   }
-
-  function buildMessageText() {
-    const method = document.getElementById('contact_method').value;
-    const phone = document.getElementById('phone_number').value.trim();
-    const slots = Array.from(document.querySelectorAll('input[name="time_slot"]:checked')).map(el => el.value);
-    const prefecture = document.getElementById('prefecture').value;
-    const city = document.getElementById('city').value.trim();
-    const q1 = getRadioValue('safety_q1');
-    const q2 = getRadioValue('safety_q2');
-    const q3 = getRadioValue('safety_q3');
-
-    const parts = ['詳細確認フォーム回答'];
-    parts.push(`連絡方法：${method}`);
-    if (method === '電話') parts.push(`電話番号：${phone}`);
-    parts.push(`連絡可能時間帯：${slots.length ? slots.join('、') : '指定なし'}`);
-    parts.push(`都道府県：${prefecture}`);
-    parts.push(`市区町村：${city}`);
-    parts.push(`安全確認1（他者に見られる可能性）：${q1}`);
-    parts.push(`安全確認2（周囲に知られたくない）：${q2}`);
-    parts.push(`安全確認3（今すぐ危険）：${q3}`);
-    parts.push('同意：あり');
-
-    return parts.join('／');
+  return '<div class="card">'
+  + '<p class="q">' + title + '<span class="req">必須</span></p>'
+  + '<p class="hint">' + hint + '</p>'
+  + '<div class="row"><input type="date" id="apptDate" min="' + today() + '"><select id="apptTime">' + o + '</select></div>'
+  + '<p class="err" id="e-appt">日付と時刻をお選びください。</p>'
+  + '</div>';
+}
+ 
+/* 過ぎた日付を選べないようにする。指定ミスで待ち時間が無駄になるのを防ぐため。 */
+function today() {
+  var d = new Date();
+  d.setMinutes(d.getMinutes() + 9 * 60 - d.getTimezoneOffset()); // 日本時間で判定
+  return d.toISOString().slice(0, 10);
+}
+ 
+function fieldSituation() {
+  return '<div class="card">'
+  + '<p class="q">いまのご状況<span class="req">必須</span></p>'
+  + '<p class="hint">どなたとの間で、どのようなことが起きているか。書ける範囲で構いません。'
+  + 'お電話の前に把握しておくことで、同じことを何度もお聞きせずに済みます。</p>'
+  + '<textarea id="situation" placeholder=""></textarea>'
+  + '<p class="err" id="e-situation">ご記入ください。</p>'
+  + '</div>';
+}
+ 
+function fieldSafety3() {
+  return '<div class="card">'
+  + '<p class="q">安全の確認<span class="req">必須</span></p>'
+  + '<p class="hint">お電話やご連絡の仕方を決めるためにお聞きします。</p>'
+  + yn('q1', 'いまお使いの画面を、他の方が見る可能性はありますか')
+  + yn('q2', 'いま、周囲の方にこのご相談を知られたくない状況ですか')
+  + yn('q3', 'いますぐ身の安全に関わる危険がありますか')
+  + '<p class="err" id="e-safety">3つともお選びください。</p>'
+  + '</div>';
+}
+ 
+function yn(name, text) {
+  return '<p class="q" style="font-weight:500;font-size:14.5px;margin:14px 0 6px">' + text + '</p>'
+  + '<label class="opt"><input type="radio" name="' + name + '" value="はい"><span>はい</span></label>'
+  + '<label class="opt"><input type="radio" name="' + name + '" value="いいえ"><span>いいえ</span></label>';
+}
+ 
+function fieldNote() {
+  return '<div class="card">'
+  + '<p class="q">特記事項・備考</p>'
+  + '<p class="hint">お伝えしておきたいことがあればお書きください。空欄のままでも送れます。<br>'
+  + '例）耳が聞こえにくいので、ゆっくり話してほしい／小さい子どもがいて長く話せない／'
+  + '平日昼間は仕事で出られない／すでに他の窓口に相談している</p>'
+  + '<textarea id="note" placeholder=""></textarea>'
+  + '</div>';
+}
+ 
+function fieldConsent() {
+  return '<div class="card">'
+  + '<p class="q">確認<span class="req">必須</span></p>'
+  + '<p class="hint">ご記入いただいた内容は、担当者がご相談にあたるためだけに使います。'
+  + 'ご本人の同意なく他の機関へお伝えすることはありません。'
+  + 'ただし、いのちに関わる危険があると判断した場合には、'
+  + '警察・消防・自治体などへ連絡することがあります。</p>'
+  + '<label class="opt"><input type="checkbox" id="consent"><span>上記を読み、担当者からの連絡を希望します</span></label>'
+  + '<p class="err" id="e-consent">チェックをお願いします。</p>'
+  + '</div>';
+}
+ 
+/* ============================================================
+   入力の取り出し・検証
+   ============================================================ */
+function val(id) { var e = document.getElementById(id); return e ? e.value.trim() : ''; }
+function radio(name) {
+  var xs = document.getElementsByName(name);
+  for (var i = 0; i < xs.length; i++) if (xs[i].checked) return xs[i].value;
+  return '';
+}
+function checks(name) {
+  var xs = document.getElementsByName(name), a = [];
+  for (var i = 0; i < xs.length; i++) if (xs[i].checked) a.push(xs[i].value);
+  return a;
+}
+function err(id, on) {
+  var e = document.getElementById(id);
+  if (e) e.className = on ? 'err on' : 'err';
+  return on;
+}
+ 
+function collect(kind) {
+  var f = { route: kind };
+  var bad = false;
+ 
+  if (kind === 'note') {
+    f.noteText = val('note');
+    bad = err('e-note', !f.noteText) || bad;
+    return bad ? null : f;
   }
-
-  function validateRequired() {
-    const missing = [];
-
-    const method = document.getElementById('contact_method');
-    method.style.borderColor = '#ccc';
-    if (!method.value) { missing.push('contact_method'); method.style.borderColor = '#e74c3c'; }
-
-    const phone = document.getElementById('phone_number');
-    phone.style.borderColor = '#ccc';
-    if (!phone.value.trim()) { missing.push('phone_number'); phone.style.borderColor = '#e74c3c'; }
-
-    const prefecture = document.getElementById('prefecture');
-    prefecture.style.borderColor = '#ccc';
-    if (!prefecture.value) { missing.push('prefecture'); prefecture.style.borderColor = '#e74c3c'; }
-
-    const city = document.getElementById('city');
-    city.style.borderColor = '#ccc';
-    if (!city.value.trim()) { missing.push('city'); city.style.borderColor = '#e74c3c'; }
-
-    ['safety_q1', 'safety_q2', 'safety_q3'].forEach(name => {
-      if (!getRadioValue(name)) missing.push(name);
-    });
-
-    if (!document.getElementById('consent').checked) missing.push('consent');
-
-    return missing;
+ 
+  if (kind === 'close') {
+    f.closeAnswer = radio('close');
+    f.noteText = val('note');
+    bad = err('e-close', !f.closeAnswer) || bad;
+    return bad ? null : f;
   }
-
-  async function submitForm() {
-    const missing = validateRequired();
-    if (missing.length > 0) {
-      alert('未回答の必須項目（＊）があります。ご確認ください。');
-      return;
-    }
-
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerText = '送信中…';
-
-    const text = buildMessageText();
-
-    try {
-      const inClient = liff.isInClient && liff.isInClient();
-      if (inClient) {
-        await liff.sendMessages([{ type: 'text', text: text }]);
-        liff.closeWindow();
-      } else {
-        alert('（LINE内・LIFF ID設定済みであればここでチャットに送信されます）\n\n' + text);
-        btn.disabled = false;
-        btn.innerText = '送信する';
-      }
-    } catch (err) {
-      console.error(err);
-      showStatus('送信に失敗しました。お手数ですが、LINEのトーク画面からもう一度お試しください。');
-    }
+ 
+  if (kind === 'rebook') {
+    f.appointmentDate = val('apptDate');
+    f.appointmentTime = val('apptTime');
+    f.situation = val('situation');
+    bad = err('e-appt', !(f.appointmentDate && f.appointmentTime)) || bad;
+    return bad ? null : f;
   }
-
-  setupMode();
-  initLiff();
+ 
+  /* general / safety の共通部分 */
+  f.name       = val('name');
+  f.prefecture = val('prefecture');
+  f.city       = val('city');
+  f.phoneNumber= val('phone');
+  f.safetyQ1   = radio('q1');
+  f.safetyQ2   = radio('q2');
+  f.safetyQ3   = radio('q3');
+  f.note       = val('note');
+  var consent  = document.getElementById('consent');
+  f.consent    = (consent && consent.checked) ? '同意あり' : '';
+ 
+  bad = err('e-name', !f.name) || bad;
+  bad = err('e-area', !(f.prefecture && f.city)) || bad;
+  bad = err('e-phone', !f.phoneNumber) || bad;
+  bad = err('e-safety', !(f.safetyQ1 && f.safetyQ2 && f.safetyQ3)) || bad;
+  bad = err('e-consent', !f.consent) || bad;
+ 
+  if (kind === 'general') {
+    f.contactMethod = 'こちらから電話';
+    f.timeSlots = checks('band').join('、');
+    bad = err('e-band', !f.timeSlots) || bad;
+  } else {
+    f.contactMethod = 'LINE通話（ご本人から）';
+    f.appointmentDate = val('apptDate');
+    f.appointmentTime = val('apptTime');
+    f.situation = val('situation');
+    bad = err('e-appt', !(f.appointmentDate && f.appointmentTime)) || bad;
+    bad = err('e-situation', !f.situation) || bad;
+  }
+ 
+  return bad ? null : f;
+}
+ 
+/* ============================================================
+   送信
+   ============================================================ */
+/*
+   中身は Worker へ直接送る（トークには出さない）。
+   トークに送るのは合図の1行だけ。Dify側がこの文字列で経路を判断するので、
+   「詳細確認フォーム回答」「追記フォーム回答」の語は変えないこと。
+*/
+var MARKER = {
+  general: '詳細確認フォーム回答：受付しました',
+  safety:  '詳細確認フォーム回答：受付しました',
+  rebook:  '詳細確認フォーム回答：あらためてのご希望を受付しました',
+  note:    '追記フォーム回答：受付しました',
+  close:   '追記フォーム回答：受付しました'
+};
+ 
+function submitForm(kind) {
+  var f = collect(kind);
+  if (!f) {
+    var e = document.getElementById('e-all');
+    if (e) e.className = 'err on';
+    return;
+  }
+  var btn = document.getElementById('submit');
+  if (btn) { btn.disabled = true; btn.textContent = '送信しています…'; }
+ 
+  fetch(ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: idToken, mode: kind, fields: f })
+  }).then(function (r) {
+    if (!r.ok) throw new Error('status ' + r.status);
+    return liff.sendMessages([{ type: 'text', text: MARKER[kind] || MARKER.general }]).catch(function(){});
+  }).then(function () {
+    show(viewDone(kind));
+    setTimeout(function () { try { liff.closeWindow(); } catch (e) {} }, 6000);
+  }).catch(function (e) {
+    console.log(e);
+    if (btn) { btn.disabled = false; btn.textContent = 'もう一度送る'; }
+    var el = document.getElementById('e-all');
+    if (el) { el.textContent = '送信できませんでした。通信の状態をご確認のうえ、もう一度お試しください。'; el.className = 'err on'; }
+  });
+}
+ 
+/* 送信後の画面。ここでトークの消し方をお伝えする。 */
+function viewDone(kind) {
+  var head = (kind === 'note' || kind === 'close')
+    ? '承りました' : 'お預かりしました';
+  var body = (kind === 'general')
+    ? '担当者からなるべく早くお電話いたします。遅くとも1週間から10日以内にはご連絡します。お出になれなかった場合も、あらためておかけ直しします。'
+    : (kind === 'safety' || kind === 'rebook')
+    ? 'ご指定の1時間のあいだ、担当者がお待ちしております。LINEのトーク画面から通話ボタンを押してください。'
+      + 'ご都合が悪くなった場合は、あらためて日時を決め直していただけますので、ご無理はなさらないでください。'
+    : '担当者が確認いたします。';
+ 
+  return '<div class="done">'
+  + '<h2>' + head + '</h2>'
+  + '<p>' + body + '</p>'
+  + '<p>ご記入いただいた内容は、<b>このトーク画面には表示されません。</b>担当者にだけ届いています。</p>'
+  + '<div class="tip">'
+  +   'やり取りを残したくないときは、トーク一覧で長押しして削除できます。<br>'
+  +   '削除しても、ご相談の記録はこちらに残っていますので、続きから話せます。'
+  + '</div>'
+  + '</div>';
+}
+ 
+boot();
 </script>
-
 </body>
 </html>
+ 
+
