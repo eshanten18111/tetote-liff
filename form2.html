@@ -201,7 +201,7 @@ function viewGeneral() {
   + fieldArea()
   + fieldPhoneGeneral()
   + fieldBands()
-  + fieldSafety3()
+  + fieldUrgent()
   + fieldNote()
   + fieldConsent()
   + '<button class="btn" id="submit" onclick="submitForm(\'general\')">この内容で送る</button>'
@@ -228,7 +228,7 @@ function viewSafety() {
   + fieldPhoneSafety()
   + fieldAppointment('お話しできる日時', 'ご都合のよい日と時間帯を1つお選びください。受付は9時〜22時です。')
   + fieldSituation()
-  + fieldSafety3()
+  + fieldUrgent()
   + fieldNote()
   + fieldConsent()
   + '<button class="btn" id="submit" onclick="submitForm(\'safety\')">この内容で送る</button>'
@@ -399,21 +399,39 @@ function fieldSituation() {
   + '</div>';
 }
  
-function fieldSafety3() {
+/*
+   安全の確認は1問だけにした。
+   「画面を見られるか」「知られたくないか」は、フォームを開く前の振り分けで
+   すでに聞いている。同じことを二度聞くと、答えた側の信用を損なう。
+ 
+   残したこの1問は、それらとは別の話をしている。
+   一般ルートの折り返しは最長10日後。いま命に関わることが起きている人が
+   10日待たされるのが、この仕組みで最も起きてはいけない失敗になる。
+   ここに「はい」が入った時点で、Slackへ緊急として飛ばす。
+*/
+function fieldUrgent() {
   return '<div class="card">'
-  + '<p class="q">安全の確認<span class="req">必須</span></p>'
-  + '<p class="hint">お電話やご連絡の仕方を決めるためにお聞きします。</p>'
-  + yn('q1', 'いまお使いの画面を、他の方が見る可能性はありますか')
-  + yn('q2', 'いま、周囲の方にこのご相談を知られたくない状況ですか')
-  + yn('q3', 'いますぐ身の安全に関わる危険がありますか')
-  + '<p class="err" id="e-safety">3つともお選びください。</p>'
+  + '<p class="q">いますぐ身の安全に関わる危険がありますか<span class="req">必須</span></p>'
+  + '<p class="hint">対応方法を判断・検討するためにお聞きします。</p>'
+  + '<label class="opt"><input type="radio" name="q3" value="いいえ" onchange="toggleUrgent()"><span>いいえ</span></label>'
+  + '<label class="opt"><input type="radio" name="q3" value="はい" onchange="toggleUrgent()"><span>はい</span></label>'
+  + '<p class="err" id="e-safety">お選びください。</p>'
+  + '<div id="urgentBox" class="hidden" style="margin-top:14px">'
+  +   '<p class="q" style="font-weight:500;font-size:14.5px;margin:0 0 4px">具体的なご状況をお知らせください</p>'
+  +   '<p class="hint">箇条書き、短文でも構いません。</p>'
+  +   '<textarea id="urgentDetail" placeholder=""></textarea>'
+  +   '<p class="hint" style="margin-top:10px">'
+  +     'いのちに関わる危険がいまある場合は、このフォームより先に'
+  +     '<b>119番（救急）・110番（警察）</b>へお電話ください。'
+  +   '</p>'
+  + '</div>'
   + '</div>';
 }
  
-function yn(name, text) {
-  return '<p class="q" style="font-weight:500;font-size:14.5px;margin:14px 0 6px">' + text + '</p>'
-  + '<label class="opt"><input type="radio" name="' + name + '" value="はい"><span>はい</span></label>'
-  + '<label class="opt"><input type="radio" name="' + name + '" value="いいえ"><span>いいえ</span></label>';
+/* 「はい」を選んだときだけ記入欄を出す。答える必要のない人には見せない。 */
+function toggleUrgent() {
+  var box = document.getElementById('urgentBox');
+  if (box) box.className = (radio('q3') === 'はい') ? '' : 'hidden';
 }
  
 function fieldNote() {
@@ -488,9 +506,8 @@ function collect(kind) {
   f.prefecture = val('prefecture');
   f.city       = val('city');
   f.phoneNumber= val('phone');
-  f.safetyQ1   = radio('q1');
-  f.safetyQ2   = radio('q2');
   f.safetyQ3   = radio('q3');
+  f.urgentDetail = val('urgentDetail');
   f.note       = val('note');
   var consent  = document.getElementById('consent');
   f.consent    = (consent && consent.checked) ? '同意あり' : '';
@@ -498,7 +515,7 @@ function collect(kind) {
   bad = err('e-name', !f.name) || bad;
   bad = err('e-area', !(f.prefecture && f.city)) || bad;
   bad = err('e-phone', !f.phoneNumber) || bad;
-  bad = err('e-safety', !(f.safetyQ1 && f.safetyQ2 && f.safetyQ3)) || bad;
+  bad = err('e-safety', !f.safetyQ3) || bad;
   bad = err('e-consent', !f.consent) || bad;
  
   if (kind === 'general') {
