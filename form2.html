@@ -84,6 +84,7 @@
    ============================================================ */
 var LIFF_ID  = '2010836980-ms5nFPQE';
 var ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/form';
+var PREFILL_ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/prefill';
  
 /* 受付時間 9:00〜22:00 に合わせた選択肢 */
 var TIME_BANDS = [
@@ -94,6 +95,8 @@ var TIME_BANDS = [
    担当者はその1時間のあいだ待機する。相談者の側も、分単位で合わせる負担がなくなる。
    value は開始時刻（GAS側で +1時間して締切を出すため）、表示は枠で見せる。
 */
+var PREFS = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
+ 
 var CLOCK = (function(){
   var a = [];
   for (var h = 9; h <= 21; h++) {
@@ -102,7 +105,6 @@ var CLOCK = (function(){
   return a;
 })();
  
-var PREFS = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
  
 var idToken = null;
 var mode = 'ask';
@@ -149,11 +151,11 @@ function show(html) {
    ============================================================ */
 function render() {
   if (mode === 'ask')     return show(viewAsk());
-  if (mode === 'safety')  return show(viewSafety());
   if (mode === 'rebook')  return show(viewRebook());
   if (mode === 'note')    return show(viewNote());
   if (mode === 'close')   return show(viewClose());
-  return show(viewGeneral());
+  show(mode === 'safety' ? viewSafety() : viewGeneral());
+  prefillArea();
 }
  
 /* ---------- 冒頭1問（振り分け） ---------- */
@@ -197,7 +199,6 @@ function viewGeneral() {
   +   'お出になれなかった場合は、<b>おつながりするまで日を改めておかけ直しします</b>。'
   +   '知らない番号からの着信になりますので、あらかじめご了承ください。'
   + '</div>'
-  + fieldName()
   + fieldArea()
   + fieldPhoneGeneral()
   + fieldBands()
@@ -223,7 +224,6 @@ function viewSafety() {
   +   'ご都合が悪くなった場合は、<b>あらためて日時を決め直していただけます</b>。'
   +   'その1時間のあいだにお話しできなかったときは、こちらから日時の入力フォームをお送りします。'
   + '</div>'
-  + fieldName()
   + fieldArea()
   + fieldPhoneSafety()
   + fieldAppointment('お話しできる日時', 'ご都合のよい日と時間帯を1つお選びください。受付は9時〜22時です。')
@@ -299,27 +299,56 @@ function viewClose() {
 /* ============================================================
    部品
    ============================================================ */
-function fieldName() {
-  return '<div class="card">'
-  + '<p class="q">お呼びする名前<span class="req">必須</span></p>'
-  + '<p class="hint">本名でなくて構いません。お電話のときにお呼びする呼び名をお書きください。</p>'
-  + '<input type="text" id="name" placeholder="例）たなか、みかん">'
-  + '<p class="err" id="e-name">ご記入ください。</p>'
-  + '</div>';
-}
+/*
+   呼び名はここでは聞かない。
+   入口フォーム（index.html）と会話の中ですでに受け取っており、
+   二度聞くと「話を聞いていなかった」と伝わる。
+   また、あとから来た入力が、会話の中で自然に出てきた呼び方を上書きしてしまう。
+   お電話でどう呼ぶかは、AIがトークの中で確認する。
+*/
  
+/*
+   都道府県は入口フォームで聞いている。ここでは聞き直さず、確認してもらう。
+   先にお聞きした値を選択済みで表示するので、違っていれば選び直すだけで済む。
+   空欄で出すと確認にならず、二度目の質問になってしまう。
+*/
 function fieldArea() {
   var opts = '<option value="">選んでください</option>';
   for (var i = 0; i < PREFS.length; i++) opts += '<option>' + PREFS[i] + '</option>';
   return '<div class="card">'
   + '<p class="q">お住まいの地域<span class="req">必須</span></p>'
-  + '<p class="hint">お近くで使える制度や窓口をお探しするために使います。番地までは必要ありません。</p>'
+  + '<p class="hint" id="prefHint">お近くで使える制度や窓口をお探しするために使います。町名や番地までは必要ありません。</p>'
   + '<div class="row">'
   +   '<select id="prefecture">' + opts + '</select>'
   +   '<input type="text" id="city" placeholder="市区町村">'
   + '</div>'
   + '<p class="err" id="e-area">都道府県と市区町村をご記入ください。</p>'
   + '</div>';
+}
+ 
+/*
+   先にお聞きした都道府県を呼び出して、選択済みにする。
+   届かなくても画面は動く（空欄のまま選んでもらうだけ）ので、
+   ここで待たせたり止めたりはしない。
+*/
+function prefillArea() {
+  var sel = document.getElementById('prefecture');
+  if (!sel || !idToken) return;
+  fetch(PREFILL_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: idToken })
+  }).then(function (r) { return r.json(); }).then(function (d) {
+    if (!d || !d.found || !d.prefecture) return;
+    if (PREFS.indexOf(d.prefecture) < 0) return;
+    sel.value = d.prefecture;
+    var hint = document.getElementById('prefHint');
+    if (hint) {
+      hint.innerHTML = '<b>先にうかがった内容を表示しています。</b>'
+        + 'お間違いなければそのまま、違っていれば選び直してください。'
+        + '市区町村は、町名や番地までは必要ありません。';
+    }
+  }).catch(function () {});
 }
  
 function fieldPhoneGeneral() {
@@ -502,7 +531,6 @@ function collect(kind) {
   }
  
   /* general / safety の共通部分 */
-  f.name       = val('name');
   f.prefecture = val('prefecture');
   f.city       = val('city');
   f.phoneNumber= val('phone');
@@ -512,7 +540,6 @@ function collect(kind) {
   var consent  = document.getElementById('consent');
   f.consent    = (consent && consent.checked) ? '同意あり' : '';
  
-  bad = err('e-name', !f.name) || bad;
   bad = err('e-area', !(f.prefecture && f.city)) || bad;
   bad = err('e-phone', !f.phoneNumber) || bad;
   bad = err('e-safety', !f.safetyQ3) || bad;
