@@ -6,21 +6,28 @@
 <title>ご連絡先の確認</title>
 <!--
   てとて 相談引き継ぎフォーム（LIFF）
-
+ 
   【この版で変わったこと ＝ C案】
   これまでは liff.sendMessages() でフォームの中身を「相談者本人の発言」として
   トークに流していた。そのため電話番号や氏名がトーク画面に残り、
   同居者に見られる可能性があった。
-
+ 
   この版では、中身は fetch で中継サーバー（Cloudflare Worker）へ直接送る。
   トークに出るのは「受付しました」という短い合図だけ。
-
+ 
   【モード】 ?mode= で切り替える。タイトルは全モード共通（どちらのフォームか
   相手に分からせない）。
+    call    … LINE通話のご予約（電話番号を聞かない）＝ いま使う既定のフォーム
     ask     … 冒頭1問だけ聞いて general / safety に振り分ける（AIが迷ったとき）
-    general … 折り返しのご予約（こちらからお電話する）
-    safety  … 安全に配慮したご予約（相談者からLINE通話でかけてもらう）
+    general … 折り返しのご予約（こちらからお電話する）※緊急時対応の方針が
+              固まるまで温存。いまAIからは案内しない
+    safety  … 安全に配慮したご予約（相談者からLINE通話でかけてもらう）※同上
     rebook  … 再予約（無機質。日時と状況だけ）
+ 
+  【通話のかかり方が変わりました】
+  トークルームの通話ボタンを非表示にしたため、相談者は自分から電話をかけられない。
+  予約時刻に担当者が「通話リクエスト」を送り、それをタップしてもらう形になった。
+  リクエストは30分で失効する。だから予約の枠も30分に合わせている。
     note    … 備考・特記事項（予約後の連絡、状況の変化）
     close   … 終了確認（相談員が手動で送る）
 -->
@@ -76,7 +83,7 @@
   <div id="app" class="hidden"></div>
   <div id="status">読み込んでいます…</div>
 </div>
-
+ 
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
 /* ============================================================
@@ -85,7 +92,7 @@
 var LIFF_ID  = '2010836980-ms5nFPQE';
 var ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/form';
 var PREFILL_ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/prefill';
-
+ 
 /* 受付時間 9:00〜22:00 に合わせた選択肢 */
 var TIME_BANDS = [
   '9時〜12時', '12時〜15時', '15時〜18時', '18時〜20時', '20時〜22時'
@@ -96,19 +103,21 @@ var TIME_BANDS = [
    value は開始時刻（GAS側で +1時間して締切を出すため）、表示は枠で見せる。
 */
 var PREFS = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
-
+ 
 var CLOCK = (function(){
   var a = [];
+  var lab = function (h, m) { return h + '時' + (m ? m + '分' : ''); };
   for (var h = 9; h <= 21; h++) {
-    a.push({ v: ('0'+h).slice(-2) + ':00', label: h + '時〜' + (h+1) + '時' });
+    a.push({ v: ('0'+h).slice(-2) + ':00', label: lab(h, 0)  + '〜' + lab(h, 30) });
+    a.push({ v: ('0'+h).slice(-2) + ':30', label: lab(h, 30) + '〜' + lab(h+1, 0) });
   }
   return a;
 })();
-
-
+ 
+ 
 var idToken = null;
 var mode = 'ask';
-
+ 
 /* ============================================================
    起動
    ============================================================ */
@@ -118,7 +127,7 @@ function boot() {
   // 旧版のリンク（?mode=addendum）が残っているあいだの受け皿。
   // Difyを入れ替えるまで、古い案内文からこのリンクが送られてくるため。
   if (mode === 'addendum') mode = 'note';
-
+ 
   liff.init({ liffId: LIFF_ID }).then(function () {
     if (!liff.isLoggedIn()) { liff.login(); return; }
     idToken = liff.getIDToken();
@@ -137,7 +146,7 @@ function boot() {
     console.log(e);
   });
 }
-
+ 
 function show(html) {
   document.getElementById('status').classList.add('hidden');
   var app = document.getElementById('app');
@@ -145,7 +154,7 @@ function show(html) {
   app.classList.remove('hidden');
   window.scrollTo(0, 0);
 }
-
+ 
 /* ============================================================
    画面の組み立て
    ============================================================ */
@@ -154,10 +163,11 @@ function render() {
   if (mode === 'rebook')  return show(viewRebook());
   if (mode === 'note')    return show(viewNote());
   if (mode === 'close')   return show(viewClose());
+  if (mode === 'call')    { show(viewCall()); prefillArea(); return; }
   show(mode === 'safety' ? viewSafety() : viewGeneral());
   prefillArea();
 }
-
+ 
 /* ---------- 冒頭1問（振り分け） ---------- */
 /*
    AIが会話から判断しきれなかったときに開く画面。
@@ -178,7 +188,7 @@ function viewAsk() {
   + '</div>'
   + '<button class="btn" onclick="goNext()">次へ</button>';
 }
-
+ 
 function goNext() {
   var v = radio('risk');
   if (!v) { return err('e-risk', true); }
@@ -186,7 +196,37 @@ function goNext() {
   mode = (v === 'no') ? 'general' : 'safety';
   render();
 }
-
+ 
+/* ---------- 通話：LINE通話のご予約（いま使う既定のフォーム） ----------
+   general との違いは「電話番号を聞かないこと」。
+   safety との違いは、安全配慮を前提にした書きぶりにしないこと。
+   支援必要度5以上の方に、こちらからお話を提案したときに開く画面。
+*/
+function viewCall() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<p class="lead">お話をうかがう時間を決めさせてください。下記をご記入ください。</p>'
+  + '<div class="notice">'
+  +   '<b>このあとの流れ</b><br>'
+  +   '1. 下の項目にご記入いただき、送信してください。<br>'
+  +   '2. ご予約のお時間になりましたら、担当者からこのトークに'
+  +   '<b>通話ボタンつきのメッセージ</b>をお送りします。それをタップしてお電話ください。<br>'
+  +   '3. その<b>30分</b>のあいだ担当者がお待ちします。いつおかけいただいても構いません。'
+  +   '<br><br>'
+  +   '<b>お電話番号はうかがいません。</b>LINEの無料通話でお話しするので、通話料もかかりません。<br>'
+  +   'ご都合が悪くなったときは、日時を決め直していただけます。'
+  +   'ただし<b>変更は3回まで</b>とさせてください。<br>'
+  +   'その30分のあいだにお話しできなかったときも、こちらから日時の入力フォームをお送りします。'
+  + '</div>'
+  + fieldArea()
+  + fieldAppointment('お話しできる日時', 'ご都合のよい日と時間帯を1つお選びください。受付は9時〜22時です。')
+  + fieldUrgent()
+  + fieldNote()
+  + fieldConsent()
+  + '<button class="btn" id="submit" onclick="submitForm(\'call\')">この内容で送る</button>'
+  + '<p class="err" id="e-all">未記入の項目があります。上にお戻りください。</p>';
+}
+ 
 /* ---------- 一般：折り返しのご予約 ---------- */
 function viewGeneral() {
   return ''
@@ -208,7 +248,7 @@ function viewGeneral() {
   + '<button class="btn" id="submit" onclick="submitForm(\'general\')">この内容で送る</button>'
   + '<p class="err" id="e-all">未記入の項目があります。上にお戻りください。</p>';
 }
-
+ 
 /* ---------- 安全配慮：LINE通話のご予約 ---------- */
 function viewSafety() {
   return ''
@@ -218,11 +258,12 @@ function viewSafety() {
   +   '<b>お電話のかけ方について</b><br>'
   +   '通知や着信履歴が他の方の目に触れる恐れがある場合、こちらから電話をおかけすることで、'
   +   'かえって危険が生じることがあります。そのため<b>お客さまのほうから、LINEの無料通話でおかけいただく</b>形にしています。<br>'
-  +   'LINEのトーク画面から通話ボタンを押してください。通話料はかかりません。<br>'
-  +   'お時間は<b>1時間の幅</b>でお決めいただきます。その1時間のあいだ担当者がお待ちしますので、'
+  +   'ご予約のお時間になりましたら、担当者からこのトークに'
+  +   '<b>通話ボタンつきのメッセージ</b>をお送りします。それをタップしてお電話ください。通話料はかかりません。<br>'
+  +   'お時間は<b>30分の幅</b>でお決めいただきます。その30分のあいだ担当者がお待ちしますので、'
   +   'いつおかけいただいても構いません。<br>'
   +   'ご都合が悪くなった場合は、<b>あらためて日時を決め直していただけます</b>。'
-  +   'その1時間のあいだにお話しできなかったときは、こちらから日時の入力フォームをお送りします。'
+  +   'その30分のあいだにお話しできなかったときは、こちらから日時の入力フォームをお送りします。'
   + '</div>'
   + fieldArea()
   + fieldPhoneSafety()
@@ -234,7 +275,7 @@ function viewSafety() {
   + '<button class="btn" id="submit" onclick="submitForm(\'safety\')">この内容で送る</button>'
   + '<p class="err" id="e-all">未記入の項目があります。上にお戻りください。</p>';
 }
-
+ 
 /* ---------- 再予約（無機質） ---------- */
 /*
    お約束の時間に通話がなかった方へ送る。
@@ -245,20 +286,22 @@ function viewRebook() {
   return ''
   + '<h1>ご連絡先の確認</h1>'
   + '<div class="notice">'
-  +   'お約束のお時間にお話しできませんでした。ご都合が合わなかったのだと思います。<br>'
-  +   'あらためて日時をお決めいただけますでしょうか。1時間の幅でお選びいただき、'
-  +   'そのあいだ担当者がお待ちします。'
+  +   '日時をあらためてお決めいただく画面です。<br>'
+  +   '30分の幅でお選びいただき、そのあいだ担当者がお待ちします。<br>'
+  +   '変更は<b>3回まで</b>とさせてください。'
   + '</div>'
   + fieldAppointment('あらためてのご希望日時', '日と時間帯を1つお選びください。受付は9時〜22時です。')
   + '<div class="card">'
-  +   '<p class="q">ご事情がありましたらお書きください</p>'
-  +   '<p class="hint">差し支えない範囲で構いません。空欄のままでも送れます。</p>'
+  +   '<p class="q">変更の理由・ご事情<span class="req">必須</span></p>'
+  +   '<p class="hint">差し支えない範囲で構いません。ひと言でも大丈夫です。'
+  +   'どのようなときにご都合が合わなくなるのかを知っておくことで、次のご案内をしやすくなります。</p>'
   +   '<textarea id="situation" placeholder="例）その時間は家に人がいて話せませんでした"></textarea>'
+  +   '<p class="err" id="e-situation">ご記入ください。</p>'
   + '</div>'
   + '<button class="btn" id="submit" onclick="submitForm(\'rebook\')">この内容で送る</button>'
   + '<p class="err" id="e-all">日時をお選びください。</p>';
 }
-
+ 
 /* ---------- 備考・特記事項 ---------- */
 function viewNote() {
   return ''
@@ -273,7 +316,7 @@ function viewNote() {
   + '</div>'
   + '<button class="btn" id="submit" onclick="submitForm(\'note\')">この内容で送る</button>';
 }
-
+ 
 /* ---------- 終了確認（相談員が手動で送る） ---------- */
 function viewClose() {
   return ''
@@ -295,7 +338,7 @@ function viewClose() {
   + '</div>'
   + '<button class="btn" id="submit" onclick="submitForm(\'close\')">この内容で送る</button>';
 }
-
+ 
 /* ============================================================
    部品
    ============================================================ */
@@ -306,7 +349,7 @@ function viewClose() {
    また、あとから来た入力が、会話の中で自然に出てきた呼び方を上書きしてしまう。
    お電話でどう呼ぶかは、AIがトークの中で確認する。
 */
-
+ 
 /*
    都道府県は入口フォームで聞いている。ここでは聞き直さず、確認してもらう。
    先にお聞きした値を選択済みで表示するので、違っていれば選び直すだけで済む。
@@ -325,7 +368,7 @@ function fieldArea() {
   + '<p class="err" id="e-area">都道府県と市区町村をご記入ください。</p>'
   + '</div>';
 }
-
+ 
 /*
    先にお聞きした都道府県を呼び出して、選択済みにする。
    届かなくても画面は動く（空欄のまま選んでもらうだけ）ので、
@@ -350,7 +393,7 @@ function prefillArea() {
     }
   }).catch(function () {});
 }
-
+ 
 function fieldPhoneGeneral() {
   return '<div class="card">'
   + '<p class="q">お電話番号<span class="req">必須</span></p>'
@@ -359,7 +402,7 @@ function fieldPhoneGeneral() {
   + '<p class="err" id="e-phone">ご記入ください。</p>'
   + '</div>';
 }
-
+ 
 function fieldPhoneSafety() {
   return '<div class="card">'
   + '<p class="q">お電話番号<span class="req">必須</span></p>'
@@ -374,7 +417,7 @@ function fieldPhoneSafety() {
   + '<p class="err" id="e-phone">ご記入ください。</p>'
   + '</div>';
 }
-
+ 
 function fieldBands() {
   var h = '<div class="card">'
   + '<p class="q">お電話しやすい時間帯<span class="req">必須</span></p>'
@@ -388,7 +431,7 @@ function fieldBands() {
     +  '<p class="err" id="e-band">1つ以上お選びください。</p></div>';
   return h;
 }
-
+ 
 /* 「いつでも可」を選んだら他の時間帯は外す。矛盾した指定を残さないため。 */
 function onAnytime(el) {
   if (!el.checked) return;
@@ -397,27 +440,63 @@ function onAnytime(el) {
     if (xs[i] !== el && TIME_BANDS.indexOf(xs[i].value) >= 0) xs[i].checked = false;
   }
 }
-
-function fieldAppointment(title, hint) {
+ 
+/* ---------- 予約枠の空き ----------
+   【いまは全部の枠を出します。中身はこれから作ります。】
+ 
+   本来ここで落とすべきものが2つある。
+     ・すでに他の方の予約が入っている枠
+     ・当番の相談員がいない枠
+   どちらも、いまは見ていない。だから同じ枠を2人が取れてしまう。
+ 
+   埋まっている枠を落とすには、GAS側に「予約済みの日時を返す」窓口
+   （op:'slots'）を足して、この関数から呼べばよい。
+   当番外を落とすには、まず当番表そのものを決める必要がある。
+ 
+   直すときに触るのは、この関数の中だけで済むようにしてある。
+*/
+function availableSlots(dateStr) {
+  return CLOCK;
+}
+ 
+function slotOptions(list) {
   var o = '<option value="">時間帯</option>';
-  for (var i = 0; i < CLOCK.length; i++) {
-    o += '<option value="' + CLOCK[i].v + '">' + CLOCK[i].label + '</option>';
+  for (var i = 0; i < list.length; i++) {
+    o += '<option value="' + list[i].v + '">' + list[i].label + '</option>';
   }
+  return o;
+}
+ 
+/* 日付を選び直したら、その日の空き枠で選択肢を作り直す。
+   いまは中身が変わらないが、空きを見るようにしたときはここが効く。 */
+function refillSlots() {
+  var sel = document.getElementById('apptTime');
+  if (!sel) return;
+  var keep = sel.value;
+  var list = availableSlots(val('apptDate'));
+  sel.innerHTML = slotOptions(list);
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].v === keep) { sel.value = keep; break; }
+  }
+}
+ 
+function fieldAppointment(title, hint) {
   return '<div class="card">'
   + '<p class="q">' + title + '<span class="req">必須</span></p>'
   + '<p class="hint">' + hint + '</p>'
-  + '<div class="row"><input type="date" id="apptDate" min="' + today() + '"><select id="apptTime">' + o + '</select></div>'
+  + '<div class="row"><input type="date" id="apptDate" min="' + today() + '" onchange="refillSlots()">'
+  + '<select id="apptTime">' + slotOptions(availableSlots('')) + '</select></div>'
   + '<p class="err" id="e-appt">日付と時刻をお選びください。</p>'
   + '</div>';
 }
-
+ 
 /* 過ぎた日付を選べないようにする。指定ミスで待ち時間が無駄になるのを防ぐため。 */
 function today() {
   var d = new Date();
   d.setMinutes(d.getMinutes() + 9 * 60 - d.getTimezoneOffset()); // 日本時間で判定
   return d.toISOString().slice(0, 10);
 }
-
+ 
 function fieldSituation() {
   return '<div class="card">'
   + '<p class="q">いまのご状況<span class="req">必須</span></p>'
@@ -427,12 +506,12 @@ function fieldSituation() {
   + '<p class="err" id="e-situation">ご記入ください。</p>'
   + '</div>';
 }
-
+ 
 /*
    安全の確認は1問だけにした。
    「画面を見られるか」「知られたくないか」は、フォームを開く前の振り分けで
    すでに聞いている。同じことを二度聞くと、答えた側の信用を損なう。
-
+ 
    残したこの1問は、それらとは別の話をしている。
    一般ルートの折り返しは最長10日後。いま命に関わることが起きている人が
    10日待たされるのが、この仕組みで最も起きてはいけない失敗になる。
@@ -456,13 +535,13 @@ function fieldUrgent() {
   + '</div>'
   + '</div>';
 }
-
+ 
 /* 「はい」を選んだときだけ記入欄を出す。答える必要のない人には見せない。 */
 function toggleUrgent() {
   var box = document.getElementById('urgentBox');
   if (box) box.className = (radio('q3') === 'はい') ? '' : 'hidden';
 }
-
+ 
 function fieldNote() {
   return '<div class="card">'
   + '<p class="q">特記事項・備考</p>'
@@ -472,7 +551,7 @@ function fieldNote() {
   + '<textarea id="note" placeholder=""></textarea>'
   + '</div>';
 }
-
+ 
 function fieldConsent() {
   return '<div class="card">'
   + '<p class="q">確認<span class="req">必須</span></p>'
@@ -484,7 +563,7 @@ function fieldConsent() {
   + '<p class="err" id="e-consent">チェックをお願いします。</p>'
   + '</div>';
 }
-
+ 
 /* ============================================================
    入力の取り出し・検証
    ============================================================ */
@@ -504,32 +583,33 @@ function err(id, on) {
   if (e) e.className = on ? 'err on' : 'err';
   return on;
 }
-
+ 
 function collect(kind) {
   var f = { route: kind };
   var bad = false;
-
+ 
   if (kind === 'note') {
     f.noteText = val('note');
     bad = err('e-note', !f.noteText) || bad;
     return bad ? null : f;
   }
-
+ 
   if (kind === 'close') {
     f.closeAnswer = radio('close');
     f.noteText = val('note');
     bad = err('e-close', !f.closeAnswer) || bad;
     return bad ? null : f;
   }
-
+ 
   if (kind === 'rebook') {
     f.appointmentDate = val('apptDate');
     f.appointmentTime = val('apptTime');
     f.situation = val('situation');
     bad = err('e-appt', !(f.appointmentDate && f.appointmentTime)) || bad;
+    bad = err('e-situation', !f.situation) || bad;
     return bad ? null : f;
   }
-
+ 
   /* general / safety の共通部分 */
   f.prefecture = val('prefecture');
   f.city       = val('city');
@@ -539,12 +619,12 @@ function collect(kind) {
   f.note       = val('note');
   var consent  = document.getElementById('consent');
   f.consent    = (consent && consent.checked) ? '同意あり' : '';
-
+ 
   bad = err('e-area', !(f.prefecture && f.city)) || bad;
-  bad = err('e-phone', !f.phoneNumber) || bad;
+  if (kind !== 'call') bad = err('e-phone', !f.phoneNumber) || bad;
   bad = err('e-safety', !f.safetyQ3) || bad;
   bad = err('e-consent', !f.consent) || bad;
-
+ 
   if (kind === 'general') {
     f.contactMethod = 'こちらから電話';
     f.timeSlots = checks('band').join('、');
@@ -555,12 +635,13 @@ function collect(kind) {
     f.appointmentTime = val('apptTime');
     f.situation = val('situation');
     bad = err('e-appt', !(f.appointmentDate && f.appointmentTime)) || bad;
-    bad = err('e-situation', !f.situation) || bad;
+    // call では「いまのご状況」を聞かない。AIの要約と備考で足りるため。
+    if (kind !== 'call') bad = err('e-situation', !f.situation) || bad;
   }
-
+ 
   return bad ? null : f;
 }
-
+ 
 /* ============================================================
    送信
    ============================================================ */
@@ -572,11 +653,12 @@ function collect(kind) {
 var MARKER = {
   general: '詳細確認フォーム回答：受付しました',
   safety:  '詳細確認フォーム回答：受付しました',
+  call:    '詳細確認フォーム回答：受付しました',
   rebook:  '詳細確認フォーム回答：あらためてのご希望を受付しました',
   note:    '追記フォーム回答：受付しました',
   close:   '追記フォーム回答：受付しました'
 };
-
+ 
 function submitForm(kind) {
   var f = collect(kind);
   if (!f) {
@@ -586,7 +668,7 @@ function submitForm(kind) {
   }
   var btn = document.getElementById('submit');
   if (btn) { btn.disabled = true; btn.textContent = '送信しています…'; }
-
+ 
   fetch(ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -604,18 +686,20 @@ function submitForm(kind) {
     if (el) { el.textContent = '送信できませんでした。通信の状態をご確認のうえ、もう一度お試しください。'; el.className = 'err on'; }
   });
 }
-
+ 
 /* 送信後の画面。ここでトークの消し方をお伝えする。 */
 function viewDone(kind) {
   var head = (kind === 'note' || kind === 'close')
     ? '承りました' : 'お預かりしました';
   var body = (kind === 'general')
     ? '担当者からなるべく早くお電話いたします。遅くとも1週間から10日以内にはご連絡します。お出になれなかった場合も、あらためておかけ直しします。'
-    : (kind === 'safety' || kind === 'rebook')
-    ? 'ご指定の1時間のあいだ、担当者がお待ちしております。LINEのトーク画面から通話ボタンを押してください。'
-      + 'ご都合が悪くなった場合は、あらためて日時を決め直していただけますので、ご無理はなさらないでください。'
+    : (kind === 'safety' || kind === 'rebook' || kind === 'call')
+    ? 'ご指定の30分のあいだ、担当者がお待ちしております。お時間になりましたら、担当者からこのトークに'
+      + '通話ボタンつきのメッセージをお送りしますので、それをタップしてお電話ください。'
+      + 'ご都合が悪くなった場合は、日時を決め直していただけます（変更は3回まで）。'
+      + 'トークにその旨をお送りいただければ、こちらから入力フォームをお送りします。ご無理はなさらないでください。'
     : '担当者が確認いたします。';
-
+ 
   return '<div class="done">'
   + '<h2>' + head + '</h2>'
   + '<p>' + body + '</p>'
@@ -626,8 +710,10 @@ function viewDone(kind) {
   + '</div>'
   + '</div>';
 }
-
+ 
 boot();
 </script>
 </body>
 </html>
+ 
+
