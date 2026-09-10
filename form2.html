@@ -116,14 +116,23 @@ var CLOCK = (function(){
  
  
 var idToken = null;
-var mode = 'ask';
+ 
+// 既定は call（LINE通話のご予約）。
+//
+// ここを 'ask' にしていたため、パラメータなしのリンクを開くと
+// 「危害を及ぼす人が通知を見るか」を尋ねる画面が出て、
+// 「いいえ」を選ぶと電話番号を聞く旧経路（general）に入っていた。
+// 電話ルートは、緊急・切迫の基準が決まるまで保留の扱い。
+// 既定で到達してはいけないので、明示的に ?mode=ask / ?mode=general と
+// 指定されたときだけ開くようにする。
+var mode = 'call';
  
 /* ============================================================
    起動
    ============================================================ */
 function boot() {
   var p = new URLSearchParams(location.search);
-  mode = p.get('mode') || 'ask';
+  mode = p.get('mode') || 'call';
   // 旧版のリンク（?mode=addendum）が残っているあいだの受け皿。
   // Difyを入れ替えるまで、古い案内文からこのリンクが送られてくるため。
   if (mode === 'addendum') mode = 'note';
