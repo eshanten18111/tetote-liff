@@ -64,7 +64,7 @@
 
     <div class="field">
       <p class="label">お名前（ニックネーム可）＊</p>
-      <input type="text" id="user_name" placeholder="相談者" value="相談者" required>
+      <input type="text" maxlength="20" id="user_name" placeholder="相談者" value="相談者" required>
     </div>
 
     <div class="field">
@@ -224,9 +224,17 @@
       .replace(/／/g, '/')
       .trim();
   }
+  // 呼び名は唯一の自由入力欄。ここだけ追加で整える（2026-09-11）。
+  // ・全角／半角のコロンを外す：全項目を1行にまとめて渡すため、
+  //   「みさき：DV・虐待」のように名乗ると項目の境目を偽装できてしまう。
+  // ・20文字までに収める：上限が無く、長い文字列で1行を埋められた。
+  function sanitizeName(v) {
+    return sanitize(v).replace(/[：:]/g, '').slice(0, 20);
+  }
+
 
   function buildMessageText() {
-    const name = sanitize(document.getElementById('user_name').value) || '相談者';
+    const name = sanitizeName(document.getElementById('user_name').value) || '相談者';
     const age = sanitize(document.getElementById('age_group').value);
     const gender = sanitize(document.getElementById('gender').value);
     const prefecture = sanitize(document.getElementById('prefecture').value);
