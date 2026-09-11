@@ -212,14 +212,27 @@
     }
   }
 
+  /*
+     呼び名に「\」が入ると、Dify側のパラメータ抽出が失敗し、
+     お名前・年代・都道府県などの事前情報が丸ごと空になる（実機で再現確認済み）。
+     区切りに使う「／」が値に入ると項目の切れ目も壊れるため、あわせて落とす。
+     利用者を弾かずに、静かに整えて送る。
+  */
+  function sanitize(v) {
+    return String(v == null ? '' : v)
+      .replace(/[\\\u0000-\u001f\u007f]/g, '')
+      .replace(/／/g, '/')
+      .trim();
+  }
+
   function buildMessageText() {
-    const name = document.getElementById('user_name').value.trim() || '相談者';
-    const age = document.getElementById('age_group').value;
-    const gender = document.getElementById('gender').value;
-    const prefecture = document.getElementById('prefecture').value;
-    const main = document.getElementById('main_issue').value;
-    const sub1 = document.getElementById('sub_issue_1').value;
-    const sub2 = document.getElementById('sub_issue_2').value;
+    const name = sanitize(document.getElementById('user_name').value) || '相談者';
+    const age = sanitize(document.getElementById('age_group').value);
+    const gender = sanitize(document.getElementById('gender').value);
+    const prefecture = sanitize(document.getElementById('prefecture').value);
+    const main = sanitize(document.getElementById('main_issue').value);
+    const sub1 = sanitize(document.getElementById('sub_issue_1').value);
+    const sub2 = sanitize(document.getElementById('sub_issue_2').value);
 
     const parts = [`呼び名：${name}`];
     if (age) parts.push(`年代：${age}`);
