@@ -3,7 +3,7 @@
 import json, time, statistics, dify
 
 Q = "呼び名：そうた／年代：30代／性別：男性／都道府県：徳島県／一番の悩み：仕事"
-N = 4
+N = 6
 runs = []
 for i in range(1, N + 1):
     t0 = time.time()
