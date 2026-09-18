@@ -1,10 +1,10 @@
 {
- "script": "B",
- "user": "t-s5-222059-A2",
- "conversation_id": "0c11d99f-7a7d-4154-a99c-829abeab5fca",
+ "script": "I_day2_4",
+ "user": "t-s5-025050-I",
+ "conversation_id": "ab7f0b59-1fab-4b2a-9c63-025a2630f7a6",
  "turn": {
-  "query": "おはようございます。昨日の続きをお願いできますか。",
-  "answer": "おはようございます。ふたたびご連絡くださって、ありがとうございます。\nそして、昨夜は大変おつらい状況のなかメッセージをくださったのに、お話を十分におうかがいできず、本当に申し訳ありませんでした。\n\n「泊まるところがない」「何も食べていない」と伺い、とても心配していました。不安な夜を過ごされたのではないでしょうか。\n\nもし差し支えなければ、今朝の状況について少し教えていただけますか。まず、昨夜は安全に休むことができましたでしょうか。",
+  "query": "こんにちは。相談したいことがあります。",
+  "answer": "こんにちは。ご連絡ありがとうございます。\n相談したいことがあるのですね。お話しいただき、ありがとうございます。\n\nどのようなことでお困りか、あなたの言葉でゆっくり聞かせていただけますか。",
   "nodes": [
    {
     "title": "ユーザー入力"
@@ -17,7 +17,7 @@
     }
    },
    {
-    "title": "定数生成（true文字列）／版 2026-09-17k",
+    "title": "定数生成（true文字列）／版 2026-09-18s",
     "outputs": {
      "value": "true"
     }
@@ -25,14 +25,15 @@
    {
     "title": "現在時刻取得（UNIX秒）",
     "outputs": {
-     "value": "1789657939"
+     "value": "1789744232"
     }
    },
    {
     "title": "経過時間判定（ロック解除チェック）",
     "outputs": {
      "length_expired": "true",
-     "summary_expired": "false"
+     "summary_expired": "false",
+     "today": "20715"
     }
    },
    {
@@ -43,14 +44,17 @@
      "phase": "受付",
      "session_turns": 0,
      "summary_notified": "",
-     "turn_base": 10,
+     "turn_base": 5,
      "madoguchi": "",
      "post_landing_note": "",
      "offtrack_streak": 0,
      "last_pattern": "",
      "urgent": "",
      "urgent_used": "",
-     "crisis_word": ""
+     "crisis_word": "",
+     "rescore": "",
+     "today": "20715",
+     "rum_streak": 0
     }
    },
    {
@@ -72,6 +76,22 @@
    },
    {
     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "outputs": {
+     "result": true,
+     "selected_case_id": "true"
+    }
+   },
+   {
+    "title": "HTTP リクエスト（相談記録登録：初回受付）"
+   },
+   {
+    "title": "変数代入（初回受付ログ済みフラグ）"
+   },
+   {
+    "title": "コード（初回受付の保存の結果判定）"
+   },
+   {
+    "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
     "outputs": {
      "result": false,
      "selected_case_id": "false"
@@ -96,8 +116,8 @@
      "alerted_at": "",
      "closing": "",
      "max_safety_risk": 1,
-     "max_support_need": 8,
-     "phase": "傾聴",
+     "max_support_need": 1,
+     "phase": "受付",
      "closing_reason": ""
     }
    },
@@ -111,18 +131,19 @@
    {
     "title": "IF/ELSE 11（危機の速報判定）",
     "outputs": {
-     "result": true,
-     "selected_case_id": "true"
+     "result": false,
+     "selected_case_id": "false"
     }
    },
    {
-    "title": "HTTP リクエスト（危機速報Slack通知）"
-   },
-   {
-    "title": "変数代入（危機速報済み）"
-   },
-   {
     "title": "IF/ELSE 10（着地したときだけ通知する）",
+    "outputs": {
+     "result": false,
+     "selected_case_id": "false"
+    }
+   },
+   {
+    "title": "IF/ELSE 19（採点やり直しの関門）",
     "outputs": {
      "result": false,
      "selected_case_id": "false"
@@ -155,7 +176,7 @@
     }
    }
   ],
-  "elapsed": 32.4,
-  "created_at": 1789657938
+  "elapsed": 10.4,
+  "created_at": 1789744231
  }
 }
