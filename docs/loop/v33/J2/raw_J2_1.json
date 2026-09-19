@@ -1,0 +1,1847 @@
+{
+ "script": "J2",
+ "user": "t-z3-J2",
+ "conversation_id": "6c78f597-20a5-44a9-a295-74a5c644efd4",
+ "turn_from": "1",
+ "turns": [
+  {
+   "query": "母の介護をひとりでしています。最近、母に強く当たってしまいます。",
+   "answer": "お母様の介護を、おひとりでされているのですね。その中で、お母様に強く当たってしまうことがあると、打ち明けてくださってありがとうございます。おひとりで抱えられているのは、とてもお辛い状況だと思います。\n\nご自身でも「母に強く当たってしまいます」という状況に、心を痛めていらっしゃるのかもしれません。\n\nもしよろしければ、どのような時に、強く当たってしまうと感じるか、もう少し教えていただけますか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-09-19z3",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z3",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789809028",
+      "jst_text": "9月19日（土）18時10分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 1,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22074,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0165555",
+       "completion_tokens": 162,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006075",
+       "total_tokens": 22236,
+       "total_price": "0.017163",
+       "currency": "USD",
+       "latency": 1.797093236999899,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "7",
+      "need_basis": "一人で介護を行っている中で母親に対して強く当たってしまう兆候が見られ、周囲に頼れる支援先や繋がりの存在が確認できないため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "DV・虐待",
+      "support_type": "両方",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 7,
+      "phase": "傾聴",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お母様の介護を、おひとりでされているのですね。その中で、お母様に強く当たってしまうことがあると、打ち明けてくださってありがとうございます。おひとりで抱えられているのは、とてもお辛い状況だと思います。\n\nご自身でも「母に強く当たってしまいます」という状況に、心を痛めていらっしゃるのかもしれません。\n\nもしよろしければ、どのような時に、強く当たってしまうと感じるか、もう少し教えていただけますか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1134,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008505",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1140,
+       "total_price": "0.000873",
+       "currency": "USD",
+       "latency": 1.3402321290004693,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "6c78f597-20a5-44a9-a295-74a5c644efd4",
+   "message_id": "03e9594d-6175-478a-bf59-3f0de36c5c58",
+   "elapsed": 25.5,
+   "created_at": 1789809020,
+   "finished_at": 1789809044,
+   "error": null,
+   "stderr": "",
+   "turn": 1
+  },
+  {
+   "query": "手が出そうになることもあって、自分が怖いです。",
+   "answer": "そうだったのですね。「手が出そうになる」ほどの衝動を感じ、そんなご自身のことを「自分が怖い」と感じていらっしゃるのですね。そのお気持ちを、正直に話してくださってありがとうございます。\n\nご自身をコントロールできなくなりそうになる感覚は、本当に怖いものだと思います。おひとりでそのお気持ちを抱え、耐えていらっしゃるのは、とても苦しい状況ですよね。\n\n差し支えなければ、どのような時に「手が出そうになる」ほど、お気持ちが追い詰められてしまうのか、教えていただけますか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-09-19z3",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z3",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789809048",
+      "jst_text": "9月19日（土）18時10分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 2,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22183,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0166373",
+       "completion_tokens": 163,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006113",
+       "total_tokens": 22346,
+       "total_price": "0.0172486",
+       "currency": "USD",
+       "latency": 1.94042131599997,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "7",
+      "need_basis": "ワンオペでの介護負担により家庭内で虐待・暴力（手を出す）の兆しがあり、外部の支援や相談先につながっていない状況であるため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "DV・虐待",
+      "support_type": "両方",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 7,
+      "phase": "傾聴",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "そうだったのですね。「手が出そうになる」ほどの衝動を感じ、そんなご自身のことを「自分が怖い」と感じていらっしゃるのですね。そのお気持ちを、正直に話してくださってありがとうございます。\n\nご自身をコントロールできなくなりそうになる感覚は、本当に怖いものだと思います。おひとりでそのお気持ちを抱え、耐えていらっしゃるのは、とても苦しい状況ですよね。\n\n差し支えなければ、どのような時に「手が出そうになる」ほど、お気持ちが追い詰められてしまうのか、教えていただけますか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1154,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008655",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1160,
+       "total_price": "0.000888",
+       "currency": "USD",
+       "latency": 1.1563635200000135,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "6c78f597-20a5-44a9-a295-74a5c644efd4",
+   "message_id": "3925e1e0-0ed7-43dc-867c-2fa8068a2941",
+   "elapsed": 22.8,
+   "created_at": 1789809047,
+   "finished_at": 1789809069,
+   "error": null,
+   "stderr": "",
+   "turn": 2
+  },
+  {
+   "query": "ケアマネさんがいて、月に1回来てくれます。話しやすい人です。",
+   "answer": "そうなのですね。月に1度来てくれるケアマネジャーさんがいらっしゃるのですね。しかも「話しやすい人」とのこと、教えてくださってありがとうございます。\n\nおひとりで介護をされている中で、月に一度でも話を聞いてくれる存在がいることは、少し心強いことかもしれませんね。\n\nその話しやすいケアマネジャーさんには、今感じていらっしゃる「自分が怖い」というお気持ちや、手が出そうになることがある、といったお辛い状況について、お話しすることはできていますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z3",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z3",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789809072",
+      "jst_text": "9月19日（土）18時11分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 3,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22317,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0167378",
+       "completion_tokens": 179,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006713",
+       "total_tokens": 22496,
+       "total_price": "0.0174091",
+       "currency": "USD",
+       "latency": 2.4994682880000028,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "6",
+      "need_basis": "ワンオペでの母の介護により気持ちが追い詰められ、虐待（手が出そうになる）の兆しが見られるが、月1回訪問する話しやすいケアマネジャーという支援先がつながっている状態にあるため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "DV・虐待",
+      "support_type": "生活・制度",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 7,
+      "phase": "傾聴",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "そうなのですね。月に1度来てくれるケアマネジャーさんがいらっしゃるのですね。しかも「話しやすい人」とのこと、教えてくださってありがとうございます。\n\nおひとりで介護をされている中で、月に一度でも話を聞いてくれる存在がいることは、少し心強いことかもしれませんね。\n\nその話しやすいケアマネジャーさんには、今感じていらっしゃる「自分が怖い」というお気持ちや、手が出そうになることがある、といったお辛い状況について、お話しすることはできていますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1144,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.000858",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1150,
+       "total_price": "0.0008805",
+       "currency": "USD",
+       "latency": 0.8828019770003266,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "6c78f597-20a5-44a9-a295-74a5c644efd4",
+   "message_id": "6001f9c8-bceb-4049-9e52-5255d80af315",
+   "elapsed": 18.2,
+   "created_at": 1789809071,
+   "finished_at": 1789809089,
+   "error": null,
+   "stderr": "",
+   "turn": 3
+  },
+  {
+   "query": "デイサービスにも週2回行っています。",
+   "answer": "お母様は週に2回、デイサービスにも通われているのですね。教えてくださってありがとうございます。\n\n月に一度のケアマネジャーさんの訪問や、デイサービスといった支えを利用しながら、日々おひとりで介護に向き合っていらっしゃる状況なのですね。\n\nお母様がデイサービスに行かれている時間は、ご自身の時間として、少しは休めていますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z3",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z3",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789809092",
+      "jst_text": "9月19日（土）18時11分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 4,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22435,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0168263",
+       "completion_tokens": 121,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0004538",
+       "total_tokens": 22556,
+       "total_price": "0.0172801",
+       "currency": "USD",
+       "latency": 1.5420124629999918,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "4",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "生活・制度",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 7,
+      "phase": "傾聴",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お母様は週に2回、デイサービスにも通われているのですね。教えてくださってありがとうございます。\n\n月に一度のケアマネジャーさんの訪問や、デイサービスといった支えを利用しながら、日々おひとりで介護に向き合っていらっしゃる状況なのですね。\n\nお母様がデイサービスに行かれている時間は、ご自身の時間として、少しは休めていますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1120,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.00084",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1126,
+       "total_price": "0.0008625",
+       "currency": "USD",
+       "latency": 1.1953211120003289,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "6c78f597-20a5-44a9-a295-74a5c644efd4",
+   "message_id": "5163a635-ae52-4235-9c0c-d3fd7ae9b138",
+   "elapsed": 21.8,
+   "created_at": 1789809092,
+   "finished_at": 1789809112,
+   "error": null,
+   "stderr": "",
+   "turn": 4
+  },
+  {
+   "query": "夜も何度も起こされて、眠れていません。",
+   "answer": "そうなのですね。日中お母様がデイサービスに行かれている時間があっても、夜に何度も起こされてしまうと、心身ともに休まる時がありませんよね。「夜も何度も起こされて、眠れていません」という状況、本当にお辛いと思います。\n\n睡眠がとれない日が続くと、疲れが取れないだけでなく、気持ちの余裕もなくなってしまいますよね。ご自身でも気づかないうちに、追い詰められてしまうのも無理はないことだと思います。\n\n差し支えなければ、夜眠れないような状態は、どのくらい続いていらっしゃるのでしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z3",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z3",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789809116",
+      "jst_text": "9月19日（土）18時11分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 5,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22530,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0168975",
+       "completion_tokens": 180,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.000675",
+       "total_tokens": 22710,
+       "total_price": "0.0175725",
+       "currency": "USD",
+       "latency": 2.6004803219998394,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "6",
+      "need_basis": "ワンオペでの介護負担により夜間の不眠が続いており、手が出そうになる等の限界症状が見られる一方で、月1回のケアマネジャー訪問や週2回のデイサービスといった支援体制とのつながりは存在する状態であるため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "DV・虐待",
+      "support_type": "生活・制度",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 7,
+      "phase": "傾聴",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "そうなのですね。日中お母様がデイサービスに行かれている時間があっても、夜に何度も起こされてしまうと、心身ともに休まる時がありませんよね。「夜も何度も起こされて、眠れていません」という状況、本当にお辛いと思います。\n\n睡眠がとれない日が続くと、疲れが取れないだけでなく、気持ちの余裕もなくなってしまいますよね。ご自身でも気づかないうちに、追い詰められてしまうのも無理はないことだと思います。\n\n差し支えなければ、夜眠れないような状態は、どのくらい続いていらっしゃるのでしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1158,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008685",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1164,
+       "total_price": "0.000891",
+       "currency": "USD",
+       "latency": 1.1583234099998663,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "6c78f597-20a5-44a9-a295-74a5c644efd4",
+   "message_id": "7ea663c1-01e6-4aca-b5c9-c44f681730fa",
+   "elapsed": 19.0,
+   "created_at": 1789809115,
+   "finished_at": 1789809134,
+   "error": null,
+   "stderr": "",
+   "turn": 5
+  },
+  {
+   "query": "ケアマネさんには、まだこのことは言えていません。",
+   "answer": "話しやすいと感じているケアマネジャーさんにも、そのことはまだお話しできていないのですね。教えてくださってありがとうございます。\n\n一番つらいと感じている「手が出そうになる」というお気持ちを、誰にも言えずに、おひとりで抱えていらっしゃるのは、本当に苦しいことだと思います。\n\n差し支えなければ、お話しやすいケアマネジャーさんにも「まだこのことは言えていません」という背景について、もう少し教えていただけますか。例えば、「こんなことを言ったらどう思われるだろう」というご不安などがあるのでしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z3",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "パラメータ抽出3（有人対応同意）",
+    "返信整形（サマリー除去）",
+    "IF/ELSE 4（有人対応同意判定）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z3",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789809138",
+      "jst_text": "9月19日（土）18時12分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 6,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22664,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.016998",
+       "completion_tokens": 199,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0007463",
+       "total_tokens": 22863,
+       "total_price": "0.0177443",
+       "currency": "USD",
+       "latency": 2.295680235999953,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "6",
+      "need_basis": "ワンオペでの在宅介護により夜間頻回に起こされて慢性的な睡眠不足状態にあり、母親に対して手が出そうになるリスクが生じている。ケアマネジャーやデイサービスとのつながりはあるものの、手が出そうになる危機的状況についてまだ相談できておらず、支えが十分に機能していない状態である。",
+      "contact_safety_risk": "2",
+      "crisis_category": "DV・虐待",
+      "support_type": "生活・制度",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 7,
+      "phase": "傾聴",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1154,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008655",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1160,
+       "total_price": "0.000888",
+       "currency": "USD",
+       "latency": 1.0941225850000365,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "話しやすいと感じているケアマネジャーさんにも、そのことはまだお話しできていないのですね。教えてくださってありがとうございます。\n\n一番つらいと感じている「手が出そうになる」というお気持ちを、誰にも言えずに、おひとりで抱えていらっしゃるのは、本当に苦しいことだと思います。\n\n差し支えなければ、お話しやすいケアマネジャーさんにも「まだこのことは言えていません」という背景について、もう少し教えていただけますか。例えば、「こんなことを言ったらどう思われるだろう」というご不安などがあるのでしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "6c78f597-20a5-44a9-a295-74a5c644efd4",
+   "message_id": "2bb388ea-b339-4901-8429-6f2d7e563ca2",
+   "elapsed": 21.0,
+   "created_at": 1789809137,
+   "finished_at": 1789809156,
+   "error": null,
+   "stderr": "",
+   "turn": 6
+  },
+  {
+   "query": "ためらいのほうが近いです。ひどい娘だと思われそうで。",
+   "answer": "「ひどい娘だと思われそう」で、打ち明けることに「ためらい」を感じていらっしゃるのですね。そのお気持ち、とてもよく分かります。一番つらいことを話すのは、本当に勇気がいることだと思います。\n\n誰にも言えず、おひとりで「自分が怖い」という気持ちと向き合ってこられたのですね。夜も眠れないほどの状況で、心も体も本当に限界に近いのかもしれません。\n\n介護をされている方が、追い詰められて同じようなお気持ちを抱えることは、決して特別なことではありません。ご自身を「ひどい娘」だと責めてしまうお気持ちの裏には、本当は「お母様を大切にしたい」という思いがあるからこそ、ではないでしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z3",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z3",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789809160",
+      "jst_text": "9月19日（土）18時12分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 7,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22799,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0170993",
+       "completion_tokens": 200,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.00075",
+       "total_tokens": 22999,
+       "total_price": "0.0178493",
+       "currency": "USD",
+       "latency": 2.377495520000025,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "6",
+      "need_basis": "ワンオペでの介護疲れと睡眠不足から母親に手が出そうになる危機的状況であるが、月1回訪問するケアマネジャー等の既存の支援機関・専門職が存在している。まだ本人はその事実を打ち明けられていない（ためらっている）ものの、支援先と連絡・相談がつく関係性が維持されているため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "DV・虐待",
+      "support_type": "両方",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 7,
+      "phase": "傾聴",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "「ひどい娘だと思われそう」で、打ち明けることに「ためらい」を感じていらっしゃるのですね。そのお気持ち、とてもよく分かります。一番つらいことを話すのは、本当に勇気がいることだと思います。\n\n誰にも言えず、おひとりで「自分が怖い」という気持ちと向き合ってこられたのですね。夜も眠れないほどの状況で、心も体も本当に限界に近いのかもしれません。\n\n介護をされている方が、追い詰められて同じようなお気持ちを抱えることは、決して特別なことではありません。ご自身を「ひどい娘」だと責めてしまうお気持ちの裏には、本当は「お母様を大切にしたい」という思いがあるからこそ、ではないでしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1197,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008978",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1203,
+       "total_price": "0.0009203",
+       "currency": "USD",
+       "latency": 1.2565025039998545,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "6c78f597-20a5-44a9-a295-74a5c644efd4",
+   "message_id": "022268e9-0bd5-44a5-847a-d1ac9b054b6d",
+   "elapsed": 20.8,
+   "created_at": 1789809159,
+   "finished_at": 1789809179,
+   "error": null,
+   "stderr": "",
+   "turn": 7
+  }
+ ]
+}
