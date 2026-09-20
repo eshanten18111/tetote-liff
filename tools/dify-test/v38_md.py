@@ -15,7 +15,7 @@ def get(r,sub,key,exact=False):
         if (o["title"]==sub) if exact else (sub in o["title"]):
             if key in o["outputs"]: return o["outputs"][key]
     return None
-out=["# 第37版 台本L 出力（t-37-L・26往復）",""]
+out=["# 第38版 台本L 出力（t-38-L・26往復）",""]
 out.append("| 通 | 秒 | 字 | node | closing | closing_reason | length_alerted | forced_close | IF6 | need | Slackノード |")
 out.append("|---|---|---|---|---|---|---|---|---|---|---|")
 for r in rows:
