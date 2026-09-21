@@ -70,7 +70,7 @@ def grab(r,sub,key,exact=False):
             if key in o["outputs"]: return o["outputs"][key]
     return None
 
-user="t-46-C"; conv=None; rows=[]; prev=""; si=0; ai=0; stop=""; consent=None
+user="t-46-C"; conv=None; rows=[]; prev=""; si=0; ai=0; stop=""; consent=None; err_checked=False
 print(f"[開始] {hm(now())} JST",flush=True)
 for turn in range(1,30):
     if turn<=6: q=FIXED[turn-1]
@@ -87,19 +87,31 @@ for turn in range(1,30):
     cl=grab(r,"支援必要度","closing") or grab(r,"期限切れ","closing")
     cr=grab(r,"支援必要度","closing_reason"); lf=grab(r,"支援必要度","left") or grab(r,"期限切れ","left")
     ph=grab(r,"支援必要度","phase"); tn=grab(r,"返信整形","turn_notice"); fc=grab(r,"返信整形","forced_close")
+    nr=grab(r,"支援必要度","near")
+    if nr is None: nr=grab(r,"期限切れ","near")
     i6=grab(r,"IF/ELSE 6","result"); i7=grab(r,"IF/ELSE 7","result")
     sn=grab(r,"パラメータ抽出","support_need",True); sr=grab(r,"パラメータ抽出","contact_safety_risk",True)
     mark=[t for t in r["titles"] if "定数生成" in t]; http=[t for t in r["titles"] if "HTTP" in t]
     add="あり" if any("追記" in t and "HTTP" in t for t in r["titles"]) else "なし"
-    print(f"--- {turn}通目 送={q} / {hm(datetime.datetime.fromisoformat(r['sent_jst']))} / {r['elapsed']}秒 / {len(r['answer'])}字 / node{len(r['titles'])} / 版={mark} / IF6={i6} / IF7={i7} / 追記={add} / closing={cl!r} / reason={cr!r} / left={lf!r} / phase={ph!r} / turn_notice={tn!r} / forced_close={fc!r} / need={sn} / risk={sr} / HTTP={http}",flush=True)
+    print(f"--- {turn}通目 送={q} / {hm(datetime.datetime.fromisoformat(r['sent_jst']))} / {r['elapsed']}秒 / {len(r['answer'])}字 / node{len(r['titles'])} / 版={mark} / IF6={i6} / IF7={i7} / 追記={add} / closing={cl!r} / reason={cr!r} / left={lf!r} / near={nr!r} / phase={ph!r} / turn_notice={tn!r} / forced_close={fc!r} / need={sn} / risk={sr} / HTTP={http}",flush=True)
     print(r["answer"],flush=True); print(flush=True)
+    if not r["answer"].strip():
+        print(f"☆ {turn}通目の返事が0字でした（node{len(r['titles'])}／{hm(datetime.datetime.fromisoformat(r['sent_jst']))} JST）。別紙のとおり、記録して次に進みます。",flush=True)
     if turn==1:
+        print(f"[1往復目の確認] 版の目印={mark}",flush=True)
+        if any("2026-09-21d" in t for t in mark):
+            stop="公開前（版d のまま）"
+            print("★ 版の目印がまだ 2026-09-21d です。公開前と読んで、流さずに止めます。",flush=True); break
+        if not any("2026-09-21e" in t for t in mark):
+            stop="版ちがい"
+            print(f"★ 版の目印が 2026-09-21e ではありません（出たのは {mark}）。止めます。",flush=True); break
+    if not err_checked:
         pa=[o["outputs"] for o in r["outs"] if o["title"]=="パラメータ抽出" and o["outputs"]]
-        em=(pa[0].get("error_message") if pa else "取れず")
-        print(f"[1往復目の確認] error_message={em!r} / 版の目印={mark}",flush=True)
-        if em: stop="429/エラー"; print("★ error_message が空ではありません。止めます。",flush=True); break
-        if not any("2026-09-21d" in t for t in mark):
-            stop="版ちがい"; print("★ 版の目印が 2026-09-21d ではありません。止めます。",flush=True); break
+        if pa:
+            err_checked=True; em=pa[0].get("error_message")
+            print(f"[AIの上限の確認] {turn}通目の error_message={em!r}",flush=True)
+            if em:
+                stop="429/エラー"; print("★ error_message が空ではありません。止めます。",flush=True); break
     if i6 is True and consent is None:
         consent=turn
         print(f"★ {turn}通目で IF/ELSE 6 が true になりました（同意の回）。",flush=True)
