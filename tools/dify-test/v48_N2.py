@@ -94,8 +94,8 @@ for turn in range(1,32):
         print(f"☆ {turn}通目の返事が0字でした（node{len(r['titles'])}）。error={r['error']!r}。記録して次に進みます。",flush=True)
     if turn==1:
         print(f"[1往復目の確認] 版の目印={mark}",flush=True)
-        if not any("2026-09-22a" in t for t in mark):
-            stop="版ちがい"; print(f"★ 版の目印が 2026-09-22a ではありません（出たのは {mark}）。止めます。",flush=True); break
+        if not any("2026-09-22c" in t for t in mark):
+            stop="版ちがい"; print(f"★ 版の目印が 2026-09-22c ではありません（出たのは {mark}）。止めます。",flush=True); break
         pa=[o["outputs"] for o in r["outs"] if o["title"]=="パラメータ抽出" and o["outputs"]]
         em=(pa[0].get("error_message") if pa else None)
         print(f"[AIの上限の確認] error_message={em!r}",flush=True)
