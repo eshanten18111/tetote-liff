@@ -54,6 +54,9 @@ for turn in range(1,MAXT+1):
         s=check_first(r,VER)
         if s: stop=s; break
     cl=g(r,"支援必要度","closing"); cr=g(r,"支援必要度","closing_reason")
+    if name=="Q" and turn==6 and not cr and closed_at is None:
+        stop="☆ 台本Q：同じ訴えを5回続けても closing_reason が空のままでした。指示書のとおり、6通目で止めます"
+        print(stop,flush=True); break
     if closed_at is not None:
         stop=f"締まった次の回（{turn}通目）まで送り終えました"; break
     if cl is True or cl=="true":
