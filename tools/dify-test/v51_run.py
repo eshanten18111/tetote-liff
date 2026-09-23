@@ -21,7 +21,7 @@ FACTS=["引っ越してきたのは6年前です。","隣は年配のご夫婦�
  "前は近所の方と立ち話をしていました。","庭の手入れもしなくなりました。","郵便受けを開けるのが少し怖いです。"]
 name=sys.argv[1]
 if name=="N5":
-    user="t-51-N5b"; MAXT=27; ASK={22,24}; LAST=None
+    user="t-51-N5c"; MAXT=27; ASK={22,24}; LAST=None
 elif name=="P":
     user="t-51-P"; MAXT=31; ASK=set(); LAST=31
 elif name=="Q":
@@ -44,6 +44,12 @@ for turn in range(1,MAXT+1):
     else: q=FACTS[fi%len(FACTS)]; fi+=1
     r=send(user,q,conv); conv=r["conversation_id"]; r["turn"]=turn; rows.append(r); prev=r["answer"]
     show(turn,q,r,"（締まった次の回）" if closed_at is not None and turn==closed_at+1 else "")
+    if "混み合っております" in r["answer"]:
+        em=g(r,"パラメータ抽出","error_message",True)
+        stop=f"★★ {turn}通目で定型文（混み合っております）が返りました。AIの上限と読んで、ここで止めます"
+        print(stop,flush=True)
+        print(f"[error_message] {str(em)[:400]!r}",flush=True)
+        break
     if turn==1:
         s=check_first(r,VER)
         if s: stop=s; break
