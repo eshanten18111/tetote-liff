@@ -21,7 +21,7 @@ FACTS=["引っ越してきたのは6年前です。","隣は年配のご夫婦�
  "前は近所の方と立ち話をしていました。","庭の手入れもしなくなりました。","郵便受けを開けるのが少し怖いです。"]
 name=sys.argv[1]
 if name=="N5":
-    user="t-51-N5"; MAXT=27; ASK={22,24}; LAST=None
+    user="t-51-N5b"; MAXT=27; ASK={22,24}; LAST=None
 elif name=="P":
     user="t-51-P"; MAXT=31; ASK=set(); LAST=31
 elif name=="Q":
