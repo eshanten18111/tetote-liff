@@ -1,0 +1,6661 @@
+{
+ "script": "N4",
+ "user": "t-50-N4",
+ "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+ "turns": [
+  {
+   "query": "隣の家との音のことで、いつも気を張っています。",
+   "answer": "ご連絡ありがとうございます。\n隣の家との音のことで、「いつも気を張っている」とのこと、気が休まらない状況はとてもおつらいですよね。\n\n差し支えなければ、どのような音が気になってしまうのか、もう少し詳しく教えていただけますか。\n\n（このチャットでお話しできるやり取りの回数や文字の量には、1日ごとの上限があります。上限に近づいたら、こちらからお知らせします。続きは、日付が変わってからお話しできます。）",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131428",
+      "jst_text": "9月23日（水）11時43分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 1,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22070,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0165525",
+       "completion_tokens": 125,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0004688",
+       "total_tokens": 22195,
+       "total_price": "0.0170213",
+       "currency": "USD",
+       "latency": 1.8171661410000297,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "3",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 3,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 29,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "3"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "ご連絡ありがとうございます。\n隣の家との音のことで、「いつも気を張っている」とのこと、気が休まらない状況はとてもおつらいですよね。\n\n差し支えなければ、どのような音が気になってしまうのか、もう少し詳しく教えていただけますか。\n\n（このチャットでお話しできるやり取りの回数や文字の量には、1日ごとの上限があります。上限に近づいたら、こちらからお知らせします。続きは、日付が変わってからお話しできます。）",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣の家との音のことで、いつも気を張っているという相談があった。",
+      "day_heavy": "常に気を張っていて、気が休まらない状況が続いていること。",
+      "day_next": "どのような音が、いつから気になっているのか、具体的な状況をうかがう。",
+      "turn_notice": "1通目のお知らせ"
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1171,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008783",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1177,
+       "total_price": "0.0009008",
+       "currency": "USD",
+       "latency": 1.0221737279999843,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:43:39.191529+09:00",
+   "elapsed": 22.3,
+   "created_at": 1790131420,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 1
+  },
+  {
+   "query": "挨拶をしても、返ってこないことが増えました。",
+   "answer": "",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131451",
+      "jst_text": "9月23日（水）11時44分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 2,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22186,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0166395",
+       "completion_tokens": 125,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0004688",
+       "total_tokens": 22311,
+       "total_price": "0.0171083",
+       "currency": "USD",
+       "latency": 1.659947260000024,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "4",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:44:02.503656+09:00",
+   "elapsed": 18.6,
+   "created_at": 1790131443,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 2
+  },
+  {
+   "query": "自治会の集まりにも行きにくくなりました。",
+   "answer": "挨拶をしても返ってこないことが増えたのですね。毎日顔を合わせるかもしれないお隣さんとの間でそのようなことがあると、とても気まずいですし、心が落ち着かないですよね。\n\n「挨拶をしても、返ってこないことが増え」て、その結果、地域での「自治会の集まりにも行きにくく」なってしまったと感じていらっしゃるのですね。\n\nもしよろしければ、挨拶が返ってこないことが増えたと感じるようになったのは、いつ頃からでしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131463",
+      "jst_text": "9月23日（水）11時44分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 3,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22204,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.016653",
+       "completion_tokens": 125,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0004688",
+       "total_tokens": 22329,
+       "total_price": "0.0171218",
+       "currency": "USD",
+       "latency": 1.6616509269999824,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "4",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 4,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 27,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "4"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "挨拶をしても返ってこないことが増えたのですね。毎日顔を合わせるかもしれないお隣さんとの間でそのようなことがあると、とても気まずいですし、心が落ち着かないですよね。\n\n「挨拶をしても、返ってこないことが増え」て、その結果、地域での「自治会の集まりにも行きにくく」なってしまったと感じていらっしゃるのですね。\n\nもしよろしければ、挨拶が返ってこないことが増えたと感じるようになったのは、いつ頃からでしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣の家との音のことでいつも気を張っている。挨拶をしても返ってこないことが増え、自治会の集まりにも行きにくくなった。",
+      "day_heavy": "隣人との関係が悪化していると感じ、地域の中で孤立感を深めていること。挨拶が返ってこないという拒絶的な態度に傷ついている。",
+      "day_next": "挨拶が返ってこなくなったきっかけや時期、音の問題との関連性を聴き、相談者のストレスの背景をもう少し具体的に把握する。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1274,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009555",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1280,
+       "total_price": "0.000978",
+       "currency": "USD",
+       "latency": 1.067015614000013,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:44:22.055291+09:00",
+   "elapsed": 15.9,
+   "created_at": 1790131463,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 3
+  },
+  {
+   "query": "夫は取り合ってくれません。",
+   "answer": "お隣のことで大変な思いをされているなか、一番身近なご主人に相談しても「取り合ってくれません」とのこと、それは本当におつらいですね。家の中にいても、気持ちを分かってもらえない孤独感で、心が休まらないのではないでしょうか。\n\nお隣との関係や自治会のことでお悩みの上に、ご家庭でも理解を得られないとなると、どこにも逃げ場がないように感じてしまいますよね。\n\n差し支えなければ、ご主人に相談されたとき、どのような反応をされるのか、もう少し教えていただけますか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "コード（相談外の連続カウント）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131485",
+      "jst_text": "9月23日（水）11時44分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 4,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22378,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0167835",
+       "completion_tokens": 162,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006075",
+       "total_tokens": 22540,
+       "total_price": "0.017391",
+       "currency": "USD",
+       "latency": 2.6564381119999894,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣問題や自治会への参加困難について夫に相談しても取り合ってもらえず、家庭内での理解や支援が得られないまま孤立している。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 26,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お隣のことで大変な思いをされているなか、一番身近なご主人に相談しても「取り合ってくれません」とのこと、それは本当におつらいですね。家の中にいても、気持ちを分かってもらえない孤独感で、心が休まらないのではないでしょうか。\n\nお隣との関係や自治会のことでお悩みの上に、ご家庭でも理解を得られないとなると、どこにも逃げ場がないように感じてしまいますよね。\n\n差し支えなければ、ご主人に相談されたとき、どのような反応をされるのか、もう少し教えていただけますか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1157,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008678",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1163,
+       "total_price": "0.0008903",
+       "currency": "USD",
+       "latency": 1.0761813429999165,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:44:38.927941+09:00",
+   "elapsed": 32.4,
+   "created_at": 1790131484,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 4
+  },
+  {
+   "query": "家にいても落ち着かないです。",
+   "answer": "お隣のことに加え、ご主人のこと、いろいろなことが重なって、ご自宅が安らげる場所ではなくなっているのですね。「家にいても落ち着かない」というお気持ち、本当に息が詰まる思いだと思います。\n\n外でも家の中でも気を張っていなければならず、心から休まる場所がないように感じていらっしゃるのかもしれません。\n\n「家にいても落ち着かない」とのことですが、夜は眠れていますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131513",
+      "jst_text": "9月23日（水）11時45分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 5,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22506,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0168795",
+       "completion_tokens": 172,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.000645",
+       "total_tokens": 22678,
+       "total_price": "0.0175245",
+       "currency": "USD",
+       "latency": 2.042296161000195,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブルや地域からの孤立に加え、夫の理解が得られず家庭内でも気持ちの支えや相談相手が存在しない状態であり、社会的なつながりや支えが切れているため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 25,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お隣のことに加え、ご主人のこと、いろいろなことが重なって、ご自宅が安らげる場所ではなくなっているのですね。「家にいても落ち着かない」というお気持ち、本当に息が詰まる思いだと思います。\n\n外でも家の中でも気を張っていなければならず、心から休まる場所がないように感じていらっしゃるのかもしれません。\n\n「家にいても落ち着かない」とのことですが、夜は眠れていますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣の家の音が気になり、挨拶をしても返されず、自治会にも行きにくい。夫に相談しても取り合ってもらえず、「家にいても落ち着かない」と感じている。",
+      "day_heavy": "近隣や地域、家庭内でも孤立し、本来安らげるはずの自宅でさえ心休まらない状況にあること。",
+      "day_next": "落ち着かない状況が、睡眠など日々の生活にどのような影響を及ぼしているか。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1248,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.000936",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1254,
+       "total_price": "0.0009585",
+       "currency": "USD",
+       "latency": 1.0469614449998517,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:45:12.286076+09:00",
+   "elapsed": 19.9,
+   "created_at": 1790131513,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 5
+  },
+  {
+   "query": "引っ越してきたのは6年前です。",
+   "answer": "6年前に引っ越してこられたのですね。教えていただきありがとうございます。\n\n「引っ越してきたのは6年前」とのこと、その頃から今の場所で暮らしてこられたのですね。お隣との音の問題や挨拶のこと、ご主人に相談しても取り合ってもらえない状況が重なり、今は「家にいても落ち着かない」と感じていらっしゃるのですね。\n\n差し支えなければ、引っ越してこられた当初から、お隣との関係で気になることはありましたか？それとも、何かきっかけがあって最近変わってきたのでしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131534",
+      "jst_text": "9月23日（水）11時45分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 6,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22609,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0169568",
+       "completion_tokens": 172,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.000645",
+       "total_tokens": 22781,
+       "total_price": "0.0176018",
+       "currency": "USD",
+       "latency": 2.0587939040000265,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブルや自治会での孤立に加え、配偶者にも相談に応じてもらえず家庭内での支えがない状態で、自宅でも心が休まらず生活の行き詰まりを感じているため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 24,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "6年前に引っ越してこられたのですね。教えていただきありがとうございます。\n\n「引っ越してきたのは6年前」とのこと、その頃から今の場所で暮らしてこられたのですね。お隣との音の問題や挨拶のこと、ご主人に相談しても取り合ってもらえない状況が重なり、今は「家にいても落ち着かない」と感じていらっしゃるのですね。\n\n差し支えなければ、引っ越してこられた当初から、お隣との関係で気になることはありましたか？それとも、何かきっかけがあって最近変わってきたのでしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "6年前に今の家に引っ越してきた。隣家の音が気になり、挨拶をしても返されないことが増え、自治会にも行きづらい。夫に相談しても取り合ってもらえず、家にいても落ち着かない。",
+      "day_heavy": "近隣トラブルや自治会での孤立に加え、夫にも相談できず家庭内でも孤立しており、自宅が安らげる場所でなくなっていること。",
+      "day_next": "隣人との関係がいつから、どのようなきっかけで悪化したのか。また、夫との関係性についてもう少し詳しく聞くこと。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1295,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009713",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1301,
+       "total_price": "0.0009938",
+       "currency": "USD",
+       "latency": 1.175883042999999,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:45:33.151973+09:00",
+   "elapsed": 19.1,
+   "created_at": 1790131533,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 6
+  },
+  {
+   "query": "隣は年配のご夫婦です。",
+   "answer": "お隣が年配のご夫婦だということを教えてくださり、ありがとうございます。\n\n6年前に越してこられてからのお付き合いなのですね。年配のご夫婦がお隣だと、音のことや挨拶のことなど、何か気になることがあっても、かえって伝えにくかったり、どうしたら良いか悩んでしまったりすることもあるかもしれませんね。\n\nお相手が年配のご夫婦だからこそ、何か特に難しく感じていらっしゃることなどはありますか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131554",
+      "jst_text": "9月23日（水）11時45分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 7,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22738,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0170535",
+       "completion_tokens": 174,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006525",
+       "total_tokens": 22912,
+       "total_price": "0.017706",
+       "currency": "USD",
+       "latency": 2.0810323929999868,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブルから地域社会で孤立し、自宅でも夫の理解が得られず精神的に追い詰められて心身の休まる場所を失っており、外部の支援やつながりが不十分であるため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 23,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お隣が年配のご夫婦だということを教えてくださり、ありがとうございます。\n\n6年前に越してこられてからのお付き合いなのですね。年配のご夫婦がお隣だと、音のことや挨拶のことなど、何か気になることがあっても、かえって伝えにくかったり、どうしたら良いか悩んでしまったりすることもあるかもしれませんね。\n\nお相手が年配のご夫婦だからこそ、何か特に難しく感じていらっしゃることなどはありますか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1139,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008543",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1145,
+       "total_price": "0.0008768",
+       "currency": "USD",
+       "latency": 1.242832126000053,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:45:53.242302+09:00",
+   "elapsed": 18.4,
+   "created_at": 1790131554,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 7
+  },
+  {
+   "query": "音というのは、夜10時ごろの物音です。",
+   "answer": "夜10時ごろの物音なのですね。具体的に教えてくださり、ありがとうございます。\n夜、静かになってきて、これから休もうかという時間帯の物音は、特に気になりますよね。それで眠りが浅くなってしまったり、気持ちが休まらなかったりすることもあるかもしれません。\n\nお隣の年配のご夫婦との関係で、特に「夜10時ごろの物音」が、気を張ってしまう大きな原因になっているのですね。\n\n差し支えなければ、その「物音」というのは、どのような音かもう少し教えていただけますか。例えば、何かを叩くような音なのか、話し声なのか、どんな些細なことでも構いません。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131575",
+      "jst_text": "9月23日（水）11時46分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 8,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22854,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0171405",
+       "completion_tokens": 170,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006375",
+       "total_tokens": 23024,
+       "total_price": "0.017778",
+       "currency": "USD",
+       "latency": 2.4965466250005193,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブルに加え、夫が相談に取り合わず孤立しており、自治会に参加しづらくなるなど地域社会とのつながりが切れ、自宅でも落ち着けない状態が続いているため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的に孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 22,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "夜10時ごろの物音なのですね。具体的に教えてくださり、ありがとうございます。\n夜、静かになってきて、これから休もうかという時間帯の物音は、特に気になりますよね。それで眠りが浅くなってしまったり、気持ちが休まらなかったりすることもあるかもしれません。\n\nお隣の年配のご夫婦との関係で、特に「夜10時ごろの物音」が、気を張ってしまう大きな原因になっているのですね。\n\n差し支えなければ、その「物音」というのは、どのような音かもう少し教えていただけますか。例えば、何かを叩くような音なのか、話し声なのか、どんな些細なことでも構いません。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1182,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008865",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1188,
+       "total_price": "0.000909",
+       "currency": "USD",
+       "latency": 1.0956002350000063,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:46:12.691664+09:00",
+   "elapsed": 20.4,
+   "created_at": 1790131574,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 8
+  },
+  {
+   "query": "うちは子どもが二人います。",
+   "answer": "お子さんがお二人いらっしゃるのですね。子育てで毎日お忙しいなか、お隣のことまで気を張らなくてはならないのは、本当に大変なこととお察しします。\n\n夜10時ごろの物音に気を張り、挨拶も返ってこない状況で、ご主人にも取り合ってもらえず、お家で落ち着けない…そんな中で「うちは子どもが二人います」と教えてくださったのですね。\n\nもしかすると、「うちの子どもの声や足音がご迷惑になっていないだろうか」といったご心配が、お隣への気持ちに影響している部分はありますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131595",
+      "jst_text": "9月23日（水）11時46分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 9,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23007,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0172553",
+       "completion_tokens": 173,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006488",
+       "total_tokens": 23180,
+       "total_price": "0.0179041",
+       "currency": "USD",
+       "latency": 2.1388027140000077,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブルによるストレスに加え、自治会など地域社会での孤立、家庭内（夫）で理解や頼れる支援が得られずどこにも繋がっていないため、状況の好転が見込めない。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会隔離",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 21,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お子さんがお二人いらっしゃるのですね。子育てで毎日お忙しいなか、お隣のことまで気を張らなくてはならないのは、本当に大変なこととお察しします。\n\n夜10時ごろの物音に気を張り、挨拶も返ってこない状況で、ご主人にも取り合ってもらえず、お家で落ち着けない…そんな中で「うちは子どもが二人います」と教えてくださったのですね。\n\nもしかすると、「うちの子どもの声や足音がご迷惑になっていないだろうか」といったご心配が、お隣への気持ちに影響している部分はありますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家の夜10時頃の物音が気になり、挨拶を返してもらえないことも増え、自治会にも行きづらい。夫は取り合ってくれず、家にいても落ち着かない。隣は年配夫婦で、自分には子どもが二人いる。",
+      "day_heavy": "隣家とのトラブルや家庭内での孤立により、自宅が安らげる場所でなくなっていること。自分たちも迷惑をかけているかもしれないという負い目を感じている可能性がある。",
+      "day_next": "お子さんがいることが、隣家との関係にどう影響していると感じているか。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1314,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009855",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1320,
+       "total_price": "0.001008",
+       "currency": "USD",
+       "latency": 1.0138545610000165,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:46:34.124856+09:00",
+   "elapsed": 18.1,
+   "created_at": 1790131595,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 9
+  },
+  {
+   "query": "上の子は中学生、下の子は小学生です。",
+   "answer": "お子さんは中学生と小学生でいらっしゃるのですね。教えてくださり、ありがとうございます。それぞれ活動的な時期で、毎日賑やかなことと思います。\n\nお隣の年配ご夫婦との間で、夜の物音や挨拶が返ってこないことに気を張り、ご主人にも相談できず、家で落ち着けないと感じていらっしゃる。その一方で、ご自身の家には「上の子は中学生、下の子は小学生」のお子さんがいる、という状況なのですね。\n\nもしかすると、お子さんたちの普段の生活の音が、お隣との関係に何か影響しているかもしれない、というお気持ちがあったりしますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131616",
+      "jst_text": "9月23日（水）11時46分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 10,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23153,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0173648",
+       "completion_tokens": 194,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0007275",
+       "total_tokens": 23347,
+       "total_price": "0.0180923",
+       "currency": "USD",
+       "latency": 2.5250790459999735,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブル（挨拶拒否や夜間の物音）により自治会への参加も難しくなり社会的孤立が進んでいる上、一番身近な配偶者にも相談を取り合ってもらえず家の中でも精神的な孤立・緊張状態が続いており、外部の支援がなければ状況の改善が見込めないため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的な孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 20,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お子さんは中学生と小学生でいらっしゃるのですね。教えてくださり、ありがとうございます。それぞれ活動的な時期で、毎日賑やかなことと思います。\n\nお隣の年配ご夫婦との間で、夜の物音や挨拶が返ってこないことに気を張り、ご主人にも相談できず、家で落ち着けないと感じていらっしゃる。その一方で、ご自身の家には「上の子は中学生、下の子は小学生」のお子さんがいる、という状況なのですね。\n\nもしかすると、お子さんたちの普段の生活の音が、お隣との関係に何か影響しているかもしれない、というお気持ちがあったりしますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家（年配夫婦）とのトラブルで、夜10時頃の物音が気になり、挨拶も返されないため、いつも気を張っている。夫は取り合ってくれず、家にいても落ち着かない。自治会にも行きづらくなった。6年前に越してきて、子どもは中学生と小学生の2人。",
+      "day_heavy": "隣家とのトラブルや夫の無理解により、家の中でも外でも孤立し、精神的に休まる場所がないこと。",
+      "day_next": "隣家との関係が悪化したきっかけや、子どもの生活音が関係していると感じているかどうかの、ご本人の考え。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1330,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009975",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1336,
+       "total_price": "0.00102",
+       "currency": "USD",
+       "latency": 1.5358761190000223,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:46:53.224388+09:00",
+   "elapsed": 25.4,
+   "created_at": 1790131614,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 10
+  },
+  {
+   "query": "下の子が家の中で走ることがあります。",
+   "answer": "そうだったのですね。小学生のお子さんですと、元気いっぱいで家の中を走り回ってしまうこともありますよね。親御さんとしては、なかなか止められない場面もあるかと思います。\n\nお隣の夜の物音が気になる一方で、「下の子が家の中で走ることがあります」というご自身の家の音が、お隣に迷惑をかけているのではないか、というお気持ちもお持ちなのですね。だからこそ、挨拶が返ってこないことに対して、より不安を感じてしまうのかもしれません。\n\nもしかして、「うちの音が原因で、お隣の態度が変わってしまったのかもしれない」というようなご不安があったりしますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131640",
+      "jst_text": "9月23日（水）11時47分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 11,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23302,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0174765",
+       "completion_tokens": 176,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.00066",
+       "total_tokens": 23478,
+       "total_price": "0.0181365",
+       "currency": "USD",
+       "latency": 2.455782818999978,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣との騒音トラブルや挨拶の不通に起因して自治会や家庭内でも孤立し、家にいても落ち着かない状態が続いており、支援がなければ状況の好転が望みにくいため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "両方",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 19,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "そうだったのですね。小学生のお子さんですと、元気いっぱいで家の中を走り回ってしまうこともありますよね。親御さんとしては、なかなか止められない場面もあるかと思います。\n\nお隣の夜の物音が気になる一方で、「下の子が家の中で走ることがあります」というご自身の家の音が、お隣に迷惑をかけているのではないか、というお気持ちもお持ちなのですね。だからこそ、挨拶が返ってこないことに対して、より不安を感じてしまうのかもしれません。\n\nもしかして、「うちの音が原因で、お隣の態度が変わってしまったのかもしれない」というようなご不安があったりしますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家の夜10時頃の物音が気になり、挨拶も返されず、自治会にも行きにくい。夫は取り合ってくれず、家にいても落ち着かない。隣は年配夫婦で、自宅には中学生と小学生の子どもがおり、「下の子が家の中で走ることがあります」。",
+      "day_heavy": "隣家への騒音の加害者かもしれないという不安と、隣家の物音に悩む被害者意識との間で板挟みになり、家庭内でも孤立し、安らげる場所がないこと。",
+      "day_next": "相談者が感じている「自分たちの家の音が原因かもしれない」という不安の具体的な中身と、それがお隣との関係にどう影響していると感じているか。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1348,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.001011",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1354,
+       "total_price": "0.0010335",
+       "currency": "USD",
+       "latency": 0.979433432999997,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:47:19.607509+09:00",
+   "elapsed": 21.3,
+   "created_at": 1790131640,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 11
+  },
+  {
+   "query": "一度、壁を叩かれたことがあります。",
+   "answer": "それは…本当に怖い思いをされましたね。「一度、壁を叩かれたことがある」とのこと、突然のことでどれほど驚き、心臓が縮むような気持ちになられたかとお察しします。\n\nお子さんの足音を気にされている中で、実際にそのような威嚇ともとれる行為があったのですね。だからこそ、挨拶が返ってこないことや夜の物音に対しても、「また何か怒らせてしまったのではないか」と常に気を張り詰めて生活していらっしゃるのかもしれません。\n\nもしお差し支えなければ、その壁を叩かれたのは、いつ頃のことだったか教えていただけますか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131663",
+      "jst_text": "9月23日（水）11時47分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 12,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23448,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.017586",
+       "completion_tokens": 170,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006375",
+       "total_tokens": 23618,
+       "total_price": "0.0182235",
+       "currency": "USD",
+       "latency": 2.0736406229998465,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣問題による精神的ストレスや不安を抱える中、配偶者からの理解やサポートが得られず、地域生活でも孤立しており支援がなければ状況改善が見込めないため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 18,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "それは…本当に怖い思いをされましたね。「一度、壁を叩かれたことがある」とのこと、突然のことでどれほど驚き、心臓が縮むような気持ちになられたかとお察しします。\n\nお子さんの足音を気にされている中で、実際にそのような威嚇ともとれる行為があったのですね。だからこそ、挨拶が返ってこないことや夜の物音に対しても、「また何か怒らせてしまったのではないか」と常に気を張り詰めて生活していらっしゃるのかもしれません。\n\nもしお差し支えなければ、その壁を叩かれたのは、いつ頃のことだったか教えていただけますか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1169,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008768",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1175,
+       "total_price": "0.0008993",
+       "currency": "USD",
+       "latency": 1.180309588,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:47:41.915652+09:00",
+   "elapsed": 19.6,
+   "created_at": 1790131663,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 12
+  },
+  {
+   "query": "そのあと防音マットを敷きました。",
+   "answer": "壁を叩かれるという怖い出来事があった後、すぐにご自身でできることを考えて「防音マットを敷」かれたのですね。これ以上関係が悪化しないようにと、ご自身なりに精一杯の対応をされたのだとお察しします。\n\nご自宅の音が原因かもしれないと考え、対策を取られたにもかかわらず、挨拶が返ってこないなど、お隣の態度は変わらないままなのですね。ご自身でできることをしても状況が良くならないと、どうしていいか分からなくなってしまいますよね。\n\n防音マットを敷かれてから、お隣の夜の物音や、壁を叩かれるようなことはありましたか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131686",
+      "jst_text": "9月23日（水）11時48分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 13,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23592,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.017694",
+       "completion_tokens": 173,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006488",
+       "total_tokens": 23765,
+       "total_price": "0.0183428",
+       "currency": "USD",
+       "latency": 1.9977309590000232,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブルによる精神的ストレスや不安を抱えており、夫の理解も得られず自宅で落ち着けない孤立状態にあるため、外部からの適切な支援がないと状況の好転が難しい。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 17,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "壁を叩かれるという怖い出来事があった後、すぐにご自身でできることを考えて「防音マットを敷」かれたのですね。これ以上関係が悪化しないようにと、ご自身なりに精一杯の対応をされたのだとお察しします。\n\nご自宅の音が原因かもしれないと考え、対策を取られたにもかかわらず、挨拶が返ってこないなど、お隣の態度は変わらないままなのですね。ご自身でできることをしても状況が良くならないと、どうしていいか分からなくなってしまいますよね。\n\n防音マットを敷かれてから、お隣の夜の物音や、壁を叩かれるようなことはありましたか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家の年配夫婦との騒音トラブルに悩んでいる。挨拶をしても返されず、夜10時頃の物音が気になる。夫は取り合ってくれず、家にいても落ち着かない。以前、壁を叩かれたことがあり、対策として防音マットを敷いた。",
+      "day_heavy": "壁を叩かれるという恐怖体験があり、対策を講じても状況が改善しない無力感。夫の無理解もあり、自宅が安らげる場所でなくなっている孤立感。",
+      "day_next": "防音マットを敷いた後の隣人の反応や、ご自身の気持ちの変化。そして、この状況をどうしていきたいと考えているか。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1344,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.001008",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1350,
+       "total_price": "0.0010305",
+       "currency": "USD",
+       "latency": 2.4620424170000206,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:48:02.518273+09:00",
+   "elapsed": 33.9,
+   "created_at": 1790131685,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 13
+  },
+  {
+   "query": "でも音が減ったかどうかは分かりません。",
+   "answer": "そうですよね。ご自身でできる限りの対策として「防音マットを敷」かれたのに、実際に「音が減ったかどうかは分かりません」というのは、本当に心細い気持ちになりますよね。自分の努力が報われているのかも分からず、不安な気持ちだけが続いてしまうのは、とてもおつらいことだと思います。\n\n対策をしてもお隣の反応が変わらないと、この先どうすれば良いのか、途方に暮れてしまいますよね。\n\n壁を叩かれた恐怖、挨拶が返ってこない気まずさ、ご主人に分かってもらえない孤独感など、たくさんのつらさを抱えていらっしゃると思いますが、今、一番「これがしんどい」と感じることは何でしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131718",
+      "jst_text": "9月23日（水）11時48分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 14,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23746,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0178095",
+       "completion_tokens": 204,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.000765",
+       "total_tokens": 23950,
+       "total_price": "0.0185745",
+       "currency": "USD",
+       "latency": 2.5384365330000946,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "隣人から過去に壁を叩かれるなどの威嚇行為を受け、防音対策を講じたものの関係改善や音の問題が解消せず、近隣住民との関係遮断（挨拶が返ってこない、自治会に行きづらい）や夫の無理解により家庭内・地域で孤立した状態で精神的に追い詰められているため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 16,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "そうですよね。ご自身でできる限りの対策として「防音マットを敷」かれたのに、実際に「音が減ったかどうかは分かりません」というのは、本当に心細い気持ちになりますよね。自分の努力が報われているのかも分からず、不安な気持ちだけが続いてしまうのは、とてもおつらいことだと思います。\n\n対策をしてもお隣の反応が変わらないと、この先どうすれば良いのか、途方に暮れてしまいますよね。\n\n壁を叩かれた恐怖、挨拶が返ってこない気まずさ、ご主人に分かってもらえない孤独感など、たくさんのつらさを抱えていらっしゃると思いますが、今、一番「これがしんどい」と感じることは何でしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1190,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008925",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1196,
+       "total_price": "0.000915",
+       "currency": "USD",
+       "latency": 1.523204150999959,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:48:37.462220+09:00",
+   "elapsed": 21.9,
+   "created_at": 1790131718,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 14
+  },
+  {
+   "query": "回覧板は前より遅く回ってくる気がします。",
+   "answer": "回覧板のことまで気になるようになってしまったのですね。お隣とのことだけでなく、ご近所全体から避けられているように感じてしまうのは、とてもつらく、寂しい気持ちになりますよね。「前より遅く回ってくる気がする」という、確信が持てないことだからこそ、かえって不安が募ってしまうのかもしれません。\n\n壁を叩かれた恐怖や、挨拶が返ってこない気まずさから、今ではご近所付き合いの些細なことまで「自分が悪く思われているのではないか」と、常に周りの目を意識して過ごしていらっしゃるのですね。\n\nお隣とのこと、ご主人のこと、そしてご近所付き合いのこと。たくさんの不安を抱えていらっしゃる中で、もし一つだけ願いが叶うとしたら、今、どのようになってほしいと一番強く思いますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131741",
+      "jst_text": "9月23日（水）11時49分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 15,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23913,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0179348",
+       "completion_tokens": 190,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0007125",
+       "total_tokens": 24103,
+       "total_price": "0.0186473",
+       "currency": "USD",
+       "latency": 2.44097888899978,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブル（壁を叩かれた過去等）や家庭内での孤立（夫が取り合わない）に加え、近所付き合いや自治会からの孤立感が深まっており、家庭外・地域での支えがなく自力での改善が見込めない状態であるため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的な孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 15,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "回覧板のことまで気になるようになってしまったのですね。お隣とのことだけでなく、ご近所全体から避けられているように感じてしまうのは、とてもつらく、寂しい気持ちになりますよね。「前より遅く回ってくる気がする」という、確信が持てないことだからこそ、かえって不安が募ってしまうのかもしれません。\n\n壁を叩かれた恐怖や、挨拶が返ってこない気まずさから、今ではご近所付き合いの些細なことまで「自分が悪く思われているのではないか」と、常に周りの目を意識して過ごしていらっしゃるのですね。\n\nお隣とのこと、ご主人のこと、そしてご近所付き合いのこと。たくさんの不安を抱えていらっしゃる中で、もし一つだけ願いが叶うとしたら、今、どのようになってほしいと一番強く思いますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1215,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009113",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1221,
+       "total_price": "0.0009338",
+       "currency": "USD",
+       "latency": 1.5399229879999439,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:49:00.375094+09:00",
+   "elapsed": 19.9,
+   "created_at": 1790131741,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 15
+  },
+  {
+   "query": "町内の掃除の日も気が重いです。",
+   "answer": "町内の掃除など、ご近所の方と顔を合わせなければならない行事が、今はとても大きな負担になっているのですね。「町内の掃除の日も気が重い」とのこと、その日が近づくたびに、ゆううつな気持ちになってしまうお気持ち、お察しします。\n\nお隣の家から壁を叩かれたり、挨拶が返ってこなかったりした経験から、今では「回覧板」のことや「町内の掃除」といった地域での関わりそのものに、強い不安や孤立感を感じていらっしゃるのですね。\n\n「気が重い」と感じる町内の掃除の日、具体的にどのようなことが起こるのではないかと不安に感じられますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131766",
+      "jst_text": "9月23日（水）11時49分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 16,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 24101,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0180758",
+       "completion_tokens": 149,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0005588",
+       "total_tokens": 24250,
+       "total_price": "0.0186346",
+       "currency": "USD",
+       "latency": 2.300758385999984,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣住民からの威嚇（壁を叩かれる）や挨拶の不成立により地域で孤立し、夫にも理解されず自宅でも休まらない状態が続いており、支援がなければ状況の好転が望めないため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 14,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "町内の掃除など、ご近所の方と顔を合わせなければならない行事が、今はとても大きな負担になっているのですね。「町内の掃除の日も気が重い」とのこと、その日が近づくたびに、ゆううつな気持ちになってしまうお気持ち、お察しします。\n\nお隣の家から壁を叩かれたり、挨拶が返ってこなかったりした経験から、今では「回覧板」のことや「町内の掃除」といった地域での関わりそのものに、強い不安や孤立感を感じていらっしゃるのですね。\n\n「気が重い」と感じる町内の掃除の日、具体的にどのようなことが起こるのではないかと不安に感じられますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家との音の問題で常に気を張っている。挨拶をしても返されず、壁を叩かれたこともある。夫は取り合ってくれず、家にいても落ち着かない。回覧板が遅れたり、町内清掃が憂鬱だったりと、地域での孤立感も深まっている。",
+      "day_heavy": "隣人からの威嚇行為（壁を叩く）をきっかけに、地域全体から孤立しているのではないかという恐怖を抱き、夫にも理解されず、自宅が安らげる場所でなくなっていること。",
+      "day_next": "地域活動で具体的に何を恐れているのかを伺い、孤立感の背景にある感情を整理する。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1354,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0010155",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1360,
+       "total_price": "0.001038",
+       "currency": "USD",
+       "latency": 1.259329254000022,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:49:21.283970+09:00",
+   "elapsed": 34.2,
+   "created_at": 1790131765,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 16
+  },
+  {
+   "query": "スーパーで会っても目をそらされます。",
+   "answer": "スーパーで会っても「目をそらされます」とのこと、日常の買い物という予期せぬ場所でまでそのような態度を取られると、本当に心がえぐられるような気持ちになりますよね。偶然会った場所でまで避けられていると感じるのは、とてもおつらいことだと思います。\n\nお隣の家から「壁を叩かれた」ことをきっかけに、挨拶が返ってこないことや、回覧板、町内清掃、そしてスーパーで会った時の態度など、地域での様々な場面で孤立感を深めていらっしゃるのですね。その上、ご主人にも気持ちを分かってもらえず、ご自宅でも心が休まらない状況が続いているとお見受けしました。\n\nこれまでお話しいただいたこと全体を振り返ってみて、今のこの状況の中で、何が一番つらいと感じていらっしゃいますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131799",
+      "jst_text": "9月23日（水）11時49分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 17,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 24261,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0181958",
+       "completion_tokens": 175,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006563",
+       "total_tokens": 24436,
+       "total_price": "0.0188521",
+       "currency": "USD",
+       "latency": 2.100697904000299,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "隣人との騒音トラブルや壁を叩かれた過去の経験から地域社会や近隣住民から孤立し、夫からの支援や理解も得られず自宅でも落ち着けない孤立状態が続いている。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 13,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "スーパーで会っても「目をそらされます」とのこと、日常の買い物という予期せぬ場所でまでそのような態度を取られると、本当に心がえぐられるような気持ちになりますよね。偶然会った場所でまで避けられていると感じるのは、とてもおつらいことだと思います。\n\nお隣の家から「壁を叩かれた」ことをきっかけに、挨拶が返ってこないことや、回覧板、町内清掃、そしてスーパーで会った時の態度など、地域での様々な場面で孤立感を深めていらっしゃるのですね。その上、ご主人にも気持ちを分かってもらえず、ご自宅でも心が休まらない状況が続いているとお見受けしました。\n\nこれまでお話しいただいたこと全体を振り返ってみて、今のこの状況の中で、何が一番つらいと感じていらっしゃいますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家との騒音トラブルをきっかけに、挨拶を返されなくなったり、壁を叩かれたりした。その後、回覧板が遅い、スーパーで目をそらされるなど、地域から孤立していると感じている。夫は取り合ってくれず、家にいても落ち着かない。",
+      "day_heavy": "隣人とのトラブルから地域社会全体に孤立感を抱き、夫の理解も得られず、自宅が安心できる場所でなくなっていること。",
+      "day_next": "相談者がこの状況全体の中で、最もつらいと感じていることは何かを一緒に確認し、気持ちを整理していくこと。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1368,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.001026",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1374,
+       "total_price": "0.0010485",
+       "currency": "USD",
+       "latency": 1.2198862840000402,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:49:56.530162+09:00",
+   "elapsed": 25.1,
+   "created_at": 1790131798,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 17
+  },
+  {
+   "query": "夫は仕事が忙しくて帰りが遅いです。",
+   "answer": "お仕事が忙しくて、ご主人のご帰宅が遅いのですね。日中、お一人で近隣との緊張関係に向き合わなければならない状況は、本当に心細いことと思います。頼りたいときに頼れる相手がそばにいないというのも、おつらいですよね。\n\nこれまでお話を伺ってきて、お隣の家から「壁を叩かれた」という怖い経験をされてから、挨拶を返してもらえなかったり、スーパーで目をそらされたりと、地域の中で孤立しているように感じていらっしゃることが伝わってきました。\n\nその上、頼りにしたいご主人はお仕事が忙しく、この不安な気持ちを分かち合える方がいない。その結果、ご自宅も地域も安心できる場所ではなくなってしまった、という状況のようにお見受けしました。\n\n私がこのように受け取ったのですが、ずれているところはありますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131826",
+      "jst_text": "9月23日（水）11時50分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 18,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 24452,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.018339",
+       "completion_tokens": 171,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006413",
+       "total_tokens": 24623,
+       "total_price": "0.0189803",
+       "currency": "USD",
+       "latency": 2.7152432919999683,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブル（壁を叩かれた過去、挨拶拒否など）による強い不安と孤立感があり、夫からの理解や頼れる支援者が不在で家庭内でも孤立しているため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 12,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お仕事が忙しくて、ご主人のご帰宅が遅いのですね。日中、お一人で近隣との緊張関係に向き合わなければならない状況は、本当に心細いことと思います。頼りたいときに頼れる相手がそばにいないというのも、おつらいですよね。\n\nこれまでお話を伺ってきて、お隣の家から「壁を叩かれた」という怖い経験をされてから、挨拶を返してもらえなかったり、スーパーで目をそらされたりと、地域の中で孤立しているように感じていらっしゃることが伝わってきました。\n\nその上、頼りにしたいご主人はお仕事が忙しく、この不安な気持ちを分かち合える方がいない。その結果、ご自宅も地域も安心できる場所ではなくなってしまった、という状況のようにお見受けしました。\n\n私がこのように受け取ったのですが、ずれているところはありますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家とのトラブル（壁を叩かれた、挨拶無視、夜の物音）から、地域での孤立感（自治会、回覧板、スーパーで避けられる）を深めている。夫は仕事が忙しく、相談しても取り合ってもらえず、家にいても落ち着かない。",
+      "day_heavy": "隣家とのトラブルを発端に、地域全体から孤立していると感じ、家庭内でも理解を得られず、心安らぐ場所がどこにもないこと。",
+      "day_next": "これまでの状況整理がご本人の感覚と合っているかを確認し、一番重く感じていることについて深掘りしていく。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1387,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0010403",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1393,
+       "total_price": "0.0010628",
+       "currency": "USD",
+       "latency": 1.2588373380000348,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:50:22.669949+09:00",
+   "elapsed": 28.4,
+   "created_at": 1790131825,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 18
+  },
+  {
+   "query": "近いです。",
+   "answer": "お気持ちを教えてくださり、ありがとうございます。お話しいただいたことが、あなたの感じていらっしゃることと近いと伺えて、少し安心しました。\n\nたくさんのおつらいことがある中で、私が一番重いと感じたのは、お隣とのトラブルそのものよりも、その恐怖や不安を一番身近な「夫」に分かってもらえず、家も地域も安心できる場所ではなくなり、たった一人でこの問題を抱えなければならないという「孤独感」なのではないか、ということです。\n\nこの受け取り方について、ご自身ではどのように感じられますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131853",
+      "jst_text": "9月23日（水）11時50分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 19,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 24650,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0184875",
+       "completion_tokens": 171,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006413",
+       "total_tokens": 24821,
+       "total_price": "0.0191288",
+       "currency": "USD",
+       "latency": 2.046510335999983,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブル（壁を叩かれた過去等）や孤立感から強いストレスを抱え、唯一の同居家族である夫からも理解や協力を得られず孤独な状況にあるため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "整理"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "整理",
+      "closing_reason": "",
+      "left": 11,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お気持ちを教えてくださり、ありがとうございます。お話しいただいたことが、あなたの感じていらっしゃることと近いと伺えて、少し安心しました。\n\nたくさんのおつらいことがある中で、私が一番重いと感じたのは、お隣とのトラブルそのものよりも、その恐怖や不安を一番身近な「夫」に分かってもらえず、家も地域も安心できる場所ではなくなり、たった一人でこの問題を抱えなければならないという「孤独感」なのではないか、ということです。\n\nこの受け取り方について、ご自身ではどのように感じられますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1161,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008708",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1167,
+       "total_price": "0.0008933",
+       "currency": "USD",
+       "latency": 1.0223906520000128,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:50:52.066456+09:00",
+   "elapsed": 21.7,
+   "created_at": 1790131852,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 19
+  },
+  {
+   "query": "夫は「気にしすぎだ」と言います。",
+   "answer": "「気にしすぎだ」とご主人に言われてしまうのですね。\n壁を叩かれるという怖い思いをされたのに、その恐怖や不安まで否定されたように感じて、本当に苦しいですよね。誰にも分かってもらえない中で、たった一人で耐え続けていらっしゃるのですね。\n\nこれは私の推測なので、ちがっていたら教えてほしいのですが、お隣からの壁を叩かれるといった行為と、一番分かってほしいご主人からの「気にしすぎだ」という言葉、その両方から板挟みになっているように感じます。\n\nもしかすると、「子どもの音がうるさいから、私が悪いんだ」「私が我慢すれば丸く収まるんだ」というように、ご自身を責める気持ちをずっと抱えていらっしゃるのではないでしょうか。\n\n（今日お話しできる量が、残りわずかになりました。区切ったあとも、日付が変われば続きをお話しできます。）",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131876",
+      "jst_text": "9月23日（水）11時51分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "整理",
+      "session_turns": 20,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 24786,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0185895",
+       "completion_tokens": 186,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006975",
+       "total_tokens": 24972,
+       "total_price": "0.019287",
+       "currency": "USD",
+       "latency": 3.482799555999918,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブル（壁を叩かれる等の威嚇）により地域や家庭で孤立し心が休まらない状態であり、夫や周囲に相談できず適切な支援や理解が得られていないため、外部からの手助けがなければ状況の改善が見込めないため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "整理"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "整理",
+      "closing_reason": "",
+      "left": 10,
+      "near": "true"
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "「気にしすぎだ」とご主人に言われてしまうのですね。\n壁を叩かれるという怖い思いをされたのに、その恐怖や不安まで否定されたように感じて、本当に苦しいですよね。誰にも分かってもらえない中で、たった一人で耐え続けていらっしゃるのですね。\n\nこれは私の推測なので、ちがっていたら教えてほしいのですが、お隣からの壁を叩かれるといった行為と、一番分かってほしいご主人からの「気にしすぎだ」という言葉、その両方から板挟みになっているように感じます。\n\nもしかすると、「子どもの音がうるさいから、私が悪いんだ」「私が我慢すれば丸く収まるんだ」というように、ご自身を責める気持ちをずっと抱えていらっしゃるのではないでしょうか。\n\n（今日お話しできる量が、残りわずかになりました。区切ったあとも、日付が変われば続きをお話しできます。）",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家の年配夫婦との騒音トラブルがあり、壁を叩かれた経験から恐怖を感じている。挨拶を返されない、スーパーで避けられるなど地域で孤立感を深めている。夫に相談しても「気にしすぎだ」と取り合ってもらえず、家にいても落ち着かない。",
+      "day_heavy": "隣人とのトラブルに加え、夫に理解されず家庭内でも孤立し、心安らぐ場所がないという孤独感。",
+      "day_next": "相談者が自分自身を責め続けているのではないかという見立てについて、ご本人がどう感じるか。",
+      "turn_notice": "残りわずかのお知らせ"
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1348,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.001011",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1354,
+       "total_price": "0.0010335",
+       "currency": "USD",
+       "latency": 1.5377082679999603,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:51:14.797213+09:00",
+   "elapsed": 27.4,
+   "created_at": 1790131875,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 20
+  },
+  {
+   "query": "実家の母には少しだけ話しました。",
+   "answer": "ご主人に分かってもらえないつらい状況のなかで、お母さまには「少しだけ話」すことができたのですね。誰にも言えずに一人で抱え込んでいるのではないかと心配していましたので、お母さまというお話し相手がいらっしゃったことを知って、少しだけ安心しました。\n\n勇気を出して、誰かに伝えようとされたのですね。\n\nお母さまにお話しされてみて、お気持ちは少し楽になりましたか？それとも、まだ話し足りないと感じていらっしゃいますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131905",
+      "jst_text": "9月23日（水）11時51分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "整理",
+      "session_turns": 21,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 24874,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0186555",
+       "completion_tokens": 200,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.00075",
+       "total_tokens": 25074,
+       "total_price": "0.0194055",
+       "currency": "USD",
+       "latency": 2.173082714999964,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブル（壁を叩かれるなど）により自宅や地域で孤立感・恐怖を感じており、夫の理解も得られず家にいても落ち着かない状況が続いている。実家の母親に少し話した程度で十分な支援につ summer/つながっておらず、第三者の支援がなければ状況の好転が難しい。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 9,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "ご主人に分かってもらえないつらい状況のなかで、お母さまには「少しだけ話」すことができたのですね。誰にも言えずに一人で抱え込んでいるのではないかと心配していましたので、お母さまというお話し相手がいらっしゃったことを知って、少しだけ安心しました。\n\n勇気を出して、誰かに伝えようとされたのですね。\n\nお母さまにお話しされてみて、お気持ちは少し楽になりましたか？それとも、まだ話し足りないと感じていらっしゃいますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "近隣トラブル（壁を叩かれる、挨拶を無視される等）があり、夫に「気にしすぎだ」と取り合ってもらえず、家にいても落ち着かない。地域でも孤立感を感じている。実家の母親に少しだけ話した。",
+      "day_heavy": "近隣からの行為への恐怖と、夫に理解されない孤独感から、家も地域も安心できる場所ではなくなり、一人で問題を抱え込んでいること。",
+      "day_next": "母親への相談がどのような支えになっているか、あるいはなっていないかを確認し、相談者が本当に必要としている支援は何かを一緒に考える。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1304,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.000978",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1310,
+       "total_price": "0.0010005",
+       "currency": "USD",
+       "latency": 0.9956151870001122,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:51:43.177671+09:00",
+   "elapsed": 19.4,
+   "created_at": 1790131905,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 21
+  },
+  {
+   "query": "母は「引っ越せば」と言いました。",
+   "answer": "お母さまに勇気を出してお話しされたのに、「引っ越せば」と言われてしまったのですね。\n引っ越しは、お子さんの学校のことやお金のことなど、考えなければならないことがたくさんあって、決して簡単なことではありませんよね。そんな状況を分かってもらえず、一言で片付けられてしまったように感じて、とても寂しく、がっかりされたのではないでしょうか。\n\nご主人は「気にしすぎだ」とおっしゃり、お母さまは「引っ越せば」とおっしゃる。どちらも、今ここであなたが感じている恐怖や孤立感に、心から寄り添ってくれる言葉ではなかったのかもしれません。一番分かってほしい身近な人にさえ本当のつらさが伝わらないという状況は、本当に孤独で、おつらいことと思います。\n\n「引っ越す」という選択肢もありますが、あなたご自身は、これからどうなっていきたいと望んでいらっしゃいますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131924",
+      "jst_text": "9月23日（水）11時52分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 22,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 24929,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0186968",
+       "completion_tokens": 184,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.00069",
+       "total_tokens": 25113,
+       "total_price": "0.0193868",
+       "currency": "USD",
+       "latency": 2.1825455379999994,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブル（壁を叩かれる等の威嚇・挨拶の無視・地域での孤立感）や夫からの不理解により自宅でも心が休まらない状態が続いており、外部の支援や調整がなければ状況の好転が見込めないため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 8,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お母さまに勇気を出してお話しされたのに、「引っ越せば」と言われてしまったのですね。\n引っ越しは、お子さんの学校のことやお金のことなど、考えなければならないことがたくさんあって、決して簡単なことではありませんよね。そんな状況を分かってもらえず、一言で片付けられてしまったように感じて、とても寂しく、がっかりされたのではないでしょうか。\n\nご主人は「気にしすぎだ」とおっしゃり、お母さまは「引っ越せば」とおっしゃる。どちらも、今ここであなたが感じている恐怖や孤立感に、心から寄り添ってくれる言葉ではなかったのかもしれません。一番分かってほしい身近な人にさえ本当のつらさが伝わらないという状況は、本当に孤独で、おつらいことと思います。\n\n「引っ越す」という選択肢もありますが、あなたご自身は、これからどうなっていきたいと望んでいらっしゃいますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1237,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009278",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1243,
+       "total_price": "0.0009503",
+       "currency": "USD",
+       "latency": 1.0555209319999221,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:52:03.621065+09:00",
+   "elapsed": 20.3,
+   "created_at": 1790131924,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 22
+  },
+  {
+   "query": "でも子どもの学校のことがあります。",
+   "answer": "そうですよね。お子さんの学校のことを考えると、「引っ越せばいい」と簡単に言われても、すぐに決断できることではありませんよね。大切なお子さんの生活環境を変えることへのためらいや、お友達と離ればなれにさせてしまうことへの心苦しさなど、お母さんとしてのお気持ちもおありなのだと思います。\n\nお隣との関係に気を張り、ご主人やお母さまに相談しても本当のつらさを理解してもらえず、かといって「子どもの学校のこと」を考えると簡単に環境を変えることもできない。まるで、どこにも動けない状況で、たった一人で耐え続けていらっしゃるようにお見受けしました。\n\nこれ以上、お一人で抱え込むのはあまりにもおつらい状況だと思います。\nもしよろしければ、こうした近隣トラブルについて相談できる専門の窓口もありますし、当法人の相談員が直接お話を伺い、今後どうしていけるかを一緒に考えることもできます。\n\nまずはお気持ちをお聞かせいただきたいのですが、誰かにこの状況を相談してみたい、というお気持ちはありますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131946",
+      "jst_text": "9月23日（水）11時52分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 23,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 25015,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0187613",
+       "completion_tokens": 172,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.000645",
+       "total_tokens": 25187,
+       "total_price": "0.0194063",
+       "currency": "USD",
+       "latency": 2.179584478999459,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブルによる精神的ストレスを抱える一方、頼れる家族（夫・実母）からの理解や支援が得られず孤立しており、自力での解決が見込めない状況であるため。",
+      "contact_safety_risk": "2",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 7,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "そうですよね。お子さんの学校のことを考えると、「引っ越せばいい」と簡単に言われても、すぐに決断できることではありませんよね。大切なお子さんの生活環境を変えることへのためらいや、お友達と離ればなれにさせてしまうことへの心苦しさなど、お母さんとしてのお気持ちもおありなのだと思います。\n\nお隣との関係に気を張り、ご主人やお母さまに相談しても本当のつらさを理解してもらえず、かといって「子どもの学校のこと」を考えると簡単に環境を変えることもできない。まるで、どこにも動けない状況で、たった一人で耐え続けていらっしゃるようにお見受けしました。\n\nこれ以上、お一人で抱え込むのはあまりにもおつらい状況だと思います。\nもしよろしければ、こうした近隣トラブルについて相談できる専門の窓口もありますし、当法人の相談員が直接お話を伺い、今後どうしていけるかを一緒に考えることもできます。\n\nまずはお気持ちをお聞かせいただきたいのですが、誰かにこの状況を相談してみたい、というお気持ちはありますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣家との騒音トラブルをきっかけに、壁を叩かれたり挨拶を無視されたりしている。夫は「気にしすぎだ」、実母は「引っ越せば」と言うだけで理解が得られず、子どもの学校のこともあり引っ越せない。家にいても落ち着かず孤立している。",
+      "day_heavy": "隣家とのトラブルに加え、一番身近な夫や実母からも理解されず、どこにも安心できる場所がなく、たった一人で問題を抱えなければならないという強い孤独感。",
+      "day_next": "孤立した状況から抜け出すために、外部の支援につながることへの本人の意向。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1426,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0010695",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1432,
+       "total_price": "0.001092",
+       "currency": "USD",
+       "latency": 1.3168135230000644,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:52:24.889230+09:00",
+   "elapsed": 21.9,
+   "created_at": 1790131945,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 23
+  },
+  {
+   "query": "住宅ローンもあと20年あります。",
+   "answer": "住宅ローンがまだ20年も残っているのですね。お子さんの学校のことに加え、経済的な面でも、今の場所を離れることは考えられないという、本当に動けない状況なのですね。「引っ越せば」という簡単な言葉では片付けられない、重い現実を抱えていらっしゃるのだとお察しします。\n\nお隣との恐怖、ご家族からの孤立、そして「子どもの学校」と「住宅ローン」という動かせない現実。四方八方を塞がれたような息苦しさの中で、たったお一人で耐え続けていらっしゃるのですね。\n\nこれだけ多くの問題を抱え、逃げ場もない状況では、どうしたらいいのか分からなくなってしまうのも無理はありません。\n\n前回、専門の窓口や当法人の相談員とお話しすることもできるとお伝えしましたが、改めてお伺いします。こうした八方塞がりの状況について、一度、専門の相談員と直接お話しして、具体的な解決策を一緒に探していくことに関心はありますか？",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790131972",
+      "jst_text": "9月23日（水）11時52分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 24,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 25128,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.018846",
+       "completion_tokens": 192,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.00072",
+       "total_tokens": 25320,
+       "total_price": "0.019566",
+       "currency": "USD",
+       "latency": 2.119906382999943,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "隣人との騒音トラブルや壁を叩かれる等の恐怖に対し、夫や実母から理解を得られず孤立している。さらに住宅ローンの残債や子供の学校の都合から引っ越しもできず、家庭・地域双方で逃げ場のない心理的圧迫が続いている。",
+      "contact_safety_risk": "1",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "提案"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "提案",
+      "closing_reason": "",
+      "left": 6,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "住宅ローンがまだ20年も残っているのですね。お子さんの学校のことに加え、経済的な面でも、今の場所を離れることは考えられないという、本当に動けない状況なのですね。「引っ越せば」という簡単な言葉では片付けられない、重い現実を抱えていらっしゃるのだとお察しします。\n\nお隣との恐怖、ご家族からの孤立、そして「子どもの学校」と「住宅ローン」という動かせない現実。四方八方を塞がれたような息苦しさの中で、たったお一人で耐え続けていらっしゃるのですね。\n\nこれだけ多くの問題を抱え、逃げ場もない状況では、どうしたらいいのか分からなくなってしまうのも無理はありません。\n\n前回、専門の窓口や当法人の相談員とお話しすることもできるとお伝えしましたが、改めてお伺いします。こうした八方塞がりの状況について、一度、専門の相談員と直接お話しして、具体的な解決策を一緒に探していくことに関心はありますか？",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "隣人（年配夫婦）との騒音トラブルで常に気を張っている。壁を叩かれた経験があり怖い。挨拶も返されず、自治会にも行きにくい。夫は「気にしすぎ」と取り合ってくれず、実母には「引っ越せば」と言われたが、子供の学校や20年残っている住宅ローンのため不可能。",
+      "day_heavy": "隣人とのトラブルや壁を叩かれる恐怖に対し、夫や実母から理解を得られず孤立している。さらに住宅ローンや子供の学校の都合から引っ越しもできず、家庭・地域双方で逃げ場のない心理的圧迫が続いていること。",
+      "day_next": "八方塞がりの状況で、誰か専門的な第三者に相談したいという気持ちがあるかどうか。具体的な支援につなぐための意向確認。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1455,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0010913",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1461,
+       "total_price": "0.0011138",
+       "currency": "USD",
+       "latency": 1.0204283789998954,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:52:47.806213+09:00",
+   "elapsed": 30.9,
+   "created_at": 1790131970,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 24
+  },
+  {
+   "query": "最近、玄関を出るときに周りを見るようになりました。",
+   "answer": "玄関のドアを開けるたびに、周りをうかがってしまうのですね。ご自宅が安心できる場所ではなく、外に出る一歩にさえ恐怖や緊張が伴うというのは、本当に息が詰まるような毎日だと思います。心休まる瞬間がほとんどないのではないでしょうか。\n\nこれまでたくさんのお気持ちを話してくださり、ありがとうございました。今日お話しいただいたことを、一度ここで整理させてください。\n\n【ここまで整理できたこと】\n\nお隣の家から「壁を叩かれた」という怖い経験をされてから、挨拶を無視されたり、スーパーで避けられたりすることが続き、地域の中で孤立感を深めていらっしゃるのですね。\n\n一番分かってほしいご主人には「気にしすぎだ」と言われ、お母さまには「引っ越せば」と現実的ではないことを言われ、誰にもこのつらさを理解してもらえない。その上、「子どもの学校のこと」や「住宅ローン」という動かせない現実があり、八方塞がりの状況でたったお一人で耐え続けていらっしゃるのだとお見受けしました。\n\n【次に一緒に見たいこと】\n\n今日はたくさんお話しいただき、ありがとうございました。ここで一度お休みしましょう。\nもし、今夜不安で誰かと話したくなったときのために、24時間つながる窓口を下に載せておきますね。\n\n・#いのちSOS：0120-061-338\n・よりそいホットライン：0120-279-338\n\n次にお話しできるのは、日付が変わってからになります。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23b",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "変数代入（長時間アラートタイムスタンプ）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "コード（その日のまとめの本文組み立て）",
+    "HTTP リクエスト（その日のまとめ登録）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23b",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790132000",
+      "jst_text": "9月23日（水）11時53分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "提案",
+      "session_turns": 25,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "## 【全国の相談窓口一覧】（検証済み・2026年時点）\n\n・[こころ] #いのちSOS　0120-061-338　24時間365日／無料\n・[こころ] よりそいホットライン　0120-279-338／0120-279-226　24時間／無料\n・[こころ] いのちの電話　0120-783-556／0570-783-556　毎日16:00〜21:00 ／ 毎月10日は8:00〜翌8:00（…／通話料あり\n・[こころ] こころの健康相談統一ダイヤル　0570-064-556　都道府県により異なる／通話料あり\n・[子ども] チャイルドライン　0120-99-7777　毎日16:00〜21:00（12月29日〜1月3日は休止）／無料\n・[いじめ・不登校] 24時間子供SOSダイヤル　0120-0-78310　24時間／無料\n・[いじめ・不登校] こどもの人権110番　0120-007-110　平日8:30〜17:15（強化週間は延長）／無料\n・[自死遺族] 全国自死遺族総合支援センター　03-3261-4350　木曜・日曜 12:00〜18:00／通話料あり\n・[消費者被害] 金融サービス利用者相談室（金融庁）　0570-016811　平日10:00〜17:00／通話料あり\n・[就労] こころの耳（働く人のメンタルヘルス）　0120-565-455　平日17:00〜22:00、土日10:00〜16:00（祝日・年末…／無料\n・[法律・人権] 日本司法支援センター（法テラス）　0570-078374　平日9:00〜21:00 ／ 土曜9:00〜17:00／通話料あり\n・[法律・人権] みんなの人権110番（法務省）　0570-003-110　平日8:30〜17:15／通話料あり\n・[法律・人権] 警察相談専用電話　#9110　平日8:30〜17:15（地域により異なる）／通話料あり\n・[法律・人権] 行政相談（総務省）　0570-090110　平日9:00〜16:45／通話料あり\n・[認知症] 認知症の人と家族の会 電話相談　0120-294-456／050-5358-6578　平日10:00〜15:00／無料\n・[認知症] 若年性認知症コールセンター　0800-100-2707　月〜土10:00〜15:00（水曜は10:00〜19:00）／無料\n・[消費者被害] 消費者ホットライン（188）　188　原則毎日（つながる窓口の開設時間は地域により異なる）／通話料あり\n・[消費者被害] 国民生活センター 平日バックアップ相談　03-3446-0999　平日10:00〜16:00／通話料あり\n・[障害] 障害者差別に関する相談窓口「つなぐ窓口」　0120-262-701　公式サイトに受付時間の記載なし／無料\n・[精神保健] みんなねっと相談室　03-5941-6346　水曜10:00〜15:00（12:00〜13:00を除く）／通話料あり\n・[依存症] ギャンブル依存症問題を考える会 相談専用電話　070-4501-9625　公式サイトに受付時間の記載なし／通話料あり\n・[ひきこもり] KHJ全国ひきこもり家族会連合会 相談窓口　03-5944-5250　月・水・金 13:00〜19:00／通話料あり\n・[児童虐待] 児童相談所虐待対応ダイヤル（189）　189　公式ページに受付時間の明記なし（管轄の児童相談所へ接続）／無料\n・[児童虐待] 児童相談所相談専用ダイヤル　0120-189-783　公式ページに受付時間の明記なし／無料\n・[ひとり親] 養育費・親子交流相談支援センター　0120-965-419／03-3980-4108　平日（水曜を除く）10:00〜20:00／水曜12:00〜22:0…／無料\n・[DV・女性支援] DV相談＋（プラス）　0120-279-889　電話24時間365日／チャット12:00〜22:00／メール24時…／無料\n・[DV・女性支援] DV相談ナビ（#8008）　#8008　各配偶者暴力相談支援センターの受付時間内／通話料あり\n・[DV・女性支援] 女性相談支援センター（#8778）　#8778　各都道府県の女性相談支援センターの受付時間／通話料あり\n・[性暴力被害] 性犯罪・性暴力被害者のためのワンストップ支援センター（#8891）　#8891／0120-8891-77　つながる先のセンターにより異なる（24時間対応のセンターもある）／無料\n・[性暴力被害] 性犯罪被害相談電話（#8103）　#8103　各都道府県警察の窓口。土日祝・執務時間外は当直が対応／通話料あり\n・[犯罪被害] 法テラス 犯罪被害者支援ダイヤル　0120-079714　平日9:00〜21:00、土曜9:00〜17:00／無料\n・[犯罪被害] 被害者支援センター 全国共通ナビダイヤル　0570-783-554　毎日7:30〜22:00（12月29日〜1月3日を除く）／通話料あり\n・[外国人] 外国人在留総合インフォメーションセンター　0570-013904／03-5796-7112　平日8:30〜17:15／通話料あり\n・[外国人] 外国語人権相談ダイヤル　0570-090-911　平日9:00〜17:00／通話料あり\n・[LGBTQ] よりそいホットライン 性別や同性愛などに関する相談（ガイダンス4番）　0120-279-338　24時間／無料\n\n",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 25258,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0189435",
+       "completion_tokens": 179,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006713",
+       "total_tokens": 25437,
+       "total_price": "0.0196148",
+       "currency": "USD",
+       "latency": 2.0217637060004563,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "近隣トラブルによる精神的ストレスや孤立感を深めている中で、夫や実母など身近な家族の理解や支援が得られず、住宅ローンや学校の関係で引っ越しもできない八方塞がりの状況にあるため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "提案"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "true",
+      "alerted_at": "1790132000",
+      "closing": "true",
+      "max_safety_risk": 2,
+      "max_support_need": 5,
+      "phase": "終了",
+      "closing_reason": "往復上限",
+      "left": 5,
+      "near": "true"
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "玄関のドアを開けるたびに、周りをうかがってしまうのですね。ご自宅が安心できる場所ではなく、外に出る一歩にさえ恐怖や緊張が伴うというのは、本当に息が詰まるような毎日だと思います。心休まる瞬間がほとんどないのではないでしょうか。\n\nこれまでたくさんのお気持ちを話してくださり、ありがとうございました。今日お話しいただいたことを、一度ここで整理させてください。\n\n【ここまで整理できたこと】\n\nお隣の家から「壁を叩かれた」という怖い経験をされてから、挨拶を無視されたり、スーパーで避けられたりすることが続き、地域の中で孤立感を深めていらっしゃるのですね。\n\n一番分かってほしいご主人には「気にしすぎだ」と言われ、お母さまには「引っ越せば」と現実的ではないことを言われ、誰にもこのつらさを理解してもらえない。その上、「子どもの学校のこと」や「住宅ローン」という動かせない現実があり、八方塞がりの状況でたったお一人で耐え続けていらっしゃるのだとお見受けしました。\n\n【次に一緒に見たいこと】\n\n今日はたくさんお話しいただき、ありがとうございました。ここで一度お休みしましょう。\nもし、今夜不安で誰かと話したくなったときのために、24時間つながる窓口を下に載せておきますね。\n\n・#いのちSOS：0120-061-338\n・よりそいホットライン：0120-279-338\n\n次にお話しできるのは、日付が変わってからになります。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "提案1段落を削除",
+      "day_today": "隣家との騒音トラブルをきっかけに壁を叩かれ、挨拶を無視されるなど地域で孤立。夫や実母に相談しても「気にしすぎ」「引っ越せば」と理解を得られない。住宅ローンや子どもの学校の問題で引っ越しもできず、外出時に周囲を警戒するようになった。",
+      "day_heavy": "近隣トラブルの恐怖に加え、家族にも理解されず、経済的・環境的にも身動きが取れない八方塞がりの状況で、心安らぐ場所がなく、たった一人で耐えなければならない孤立感。",
+      "day_next": "専門の相談員につなぎ、具体的な状況整理と対応策（第三者の介入の可能性など）を一緒に考え、孤立した状況から抜け出すための具体的な一歩を見つけること。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（その日のまとめの本文組み立て）",
+     "outputs": {
+      "fields": "\"conversationId\": \"e216e40c-f0a5-435e-9d77-74cdfdc240b0\", \"dialogueCount\": \"25\", \"stage\": \"chat\", \"summary\": \"隣家との騒音トラブルをきっかけに壁を叩かれ、挨拶を無視されるなど地域で孤立。夫や実母に相談しても「気にしすぎ」「引っ越せば」と理解を得られない。住宅ローンや子どもの学校の問題で引っ越しもできず、外出時に周囲を警戒するようになった。／いちばん重いこと：近隣トラブルの恐怖に加え、家族にも理解されず、経済的・環境的にも身動きが取れない八方塞がりの状況で、心安らぐ場所がなく、たった一人で耐えなければならない孤立感。\", \"nextAction\": \"専門の相談員につなぎ、具体的な状況整理と対応策（第三者の介入の可能性など）を一緒に考え、孤立した状況から抜け出すための具体的な一歩を見つけること。\", \"supportNeed\": \"5\", \"addendumText\": \"【その日のまとめ】区切りの理由：往復上限／やり取り25往復／支援必要度の最高値5／連絡の危険度2\\n今日話されたこと：隣家との騒音トラブルをきっかけに壁を叩かれ、挨拶を無視されるなど地域で孤立。夫や実母に相談しても「気にしすぎ」「引っ越せば」と理解を得られない。住宅ローンや子どもの学校の問題で引っ越しもできず、外出時に周囲を警戒するようになった。\\nいちばん重いこと：近隣トラブルの恐怖に加え、家族にも理解されず、経済的・環境的にも身動きが取れない八方塞がりの状況で、心安らぐ場所がなく、たった一人で耐えなければならない孤立感。\\n次に一緒に見たいこと：専門の相談員につなぎ、具体的な状況整理と対応策（第三者の介入の可能性など）を一緒に考え、孤立した状況から抜け出すための具体的な一歩を見つけること。\"",
+      "day_text": "【その日のまとめ】区切りの理由：往復上限／やり取り25往復／支援必要度の最高値5／連絡の危険度2\n今日話されたこと：隣家との騒音トラブルをきっかけに壁を叩かれ、挨拶を無視されるなど地域で孤立。夫や実母に相談しても「気にしすぎ」「引っ越せば」と理解を得られない。住宅ローンや子どもの学校の問題で引っ越しもできず、外出時に周囲を警戒するようになった。\nいちばん重いこと：近隣トラブルの恐怖に加え、家族にも理解されず、経済的・環境的にも身動きが取れない八方塞がりの状況で、心安らぐ場所がなく、たった一人で耐えなければならない孤立感。\n次に一緒に見たいこと：専門の相談員につなぎ、具体的な状況整理と対応策（第三者の介入の可能性など）を一緒に考え、孤立した状況から抜け出すための具体的な一歩を見つけること。"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1635,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0012263",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1641,
+       "total_price": "0.0012488",
+       "currency": "USD",
+       "latency": 1.1994239240000297,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T11:53:19.712390+09:00",
+   "elapsed": 22.4,
+   "created_at": 1790132000,
+   "conversation_id": "e216e40c-f0a5-435e-9d77-74cdfdc240b0",
+   "error": null,
+   "turn": 25
+  }
+ ]
+}
