@@ -23,7 +23,7 @@ name=sys.argv[1]
 if name=="N5":
     user="t-51-N5c"; MAXT=27; ASK={22,24}; LAST=None
 elif name=="P":
-    user="t-51-P"; MAXT=31; ASK=set(); LAST=31
+    user="t-51-Pb"; MAXT=31; ASK=set(); LAST=31
 elif name=="Q":
     user="t-51-Q"; MAXT=9; ASK=set(); LAST=None
 else: raise SystemExit("N5 / P / Q のどれかを指定してください")
