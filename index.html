@@ -5,24 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>てとて 相談フォーム</title>
-
+ 
 <!--
   ==========================================================
   【このファイルについて】
   LINEの中で開く「入口フォーム（①）」の実際に動くコードです。
   以下2点を準備できたら、下の LIFF_ID の部分を書き換えてください。
-
+ 
   1. LINE Developersコンソールで、このLINE公式アカウントに対応する
      チャネルに「LIFF」を追加し、LIFF IDを発行する
      （エンドポイントURLには、このファイルを公開した後のURLを設定）
   2. このHTMLファイルをどこかにホスティングし、そのURLを1のエンドポイントURLに設定する
      （GitHub PagesやGoogle Apps ScriptのWebアプリ公開など、無料の方法で可能）
-
+ 
   準備ができたら、下の "YOUR_LIFF_ID" を実際のLIFF IDに書き換えてください。
   ==========================================================
 -->
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-
+ 
 <style>
   body { font-family: -apple-system, "Hiragino Kaku Gothic ProN", sans-serif; background: #f5f5f0; margin: 0; padding: 0; }
   .screen { max-width: 480px; margin: 0 auto; min-height: 100vh; background: #fafafa; }
@@ -47,26 +47,34 @@
     padding: 14px; font-size: 12px; color: #6b4e00; line-height: 1.7;
   }
   .notice-box .notice-title { font-weight: 700; margin: 0 0 6px; }
+  .notice-box ul { margin: 0 0 10px; padding-left: 1.1em; }
+  .notice-box li { margin: 0 0 6px; }
+  .notice-box p.sub { margin: 0; padding-top: 8px; border-top: 1px solid #f0d9a0; }
 </style>
 </head>
 <body>
-
+ 
 <div class="screen">
   <div class="header">てとて 相談フォーム</div>
-
+ 
   <div class="notice-box">
     <p class="notice-title">ご相談を始める前に</p>
-    このチャットでの回答作成には、外部の生成AIサービスを利用しています。現在の設定では、入力いただいた内容がAIの学習に使われることはありませんが、外部のシステムに送信される仕組みであることに変わりはありません。安全にご利用いただくため、この後のチャットの中では、お名前・ご住所・電話番号など、個人を特定できる情報は一切入力しないでください。
-    また、申し訳ありませんがメッセージ数に制限があります。繰り返しの内容になったり、長期的なやり取りになった場合は相談を一度区切らせていただく場合がありますのでご了承ください。
+    <ul>
+      <li>このチャットでは、はじめにAIがお話をうかがいます。内容を整理したうえで、必要なときは当法人の相談員がお受けします。</li>
+      <li>1日にお話しできるやり取りの<b>回数や文字の量</b>には上限があります。上限に近づいたら、こちらからお知らせします。続きは日付が変わってからお話しできます。</li>
+      <li>いただいたご相談は、記録として残ります。記録は当法人の担当者だけが見ます。</li>
+      <li>お急ぎのときや、いのちに関わるときは、110番・119番、または24時間つながる電話相談をご利用ください。</li>
+    </ul>
+    <p class="sub">回答の作成には、外部の生成AIサービスを利用しています。現在の設定では、入力いただいた内容がAIの学習に使われることはありませんが、外部のシステムに送信される仕組みであることに変わりはありません。<b>チャットの中では、お名前・ご住所・電話番号など、個人を特定できる情報は入力しないでください。</b></p>
   </div>
-
+ 
   <div id="form-area" class="formbody">
-
+ 
     <div class="field">
       <p class="label">お名前（ニックネーム可）＊</p>
       <input type="text" maxlength="20" id="user_name" placeholder="相談者" value="相談者" required>
     </div>
-
+ 
     <div class="field">
       <p class="label">ご年代＊</p>
       <select id="age_group" required>
@@ -80,7 +88,7 @@
         <option>70代以上</option>
       </select>
     </div>
-
+ 
     <div class="field">
       <p class="label">性別＊</p>
       <select id="gender" required>
@@ -90,7 +98,7 @@
         <option>その他</option>
       </select>
     </div>
-
+ 
     <div class="field">
       <p class="label">お住まいの都道府県＊</p>
       <select id="prefecture" required>
@@ -110,7 +118,7 @@
       </select>
       <p class="privacy">※市区町村など詳しいご住所は、相談員がご連絡する際に改めてお聞きします。</p>
     </div>
-
+ 
     <div class="field">
       <p class="label">一番の悩み＊</p>
       <select id="main_issue" required>
@@ -134,7 +142,7 @@
       </select>
       <p class="privacy">※この情報はご相談への対応のためだけに利用します。</p>
     </div>
-
+ 
     <div class="field">
       <p class="label">それに伴うその他の悩み1（任意）</p>
       <select id="sub_issue_1">
@@ -157,7 +165,7 @@
         <option>その他</option>
       </select>
     </div>
-
+ 
     <div class="field">
       <p class="label">それに伴うその他の悩み2（任意）</p>
       <select id="sub_issue_2">
@@ -180,24 +188,24 @@
         <option>その他</option>
       </select>
     </div>
-
+ 
     <button class="submit" id="submitBtn" onclick="submitForm()">チャットを開始</button>
   </div>
-
+ 
   <div id="status-area" class="status" style="display:none;"></div>
 </div>
-
+ 
 <script>
   // ここを実際のLIFF IDに書き換えてください（LINE Developersで発行）
   const LIFF_ID = "2010836980-6NJLsZQ9";
-
+ 
   function showStatus(text) {
     document.getElementById('form-area').style.display = 'none';
     const s = document.getElementById('status-area');
     s.style.display = 'block';
     s.innerText = text;
   }
-
+ 
   async function initLiff() {
     try {
       await liff.init({ liffId: LIFF_ID });
@@ -211,7 +219,7 @@
       console.error('LIFF init failed (LIFF_IDが未設定の場合は正常です):', err);
     }
   }
-
+ 
   /*
      呼び名に「\」が入ると、Dify側のパラメータ抽出が失敗し、
      お名前・年代・都道府県などの事前情報が丸ごと空になる（実機で再現確認済み）。
@@ -231,8 +239,8 @@
   function sanitizeName(v) {
     return sanitize(v).replace(/[：:]/g, '').slice(0, 20);
   }
-
-
+ 
+ 
   function buildMessageText() {
     const name = sanitizeName(document.getElementById('user_name').value) || '相談者';
     const age = sanitize(document.getElementById('age_group').value);
@@ -241,7 +249,7 @@
     const main = sanitize(document.getElementById('main_issue').value);
     const sub1 = sanitize(document.getElementById('sub_issue_1').value);
     const sub2 = sanitize(document.getElementById('sub_issue_2').value);
-
+ 
     const parts = [`呼び名：${name}`];
     if (age) parts.push(`年代：${age}`);
     if (gender) parts.push(`性別：${gender}`);
@@ -249,10 +257,10 @@
     if (main) parts.push(`一番の悩み：${main}`);
     if (sub1) parts.push(`その他の悩み1：${sub1}`);
     if (sub2) parts.push(`その他の悩み2：${sub2}`);
-
+ 
     return parts.join('／');
   }
-
+ 
   function validateRequired() {
     const requiredIds = ['user_name', 'age_group', 'gender', 'prefecture', 'main_issue'];
     const missing = [];
@@ -266,20 +274,20 @@
     });
     return missing;
   }
-
+ 
   async function submitForm() {
     const missing = validateRequired();
     if (missing.length > 0) {
       alert('赤枠の項目を入力・選択してください。');
       return;
     }
-
+ 
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.innerText = '送信中…';
-
+ 
     const text = buildMessageText();
-
+ 
     try {
       const inClient = liff.isInClient && liff.isInClient();
       if (inClient) {
@@ -296,9 +304,10 @@
       showStatus('送信に失敗しました。お手数ですが、LINEのトーク画面からもう一度お試しください。');
     }
   }
-
+ 
   initLiff();
 </script>
-
+ 
 </body>
 </html>
+ 
