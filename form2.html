@@ -92,6 +92,7 @@
 var LIFF_ID  = '2010836980-ms5nFPQE';
 var ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/form';
 var PREFILL_ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/prefill';
+var REBOOK_CHECK_ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/rebook-allowed';
  
 /* 受付時間 9:00〜22:00 に合わせた選択肢 */
 var TIME_BANDS = [
@@ -169,7 +170,7 @@ function show(html) {
    ============================================================ */
 function render() {
   if (mode === 'ask')     return show(viewAsk());
-  if (mode === 'rebook')  return show(viewRebook());
+  if (mode === 'rebook')  return renderRebook();
   if (mode === 'note')    return show(viewNote());
   if (mode === 'close')   return show(viewClose());
   if (mode === 'call')    { show(viewCall()); prefillArea(); return; }
@@ -177,6 +178,52 @@ function render() {
   prefillArea();
 }
  
+/*
+   日時の変更は3回まで（2026-09-30の決定）。
+   4回目のときは、フォームを出さずに、担当者からご相談する旨をお伝えする。
+
+   聞きにいけなかったときは**フォームを出す側に倒す。**
+   数えられないことを理由に、日時を決め直せなくするのは本末転倒。
+*/
+function renderRebook() {
+  if (!idToken) { return show(viewRebook()); }
+  var done = false;
+  var go = function (allowed, count) {
+    if (done) return;
+    done = true;
+    show(allowed ? viewRebook() : viewRebookOver(count));
+  };
+  // 2秒で返らなければ、待たせずにフォームを出す
+  setTimeout(function () { go(true, 0); }, 2000);
+  fetch(REBOOK_CHECK_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: idToken })
+  }).then(function (r) { return r.json(); }).then(function (d) {
+    go(!d || d.allowed !== false, (d && d.count) || 0);
+  }).catch(function () { go(true, 0); });
+}
+
+function viewRebookOver(count) {
+  return ''
+  + '<h1>お電話の日時について</h1>'
+  + '<div class="notice">'
+  +   'これまでに<b>' + count + '回</b>、日時を決め直していただいています。<br><br>'
+  +   'お時間が合わせにくいご事情があるのかもしれません。<br>'
+  +   '<b>ここからは、担当者からご相談させてください。</b><br><br>'
+  +   'このトークに「お話ししたい」とお送りいただければ、'
+  +   '担当者が気づきしだいお返しします（受付は9時から18時です）。<br>'
+  +   'すぐにお返しできないこともあります。'
+  + '</div>'
+  + '<div class="card">'
+  +   '<p class="q">お急ぎのときは</p>'
+  +   '<p class="hint">下記が24時間つながります。<br>'
+  +   '・#いのちSOS　0120-061-338<br>'
+  +   '・よりそいホットライン　0120-279-338<br><br>'
+  +   '命に関わる危険があるときは、110番・119番へすぐにご連絡ください。</p>'
+  + '</div>';
+}
+
 /* ---------- 冒頭1問（振り分け） ---------- */
 /*
    AIが会話から判断しきれなかったときに開く画面。
@@ -224,7 +271,7 @@ function viewCall() {
   +   '<br><br>'
   +   '<b>お電話番号はうかがいません。</b>LINEの無料通話でお話しするので、通話料もかかりません。<br>'
   +   'ご都合が悪くなったときは、日時を決め直していただけます。'
-  +   'ただし<b>変更は3回まで</b>とさせてください。<br>'
+  +   'ただし、<b>3回を超えたときは担当者からご相談させてください。</b><br>'
   +   'その30分のあいだにお話しできなかったときも、こちらから日時の入力フォームをお送りします。'
   + '</div>'
   + fieldArea()
@@ -724,5 +771,3 @@ boot();
 </script>
 </body>
 </html>
- 
-
