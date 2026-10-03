@@ -1,0 +1,20 @@
+--- a/worker/tetote-line-dify.js
++++ b/worker/tetote-line-dify.js
+@@ -648,7 +648,7 @@
+       const pendingKey = `pending:${userId}`;
+       await env.SESSIONS.put(
+         pendingKey,
+-        JSON.stringify({ text, at: Date.now(), tries: 0 }),
++        JSON.stringify({ text, at: Date.now(), recv: Date.now(), tries: 0 }),
+         { expirationTtl: PENDING_TTL }
+       );
+  
+@@ -1066,7 +1066,7 @@
+       // 「やり直し」には数えない。数えていたせいで、次に触れるのが
+       // LOCK_MS（2分）先に延び、届くのが受け取りから約3分後になっていた。
+       // （PEEK_MAX の説明を読むこと）
+-      const ready = await fetchReadyAnswer(env, userId, p.text || '', Number(p.at || 0));
++      const ready = await fetchReadyAnswer(env, userId, p.text || '', Number(p.recv || p.at || 0));
+       if (ready) {
+         await pushToLine(env, userId, splitMessages(ready));
+         await env.SESSIONS.delete(k.name);

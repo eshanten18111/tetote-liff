@@ -1,0 +1,1620 @@
+{
+ "script": "J2",
+ "user": "t-z-J2",
+ "conversation_id": "a8bb11c7-3525-4e95-ba57-5dd65d35bd1b",
+ "turn_from": "1",
+ "turns": [
+  {
+   "query": "母の介護をひとりでしています。最近、母に強く当たってしまいます。",
+   "answer": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-09-19z",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（初回受付の保存の結果判定）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789807108",
+      "jst_text": "9月19日（土）17時38分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 1,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "support_need": "0",
+      "need_basis": "",
+      "contact_safety_risk": "0",
+      "crisis_category": "",
+      "support_type": "",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 0,
+      "max_support_need": 0,
+      "phase": "受付",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "0"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "consent_status": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "a8bb11c7-3525-4e95-ba57-5dd65d35bd1b",
+   "message_id": "1ad7f5ec-50bf-4aec-aafe-af95127a2e56",
+   "elapsed": 14.0,
+   "created_at": 1789807100,
+   "finished_at": 1789807113,
+   "error": null,
+   "stderr": "",
+   "turn": 1
+  },
+  {
+   "query": "手が出そうになることもあって、自分が怖いです。",
+   "answer": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789807116",
+      "jst_text": "9月19日（土）17時38分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 2,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "support_need": "0",
+      "need_basis": "",
+      "contact_safety_risk": "0",
+      "crisis_category": "",
+      "support_type": "",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 0,
+      "max_support_need": 0,
+      "phase": "受付",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "0"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "consent_status": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "a8bb11c7-3525-4e95-ba57-5dd65d35bd1b",
+   "message_id": "a1ae06a3-0148-444f-89e3-05a40252db29",
+   "elapsed": 5.4,
+   "created_at": 1789807115,
+   "finished_at": 1789807120,
+   "error": null,
+   "stderr": "",
+   "turn": 2
+  },
+  {
+   "query": "ケアマネさんがいて、月に1回来てくれます。話しやすい人です。",
+   "answer": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789807123",
+      "jst_text": "9月19日（土）17時38分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 3,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "support_need": "0",
+      "need_basis": "",
+      "contact_safety_risk": "0",
+      "crisis_category": "",
+      "support_type": "",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 0,
+      "max_support_need": 0,
+      "phase": "受付",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "0"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "consent_status": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "a8bb11c7-3525-4e95-ba57-5dd65d35bd1b",
+   "message_id": "dcc02220-46ef-4bce-84a0-dc4278e39187",
+   "elapsed": 6.0,
+   "created_at": 1789807123,
+   "finished_at": 1789807128,
+   "error": null,
+   "stderr": "",
+   "turn": 3
+  },
+  {
+   "query": "デイサービスにも週2回行っています。",
+   "answer": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789807131",
+      "jst_text": "9月19日（土）17時38分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 4,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "support_need": "0",
+      "need_basis": "",
+      "contact_safety_risk": "0",
+      "crisis_category": "",
+      "support_type": "",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 0,
+      "max_support_need": 0,
+      "phase": "受付",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "0"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "consent_status": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "a8bb11c7-3525-4e95-ba57-5dd65d35bd1b",
+   "message_id": "830ecac4-a677-4fb6-95c7-e981c4c4f331",
+   "elapsed": 4.9,
+   "created_at": 1789807131,
+   "finished_at": 1789807135,
+   "error": null,
+   "stderr": "",
+   "turn": 4
+  },
+  {
+   "query": "夜も何度も起こされて、眠れていません。",
+   "answer": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789807138",
+      "jst_text": "9月19日（土）17時38分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 5,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "support_need": "0",
+      "need_basis": "",
+      "contact_safety_risk": "0",
+      "crisis_category": "",
+      "support_type": "",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 0,
+      "max_support_need": 0,
+      "phase": "受付",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "0"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "consent_status": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "a8bb11c7-3525-4e95-ba57-5dd65d35bd1b",
+   "message_id": "bff91a26-f866-4674-a379-c8ce5d173a0a",
+   "elapsed": 4.6,
+   "created_at": 1789807138,
+   "finished_at": 1789807141,
+   "error": null,
+   "stderr": "",
+   "turn": 5
+  },
+  {
+   "query": "ケアマネさんには、まだこのことは言えていません。",
+   "answer": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789807145",
+      "jst_text": "9月19日（土）17時39分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 6,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "support_need": "0",
+      "need_basis": "",
+      "contact_safety_risk": "0",
+      "crisis_category": "",
+      "support_type": "",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 0,
+      "max_support_need": 0,
+      "phase": "受付",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "0"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "consent_status": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "a8bb11c7-3525-4e95-ba57-5dd65d35bd1b",
+   "message_id": "650d2715-4a88-4c3f-b10e-7d3331711fbe",
+   "elapsed": 6.1,
+   "created_at": 1789807144,
+   "finished_at": 1789807150,
+   "error": null,
+   "stderr": "",
+   "turn": 6
+  },
+  {
+   "query": "ためらいのほうが近いです。ひどい娘だと思われそうで。",
+   "answer": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789807154",
+      "jst_text": "9月19日（土）17時39分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 7,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "support_need": "0",
+      "need_basis": "",
+      "contact_safety_risk": "0",
+      "crisis_category": "",
+      "support_type": "",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 0,
+      "max_support_need": 0,
+      "phase": "受付",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "0"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "申し訳ありません、ただいま混み合っております。 少し時間をおいて、もう一度お話しかけていただけますか。  お急ぎの場合は、こちらもご利用いただけます。 ・いのちSOS：0120-061-338（24時間365日） ・よりそいホットライン：0120-279-338（24時間対応）  命に関わる危険がある場合は110（警察）・119（消防救急）へ。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "consent_status": "",
+      "error_message": "[models] Connection Error, 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. ', 'status': 'RESOURCE_EXHAUSTED'}}",
+      "error_type": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "a8bb11c7-3525-4e95-ba57-5dd65d35bd1b",
+   "message_id": "9cea0964-0d5d-48f5-86ff-2f51630dea71",
+   "elapsed": 5.7,
+   "created_at": 1789807152,
+   "finished_at": 1789807157,
+   "error": null,
+   "stderr": "",
+   "turn": 7
+  }
+ ]
+}

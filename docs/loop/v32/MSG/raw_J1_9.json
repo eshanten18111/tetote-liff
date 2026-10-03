@@ -1,0 +1,262 @@
+{
+ "script": "MSG",
+ "user": "t-z2-J1",
+ "conversation_id": "25e036fa-66d8-4854-ad88-5c06df416800",
+ "turn_from": "9",
+ "turns": [
+  {
+   "query": "そのとおりだと思います。",
+   "answer": "「そのとおりだと思います」と、お気持ちを重ねてくださってありがとうございます。\n\n夜も眠れず、心身ともに休まらない中で、誰にも頼れない孤立感は、本当に息が詰まるような苦しさだと思います。\n\nこれは私の推測なので、もし違っていたら教えてほしいのですが、もしかすると、あなたは「介護は自分がやらなければならない」という責任感を強く感じていて、弱音を吐いたり、誰かに助けを求めたりすること自体に、ためらいや罪悪感のようなものを感じていらっしゃったのではないでしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-19z2",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-19z2",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1789808291",
+      "jst_text": "9月19日（土）17時58分",
+      "office_open": "false",
+      "next_open": "9月24日（木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20715"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 9,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20715",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23282,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0174615",
+       "completion_tokens": 201,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0007538",
+       "total_tokens": 23483,
+       "total_price": "0.0182153",
+       "currency": "USD",
+       "latency": 2.1541225229998417,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "7",
+      "need_basis": "要介護認定を受けていない母親を単身で介護しており、夜間の頻繁な離床により十分な睡眠が取れず心身ともに限界に達している。ケアマネジャー等の専門職や頼れる家族などの支援者が存在せず孤立しており、暴力の兆候が生じるなど家庭内で深刻な事態が発生しているため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "DV・虐待",
+      "support_type": "両方",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "提案"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 7,
+      "phase": "提案",
+      "closing_reason": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "「そのとおりだと思います」と、お気持ちを重ねてくださってありがとうございます。\n\n夜も眠れず、心身ともに休まらない中で、誰にも頼れない孤立感は、本当に息が詰まるような苦しさだと思います。\n\nこれは私の推測なので、もし違っていたら教えてほしいのですが、もしかすると、あなたは「介護は自分がやらなければならない」という責任感を強く感じていて、弱音を吐いたり、誰かに助けを求めたりすること自体に、ためらいや罪悪感のようなものを感じていらっしゃったのではないでしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1160,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.00087",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1166,
+       "total_price": "0.0008925",
+       "currency": "USD",
+       "latency": 1.0039694209999652,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "conversation_id": "25e036fa-66d8-4854-ad88-5c06df416800",
+   "message_id": "bdb6deaf-5ca3-4c8a-ab85-1c92050ee890",
+   "elapsed": 9.8,
+   "created_at": 1789808291,
+   "finished_at": 1789808299,
+   "error": null,
+   "stderr": "",
+   "turn": 9
+  }
+ ]
+}
