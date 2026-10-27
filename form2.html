@@ -18,11 +18,9 @@
   【モード】 ?mode= で切り替える。タイトルは全モード共通（どちらのフォームか
   相手に分からせない）。
     call    … LINE通話のご予約（電話番号を聞かない）＝ いま使う既定のフォーム
-    ask     … 冒頭1問だけ聞いて general / safety に振り分ける（AIが迷ったとき）
-    general … 折り返しのご予約（こちらからお電話する）※緊急時対応の方針が
-              固まるまで温存。いまAIからは案内しない
-    safety  … 安全に配慮したご予約（相談者からLINE通話でかけてもらう）※同上
     rebook  … 再予約（無機質。日時と状況だけ）
+    ※ 2026-10-28　ask / general / safety の画面は消した（お電話番号はデジタルに残さない決定）。
+       古いリンクで ?mode=general などが来ても、call の画面を出す。
  
   【通話のかかり方が変わりました】
   トークルームの通話ボタンを非表示にしたため、相談者は自分から電話をかけられない。
@@ -94,10 +92,7 @@ var ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/form';
 var PREFILL_ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/prefill';
 var REBOOK_CHECK_ENDPOINT = 'https://tetote-line-dify.eshanten18111.workers.dev/rebook-allowed';
  
-/* 受付時間 9:00〜22:00 に合わせた選択肢 */
-var TIME_BANDS = [
-  '9時〜12時', '12時〜15時', '15時〜18時', '18時〜20時', '20時〜22時'
-];
+// 2026-10-28　TIME_BANDS（折り返しの時間帯）は、折り返しの画面と一緒に消した。
 /*
    予約を受ける間隔と、通話をかけられる時間を、別のものとして扱う（2026-10-21 改）。
 
@@ -153,12 +148,14 @@ var mode = 'call';
    緊急・切迫のときの方針が決まったら、下の1行を false にすれば
    そのまま開きます。
    ------------------------------------------------------------ */
-var CALL_ONLY = true;
+// 2026-10-28　閉じていた3つの画面（general / safety / ask）は消した。
+// お電話番号は、デジタルに残さない決定（tetote-system/docs/20_決定/05_運用）。
+// 古い案内文のリンクで来ても、下の CLOSED_MODES は call の画面に替える。
 var CLOSED_MODES = ['general', 'safety', 'ask'];
 
 // 版の名前。貼り替えたあと、この字が出ているかで確かめられる。
 // （2026-10-02：貼ったはずの版かどうかを確かめる手だてが無く、困りました）
-var FORM_VERSION = 'form2 2026-10-02a';
+var FORM_VERSION = 'form2 2026-10-28a';
 
 /* ============================================================
    起動
@@ -203,14 +200,11 @@ function show(html) {
 function render() {
   // 2026-10-02　閉じている道に来たら、予約の画面に替える。
   // 相談者には「まちがったリンクだ」と分からせない。ふつうに予約できる形にする。
-  if (CALL_ONLY && CLOSED_MODES.indexOf(mode) >= 0) mode = 'call';
-  if (mode === 'ask')     return show(viewAsk());
+  if (CLOSED_MODES.indexOf(mode) >= 0) mode = 'call';
   if (mode === 'rebook')  return renderRebook();
   if (mode === 'note')    return show(viewNote());
   if (mode === 'close')   return show(viewClose());
-  if (mode === 'call')    { show(viewCall()); prefillArea(); return; }
-  show(mode === 'safety' ? viewSafety() : viewGeneral());
-  prefillArea();
+  show(viewCall()); prefillArea();
 }
  
 /*
@@ -259,35 +253,6 @@ function viewRebookOver(count) {
   + '</div>';
 }
 
-/* ---------- 冒頭1問（振り分け） ---------- */
-/*
-   AIが会話から判断しきれなかったときに開く画面。
-   ここで「はい」を選んだ方には、こちらから電話をかけない設計に切り替える。
-   聞くのは1問だけにする。答えづらい質問を重ねないため。
-*/
-function viewAsk() {
-  return ''
-  + '<h1>ご連絡先の確認</h1>'
-  + '<p class="lead">お話をうかがうために、いくつか確認させてください。まず1つだけお聞きします。</p>'
-  + '<div class="card">'
-  +   '<p class="q">あなたに危害を及ぼす可能性のある人が、電話やLINEの通知を見る可能性はありますか<span class="req">必須</span></p>'
-  +   '<p class="hint">同居している方、頻繁に会う方などが、着信履歴や通知画面を見られる状況かどうかをお聞きしています。判断がつかない場合は「わからない」をお選びください。</p>'
-  +   '<label class="opt"><input type="radio" name="risk" value="no"><span>いいえ、見られる心配はありません</span></label>'
-  +   '<label class="opt"><input type="radio" name="risk" value="yes"><span>はい、見られる可能性があります</span></label>'
-  +   '<label class="opt"><input type="radio" name="risk" value="unknown"><span>わからない</span></label>'
-  +   '<p class="err" id="e-risk">お選びください。</p>'
-  + '</div>'
-  + '<button class="btn" onclick="goNext()">次へ</button>';
-}
- 
-function goNext() {
-  var v = radio('risk');
-  if (!v) { return err('e-risk', true); }
-  err('e-risk', false);
-  mode = (v === 'no') ? 'general' : 'safety';
-  render();
-}
- 
 /* ---------- 通話：LINE通話のご予約（いま使う既定のフォーム） ----------
    general との違いは「電話番号を聞かないこと」。
    safety との違いは、安全配慮を前提にした書きぶりにしないこと。
@@ -316,220 +281,6 @@ function viewCall() {
   + fieldConsent()
   + '<button class="btn" id="submit" onclick="submitForm(\'call\')">この内容で送る</button>'
   + '<p class="err" id="e-all">未記入の項目があります。上にお戻りください。</p>';
-}
- 
-/* ---------- 一般：折り返しのご予約 ---------- */
-function viewGeneral() {
-  return ''
-  + '<h1>ご連絡先の確認</h1>'
-  + '<p class="lead">担当者からお電話を差し上げます。下記をご記入ください。</p>'
-  + '<div class="notice">'
-  +   '<b>お電話について</b><br>'
-  +   '担当者から<b>なるべく早くお電話いたします。遅くとも1週間から10日以内</b>にはご連絡します。'
-  +   '日時のご指定は目安として使わせていただきます。<br>'
-  +   'お出になれなかった場合は、<b>おつながりするまで日を改めておかけ直しします</b>。'
-  +   '知らない番号からの着信になりますので、あらかじめご了承ください。'
-  + '</div>'
-  + fieldArea()
-  + fieldPhoneGeneral()
-  + fieldBands()
-  + fieldUrgent()
-  + fieldNote()
-  + fieldConsent()
-  + '<button class="btn" id="submit" onclick="submitForm(\'general\')">この内容で送る</button>'
-  + '<p class="err" id="e-all">未記入の項目があります。上にお戻りください。</p>';
-}
- 
-/* ---------- 安全配慮：LINE通話のご予約 ---------- */
-function viewSafety() {
-  return ''
-  + '<h1>ご連絡先の確認</h1>'
-  + '<p class="lead">お話をうかがう時間を決めさせてください。下記をご記入ください。</p>'
-  + '<div class="notice">'
-  +   '<b>お電話のかけ方について</b><br>'
-  +   '通知や着信履歴が他の方の目に触れる恐れがある場合、こちらから電話をおかけすることで、'
-  +   'かえって危険が生じることがあります。そのため<b>お客さまのほうから、LINEの無料通話でおかけいただく</b>形にしています。<br>'
-  +   'ご予約のお時間になりましたら、担当者からこのトークに'
-  +   '<b>通話ボタンつきのメッセージ</b>をお送りします。それをタップしてお電話ください。通話料はかかりません。<br>'
-  +   '通話を始める時刻をお決めいただきます。その時刻から<b>30分のあいだ</b>担当者がお待ちしますので、'
-  +   'そのあいだにおかけください。<br>'
-  +   'ご都合が悪くなった場合は、<b>あらためて日時を決め直していただけます</b>。'
-  +   'その30分のあいだにお話しできなかったときは、こちらから日時の入力フォームをお送りします。'
-  + '</div>'
-  + fieldArea()
-  + fieldPhoneSafety()
-  + fieldAppointment('お話しできる日時', 'ご都合のよい日と、通話を始める時刻を1つお選びください。9時から21時までのあいだでお選びいただけます。')
-  + fieldSituation()
-  + fieldUrgent()
-  + fieldNote()
-  + fieldConsent()
-  + '<button class="btn" id="submit" onclick="submitForm(\'safety\')">この内容で送る</button>'
-  + '<p class="err" id="e-all">未記入の項目があります。上にお戻りください。</p>';
-}
- 
-/* ---------- 再予約（無機質） ---------- */
-/*
-   お約束の時間に通話がなかった方へ送る。
-   ここで責める言い方をしない。理由も問い詰めない。
-   短く、事務的に、もう一度だけ枠を差し出す。
-*/
-function viewRebook() {
-  return ''
-  + '<h1>ご連絡先の確認</h1>'
-  + '<div class="notice">'
-  +   '日時をあらためてお決めいただく画面です。<br>'
-  +   '通話を始める時刻をお選びいただき、その時刻から30分のあいだ担当者がお待ちします。<br>'
-  +   '変更は<b>3回まで</b>とさせてください。'
-  + '</div>'
-  + fieldAppointment('あらためてのご希望日時', '日と、通話を始める時刻を1つお選びください。9時から21時までのあいだでお選びいただけます。')
-  + '<div class="card">'
-  +   '<p class="q">変更の理由・ご事情<span class="req">必須</span></p>'
-  +   '<p class="hint">差し支えない範囲で構いません。ひと言でも大丈夫です。'
-  +   'どのようなときにご都合が合わなくなるのかを知っておくことで、次のご案内をしやすくなります。</p>'
-  +   '<textarea id="situation" placeholder="例）その時間は家に人がいて話せませんでした"></textarea>'
-  +   '<p class="err" id="e-situation">ご記入ください。</p>'
-  + '</div>'
-  + '<button class="btn" id="submit" onclick="submitForm(\'rebook\')">この内容で送る</button>'
-  + '<p class="err" id="e-all">日時をお選びください。</p>';
-}
- 
-/* ---------- 備考・特記事項 ---------- */
-function viewNote() {
-  return ''
-  + '<h1>ご連絡先の確認</h1>'
-  + '<p class="lead">お伝えいただいた内容は、担当者が確認いたします。</p>'
-  + '<div class="card">'
-  +   '<p class="q">お伝えになりたいことをお書きください<span class="req">必須</span></p>'
-  +   '<p class="hint">状況が変わった、お伝えし忘れたことがある、聞いておきたいことがある — どれでも構いません。'
-  +   '短くても大丈夫です。</p>'
-  +   '<textarea id="note" placeholder="例）前にお話ししたときより、体調が悪くなっています"></textarea>'
-  +   '<p class="err" id="e-note">ご記入ください。</p>'
-  + '</div>'
-  + '<button class="btn" id="submit" onclick="submitForm(\'note\')">この内容で送る</button>';
-}
- 
-/* ---------- 終了確認（相談員が手動で送る） ---------- */
-function viewClose() {
-  return ''
-  + '<h1>ご連絡先の確認</h1>'
-  + '<div class="notice">'
-  +   'これまでのご相談を、いったん終了とさせていただいてよろしいでしょうか。<br>'
-  +   '終了したあとでも、またいつでもこのトークからご連絡いただけます。'
-  + '</div>'
-  + '<div class="card">'
-  +   '<p class="q">ご相談を終了しますか<span class="req">必須</span></p>'
-  +   '<label class="opt"><input type="radio" name="close" value="はい、終了します"><span>はい、終了します</span></label>'
-  +   '<label class="opt"><input type="radio" name="close" value="いいえ、続けたいです"><span>いいえ、もう少し続けたいです</span></label>'
-  +   '<p class="err" id="e-close">お選びください。</p>'
-  + '</div>'
-  + '<div class="card">'
-  +   '<p class="q">お伝えになりたいことがあればお書きください</p>'
-  +   '<p class="hint">空欄のままでも送れます。</p>'
-  +   '<textarea id="note" placeholder=""></textarea>'
-  + '</div>'
-  + '<button class="btn" id="submit" onclick="submitForm(\'close\')">この内容で送る</button>';
-}
- 
-/* ============================================================
-   部品
-   ============================================================ */
-/*
-   呼び名はここでは聞かない。
-   入口フォーム（index.html）と会話の中ですでに受け取っており、
-   二度聞くと「話を聞いていなかった」と伝わる。
-   また、あとから来た入力が、会話の中で自然に出てきた呼び方を上書きしてしまう。
-   お電話でどう呼ぶかは、AIがトークの中で確認する。
-*/
- 
-/*
-   都道府県は入口フォームで聞いている。ここでは聞き直さず、確認してもらう。
-   先にお聞きした値を選択済みで表示するので、違っていれば選び直すだけで済む。
-   空欄で出すと確認にならず、二度目の質問になってしまう。
-*/
-function fieldArea() {
-  var opts = '<option value="">選んでください</option>';
-  for (var i = 0; i < PREFS.length; i++) opts += '<option>' + PREFS[i] + '</option>';
-  return '<div class="card">'
-  + '<p class="q">お住まいの地域<span class="req">必須</span></p>'
-  + '<p class="hint" id="prefHint">お近くで使える制度や窓口をお探しするために使います。町名や番地までは必要ありません。</p>'
-  + '<div class="row">'
-  +   '<select id="prefecture">' + opts + '</select>'
-  +   '<input type="text" id="city" placeholder="市区町村">'
-  + '</div>'
-  + '<p class="err" id="e-area">都道府県と市区町村をご記入ください。</p>'
-  + '</div>';
-}
- 
-/*
-   先にお聞きした都道府県を呼び出して、選択済みにする。
-   届かなくても画面は動く（空欄のまま選んでもらうだけ）ので、
-   ここで待たせたり止めたりはしない。
-*/
-function prefillArea() {
-  var sel = document.getElementById('prefecture');
-  if (!sel || !idToken) return;
-  fetch(PREFILL_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ idToken: idToken })
-  }).then(function (r) { return r.json(); }).then(function (d) {
-    if (!d || !d.found || !d.prefecture) return;
-    if (PREFS.indexOf(d.prefecture) < 0) return;
-    sel.value = d.prefecture;
-    var hint = document.getElementById('prefHint');
-    if (hint) {
-      hint.innerHTML = '<b>先にうかがった内容を表示しています。</b>'
-        + 'お間違いなければそのまま、違っていれば選び直してください。'
-        + '市区町村は、町名や番地までは必要ありません。';
-    }
-  }).catch(function () {});
-}
- 
-function fieldPhoneGeneral() {
-  return '<div class="card">'
-  + '<p class="q">お電話番号<span class="req">必須</span></p>'
-  + '<p class="hint">この番号におかけします。ハイフンはあってもなくても構いません。</p>'
-  + '<input type="tel" id="phone" inputmode="tel" placeholder="09012345678">'
-  + '<p class="err" id="e-phone">ご記入ください。</p>'
-  + '</div>';
-}
- 
-function fieldPhoneSafety() {
-  return '<div class="card">'
-  + '<p class="q">お電話番号<span class="req">必須</span></p>'
-  + '<p class="hint">'
-  +   '<b>この番号に、こちらからおかけすることはありません。</b><br>'
-  +   'お預かりするのは、万が一、事故や事件に直結するおそれがあると判断した場合に、'
-  +   '安全の確認とご本人の確認をするためだけです。<br>'
-  +   'ご用件のご連絡、お知らせ、ご様子うかがいなど、それ以外の目的で'
-  +   'こちらからお電話することは一切ありません。'
-  + '</p>'
-  + '<input type="tel" id="phone" inputmode="tel" placeholder="09012345678">'
-  + '<p class="err" id="e-phone">ご記入ください。</p>'
-  + '</div>';
-}
- 
-function fieldBands() {
-  var h = '<div class="card">'
-  + '<p class="q">お電話しやすい時間帯<span class="req">必須</span></p>'
-  + '<p class="hint">あてはまるものをいくつでもお選びください。多いほど、おつなぎしやすくなります。</p>'
-  + '<label class="opt"><input type="checkbox" name="band" value="いつでも可" onchange="onAnytime(this)"><span>いつでも可</span></label>';
-  for (var i = 0; i < TIME_BANDS.length; i++) {
-    h += '<label class="opt"><input type="checkbox" name="band" value="' + TIME_BANDS[i] + '"><span>' + TIME_BANDS[i] + '</span></label>';
-  }
-  h += '<label class="opt"><input type="checkbox" name="band" value="平日のみ"><span>平日のみ</span></label>'
-    +  '<label class="opt"><input type="checkbox" name="band" value="土日祝のみ"><span>土日祝のみ</span></label>'
-    +  '<p class="err" id="e-band">1つ以上お選びください。</p></div>';
-  return h;
-}
- 
-/* 「いつでも可」を選んだら他の時間帯は外す。矛盾した指定を残さないため。 */
-function onAnytime(el) {
-  if (!el.checked) return;
-  var xs = document.getElementsByName('band');
-  for (var i = 0; i < xs.length; i++) {
-    if (xs[i] !== el && TIME_BANDS.indexOf(xs[i].value) >= 0) xs[i].checked = false;
-  }
 }
  
 /* ---------- 予約枠の空き ----------
@@ -636,7 +387,8 @@ function toggleUrgent() {
 function fieldNote() {
   return '<div class="card">'
   + '<p class="q">特記事項・備考</p>'
-  + '<p class="hint">お伝えしておきたいことがあればお書きください。空欄のままでも送れます。<br>'
+  + '<p class="hint"><b>お名前（本名）やお電話番号は、ここに書かないでください。</b><br>'
+  + 'お伝えしておきたいことがあればお書きください。空欄のままでも送れます。<br>'
   + '例）耳が聞こえにくいので、ゆっくり話してほしい／小さい子どもがいて長く話せない／'
   + '平日昼間は仕事で出られない／すでに他の窓口に相談している</p>'
   + '<textarea id="note" placeholder=""></textarea>'
@@ -701,10 +453,9 @@ function collect(kind) {
     return bad ? null : f;
   }
  
-  /* general / safety の共通部分 */
+  /* call（LINE通話のご予約）。2026-10-28　お電話番号・連絡方法・時間帯は送らない */
   f.prefecture = val('prefecture');
   f.city       = val('city');
-  f.phoneNumber= val('phone');
   f.safetyQ3   = radio('q3');
   f.urgentDetail = val('urgentDetail');
   f.note       = val('note');
@@ -712,23 +463,13 @@ function collect(kind) {
   f.consent    = (consent && consent.checked) ? '同意あり' : '';
  
   bad = err('e-area', !(f.prefecture && f.city)) || bad;
-  if (kind !== 'call') bad = err('e-phone', !f.phoneNumber) || bad;
   bad = err('e-safety', !f.safetyQ3) || bad;
   bad = err('e-consent', !f.consent) || bad;
  
-  if (kind === 'general') {
-    f.contactMethod = 'こちらから電話';
-    f.timeSlots = checks('band').join('、');
-    bad = err('e-band', !f.timeSlots) || bad;
-  } else {
-    f.contactMethod = 'LINE通話（ご本人から）';
-    f.appointmentDate = val('apptDate');
-    f.appointmentTime = val('apptTime');
-    f.situation = val('situation');
-    bad = err('e-appt', !(f.appointmentDate && f.appointmentTime)) || bad;
-    // call では「いまのご状況」を聞かない。AIの要約と備考で足りるため。
-    if (kind !== 'call') bad = err('e-situation', !f.situation) || bad;
-  }
+  f.appointmentDate = val('apptDate');
+  f.appointmentTime = val('apptTime');
+  bad = err('e-appt', !(f.appointmentDate && f.appointmentTime)) || bad;
+  // call では「いまのご状況」を聞かない。AIの要約と備考で足りるため。
  
   return bad ? null : f;
 }
