@@ -457,9 +457,10 @@ function viewClose() {
    ------------------------------------------------------------ */
 function viewSurvey() {
   function scale(name) {
+    // 「よかった」を上に（越前谷さん・11/4）
     var labels = ['1　よくなかった', '2', '3　ふつう', '4', '5　よかった'];
     var h = '';
-    for (var i = 1; i <= 5; i++) {
+    for (var i = 5; i >= 1; i--) {
       h += '<label class="opt"><input type="radio" name="' + name + '" value="' + i + '"><span>' + labels[i-1] + '</span></label>';
     }
     return h;
@@ -468,6 +469,7 @@ function viewSurvey() {
     return '<label class="opt"><input type="radio" name="' + name + '" value="はい"><span>はい</span></label>'
       + '<label class="opt"><input type="radio" name="' + name + '" value="いいえ"><span>いいえ</span></label>';
   }
+  document.title = 'ご相談のアンケート';   // 他の画面は「ご連絡先の確認」で統一しているが、アンケートは隠す理由がない
   return ''
   + '<h1>ご相談のアンケート</h1>'
   + '<p class="lead">3つだけうかがいます。お答えは、この相談をよくするためにだけ使います。'
