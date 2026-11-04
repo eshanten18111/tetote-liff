@@ -493,6 +493,67 @@ function viewSurvey() {
   + '<button class="btn" id="submit" onclick="submitForm(\'survey\')">この内容で送る</button>';
 }
 
+/* ------------------------------------------------------------
+   2026-11-04 19:40　復元（2つ目）
+   10/27 の db6f810 で、viewRebook・fieldArea・prefillArea も消えていた。
+   呼ぶ側（render・viewCall・renderRebook）は残っていたので、
+   mode=call（予約）と mode=rebook（日時の決め直し）は 10/27 から開けなかった。
+   「読み込んでいます…」のまま止まる（ReferenceError）。
+   ------------------------------------------------------------ */
+function viewRebook() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<div class="notice">'
+  +   '日時をあらためてお決めいただく画面です。<br>'
+  +   '通話を始める時刻をお選びいただき、その時刻から30分のあいだ担当者がお待ちします。<br>'
+  +   '変更は<b>3回まで</b>とさせてください。'
+  + '</div>'
+  + fieldAppointment('あらためてのご希望日時', '日と、通話を始める時刻を1つお選びください。9時から21時までのあいだでお選びいただけます。')
+  + '<div class="card">'
+  +   '<p class="q">変更の理由・ご事情<span class="req">必須</span></p>'
+  +   '<p class="hint">差し支えない範囲で構いません。ひと言でも大丈夫です。'
+  +   'どのようなときにご都合が合わなくなるのかを知っておくことで、次のご案内をしやすくなります。</p>'
+  +   '<textarea id="situation" placeholder="例）その時間は家に人がいて話せませんでした"></textarea>'
+  +   '<p class="err" id="e-situation">ご記入ください。</p>'
+  + '</div>'
+  + '<button class="btn" id="submit" onclick="submitForm(\'rebook\')">この内容で送る</button>'
+  + '<p class="err" id="e-all">日時をお選びください。</p>';
+}
+
+function fieldArea() {
+  var opts = '<option value="">選んでください</option>';
+  for (var i = 0; i < PREFS.length; i++) opts += '<option>' + PREFS[i] + '</option>';
+  return '<div class="card">'
+  + '<p class="q">お住まいの地域<span class="req">必須</span></p>'
+  + '<p class="hint" id="prefHint">お近くで使える制度や窓口をお探しするために使います。町名や番地までは必要ありません。</p>'
+  + '<div class="row">'
+  +   '<select id="prefecture">' + opts + '</select>'
+  +   '<input type="text" id="city" placeholder="市区町村">'
+  + '</div>'
+  + '<p class="err" id="e-area">都道府県と市区町村をご記入ください。</p>'
+  + '</div>';
+}
+
+function prefillArea() {
+  var sel = document.getElementById('prefecture');
+  if (!sel || !idToken) return;
+  fetch(PREFILL_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: idToken })
+  }).then(function (r) { return r.json(); }).then(function (d) {
+    if (!d || !d.found || !d.prefecture) return;
+    if (PREFS.indexOf(d.prefecture) < 0) return;
+    sel.value = d.prefecture;
+    var hint = document.getElementById('prefHint');
+    if (hint) {
+      hint.innerHTML = '<b>先にうかがった内容を表示しています。</b>'
+        + 'お間違いなければそのまま、違っていれば選び直してください。'
+        + '市区町村は、町名や番地までは必要ありません。';
+    }
+  }).catch(function () {});
+}
+
 /* ============================================================
    入力の取り出し・検証
    ============================================================ */
