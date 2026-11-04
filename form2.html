@@ -28,6 +28,7 @@
   リクエストは30分で失効する。だから予約の枠も30分に合わせている。
     note    … 備考・特記事項（予約後の連絡、状況の変化）
     close   … 終了確認（相談員が手動で送る）
+    survey  … アンケート（2026-11-04。相談員が完了にしたときに自動で1通。公開後に越前谷さんが一斉に1通）
 -->
 <style>
   :root{
@@ -204,6 +205,7 @@ function render() {
   if (mode === 'rebook')  return renderRebook();
   if (mode === 'note')    return show(viewNote());
   if (mode === 'close')   return show(viewClose());
+  if (mode === 'survey')  return show(viewSurvey());
   show(viewCall()); prefillArea();
 }
  
@@ -407,6 +409,88 @@ function fieldConsent() {
   + '</div>';
 }
  
+/* ------------------------------------------------------------
+   お伝えしたいこと（note）・終了確認（close）
+   2026-11-04　復元。10/27 の db6f810 で、電話番号の画面を消したときに
+   この2つの関数まで消えていた（render からは呼ばれたまま）。
+   mode=note は AI が区切りのあとに自動で送るので、10/27 から開けなかったはず。
+   ------------------------------------------------------------ */
+function viewNote() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<p class="lead">お伝えいただいた内容は、担当者が確認いたします。</p>'
+  + '<div class="card">'
+  +   '<p class="q">お伝えになりたいことをお書きください<span class="req">必須</span></p>'
+  +   '<p class="hint">状況が変わった、お伝えし忘れたことがある、聞いておきたいことがある — どれでも構いません。'
+  +   '短くても大丈夫です。お名前・お電話番号・住所は書かないでください。</p>'
+  +   '<textarea id="note" placeholder="例）前にお話ししたときより、体調が悪くなっています"></textarea>'
+  +   '<p class="err" id="e-note">ご記入ください。</p>'
+  + '</div>'
+  + '<button class="btn" id="submit" onclick="submitForm(\'note\')">この内容で送る</button>';
+}
+
+function viewClose() {
+  return ''
+  + '<h1>ご連絡先の確認</h1>'
+  + '<div class="notice">'
+  +   'これまでのご相談を、いったん終了とさせていただいてよろしいでしょうか。<br>'
+  +   '終了したあとでも、またいつでもこのトークからご連絡いただけます。'
+  + '</div>'
+  + '<div class="card">'
+  +   '<p class="q">ご相談を終了しますか<span class="req">必須</span></p>'
+  +   '<label class="opt"><input type="radio" name="close" value="はい、終了します"><span>はい、終了します</span></label>'
+  +   '<label class="opt"><input type="radio" name="close" value="いいえ、続けたいです"><span>いいえ、もう少し続けたいです</span></label>'
+  +   '<p class="err" id="e-close">お選びください。</p>'
+  + '</div>'
+  + '<div class="card">'
+  +   '<p class="q">お伝えになりたいことがあればお書きください</p>'
+  +   '<p class="hint">空欄のままでも送れます。お名前・お電話番号・住所は書かないでください。</p>'
+  +   '<textarea id="note" placeholder=""></textarea>'
+  + '</div>'
+  + '<button class="btn" id="submit" onclick="submitForm(\'close\')">この内容で送る</button>';
+}
+
+/* ------------------------------------------------------------
+   アンケート（survey）　2026-11-04
+   聞くのは3つだけ。誰と話したかは聞かない（台帳で分かる）。
+   送り先は中継役の /form。トークには何も出さない（MARKER を送らない）。
+   ------------------------------------------------------------ */
+function viewSurvey() {
+  function scale(name) {
+    var labels = ['1　よくなかった', '2', '3　ふつう', '4', '5　よかった'];
+    var h = '';
+    for (var i = 1; i <= 5; i++) {
+      h += '<label class="opt"><input type="radio" name="' + name + '" value="' + i + '"><span>' + labels[i-1] + '</span></label>';
+    }
+    return h;
+  }
+  function yn(name) {
+    return '<label class="opt"><input type="radio" name="' + name + '" value="はい"><span>はい</span></label>'
+      + '<label class="opt"><input type="radio" name="' + name + '" value="いいえ"><span>いいえ</span></label>';
+  }
+  return ''
+  + '<h1>ご相談のアンケート</h1>'
+  + '<p class="lead">3つだけうかがいます。お答えは、この相談をよくするためにだけ使います。'
+  + 'どなたのお答えかが分かる形で外に出すことはありません。</p>'
+  + '<div class="card">'
+  +   '<p class="q">1　この相談は、お役に立ちましたか<span class="req">必須</span></p>'
+  +   scale('sat')
+  +   '<p class="err" id="e-sat">お選びください。</p>'
+  + '</div>'
+  + '<div class="card">'
+  +   '<p class="q">2　また困ったとき、ここを使いたいと思いますか<span class="req">必須</span></p>'
+  +   yn('again')
+  +   '<p class="err" id="e-again">お選びください。</p>'
+  + '</div>'
+  + '<div class="card">'
+  +   '<p class="q">3　これまでに、役所や公的な相談窓口を使ったことがありますか<span class="req">必須</span></p>'
+  +   yn('pub')
+  +   '<p class="err" id="e-pub">お選びください。</p>'
+  + '</div>'
+  + '<p class="err" id="e-all">お選びいただいていない項目があります。</p>'
+  + '<button class="btn" id="submit" onclick="submitForm(\'survey\')">この内容で送る</button>';
+}
+
 /* ============================================================
    入力の取り出し・検証
    ============================================================ */
@@ -437,6 +521,16 @@ function collect(kind) {
     return bad ? null : f;
   }
  
+  if (kind === 'survey') {
+    f.satisfaction = radio('sat');
+    f.useAgain = radio('again');
+    f.usedPublic = radio('pub');
+    bad = err('e-sat', !f.satisfaction) || bad;
+    bad = err('e-again', !f.useAgain) || bad;
+    bad = err('e-pub', !f.usedPublic) || bad;
+    return bad ? null : f;
+  }
+
   if (kind === 'close') {
     f.closeAnswer = radio('close');
     f.noteText = val('note');
@@ -507,6 +601,7 @@ function submitForm(kind) {
     body: JSON.stringify({ idToken: idToken, mode: kind, fields: f })
   }).then(function (r) {
     if (!r.ok) throw new Error('status ' + r.status);
+    if (kind === 'survey') return;   // アンケートはトークに何も出さない（Difyを動かさない）
     return liff.sendMessages([{ type: 'text', text: MARKER[kind] || MARKER.general }]).catch(function(){});
   }).then(function () {
     show(viewDone(kind));
@@ -521,6 +616,11 @@ function submitForm(kind) {
  
 /* 送信後の画面。ここでトークの消し方をお伝えする。 */
 function viewDone(kind) {
+  if (kind === 'survey') {
+    return '<div class="done"><h2>ありがとうございました</h2>'
+      + '<p>お答えは、この相談をよくするためにだけ使います。</p>'
+      + '<p>またいつでも、このトークからご相談いただけます。</p></div>';
+  }
   var head = (kind === 'note' || kind === 'close')
     ? '承りました' : 'お預かりしました';
   // 【2026-10-02　直したところ。私の見落としです】
