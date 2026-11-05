@@ -158,7 +158,7 @@ var CLOSED_MODES = ['general', 'safety', 'ask'];
 // （2026-10-02：貼ったはずの版かどうかを確かめる手だてが無く、困りました）
 // 2026-11-04　この字が 10-28a のまま残っていた。確かめるために置いた字が、
 // 確かめられない状態になっていた。公開するたびに、ここも直す。
-var FORM_VERSION = 'form2 2026-11-04c';
+var FORM_VERSION = 'form2 2026-11-05a';
 
 /* ============================================================
    起動
@@ -208,6 +208,9 @@ function render() {
   if (mode === 'note')    return show(viewNote());
   if (mode === 'close')   return show(viewClose());
   if (mode === 'survey')  return show(viewSurvey());
+  // 2026-11-05　予約を確かめる画面（質問票 Q22 イ）。
+  // 台帳の値をそのまま出します。AIに文を作らせません（日時は約束なので、言い間違えると困る）。
+  if (mode === 'check')   return renderCheck();
   show(viewCall()); prefillArea();
 }
  
@@ -457,6 +460,78 @@ function viewClose() {
    聞くのは3つだけ。誰と話したかは聞かない（台帳で分かる）。
    送り先は中継役の /form。トークには何も出さない（MARKER を送らない）。
    ------------------------------------------------------------ */
+/* ------------------------------------------------------------
+   予約を確かめる（mode=check）　2026-11-05
+
+   相談者が、自分の次のお約束をあとから見るための画面。
+   予約したときの AI の返事が流れてしまっても、ここで確かめられる。
+
+   出すもの　次のお約束／いまの状況／日時を決め直すボタン
+   出さないもの　相談の中身、必要度、相談員の名前、ほかの方のこと
+   ------------------------------------------------------------ */
+
+// 台帳の言葉 → 相談者にお見せする言い方（2026-11-05 案）
+var CHECK_STATUS = {
+  '着電待ち':   'お待ちしています',
+  '完了':       'お話は終わりになっています',
+  '再予約':     '日時を決め直しているところです',
+  '未着電':     'お電話がつながりませんでした。日時を決め直せます'
+};
+
+function renderCheck() {
+  show('<div class="card"><p class="q">読み込んでいます…</p></div>');
+  if (!idToken) { return show(viewCheck(null)); }
+  fetch(PREFILL_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: idToken })
+  }).then(function (r) { return r.json(); })
+    .then(function (d) { show(viewCheck(d || null)); })
+    .catch(function () { show(viewCheck(null)); });
+}
+
+/** 2026-11-08 19:00 → 11月8日（日）19時00分 */
+function checkWhen(v) {
+  var s = String(v || '').trim();
+  var m = s.match(/(\d{4})-(\d{2})-(\d{2})[ T](\d{1,2}):(\d{2})/);
+  if (!m) return s;
+  var youbi = ['日', '月', '火', '水', '木', '金', '土'];
+  var d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  return Number(m[2]) + '月' + Number(m[3]) + '日（' + youbi[d.getDay()] + '）'
+    + Number(m[4]) + '時' + m[5] + '分';
+}
+
+function viewCheck(d) {
+  // 読めなかったとき。**「ありません」とは言い切らない。**
+  // 読めないだけで「お約束が無い」とお伝えすると、来ていただけなくなる。
+  if (!d) {
+    return '<div class="done"><h2>いまは確かめられませんでした</h2>'
+      + '<p>通信の状態をご確認のうえ、もう一度お試しください。</p>'
+      + '<p>うまくいかないときは、その旨をトークにお送りいただければ、担当者がお調べします。</p></div>';
+  }
+
+  var when = checkWhen(d.appointmentAt);
+  var st = String(d.callStatus || '').trim();
+
+  if (!when) {
+    return '<div class="done"><h2>いま、お約束はありません</h2>'
+      + '<p>お電話でお話ししたいときは、下から日時をお選びいただけます。</p>'
+      + '<p>いつでも、このトークからご相談いただけます。</p>'
+      + '<p><a class="btn" href="?mode=call">日時をえらぶ</a></p></div>';
+  }
+
+  var line = CHECK_STATUS[st] || '';
+  return '<div class="done"><h2>次のお約束</h2>'
+    + '<p style="font-size:17px;font-weight:600">' + when + '　から30分</p>'
+    + (line ? '<p>' + line + '</p>' : '')
+    + '<div class="tip">'
+    +   'お時間になりましたら、担当者からこのトークに通話ボタンつきのメッセージをお送りします。<br>'
+    +   'それをタップしてお電話ください。'
+    + '</div>'
+    + '<p>ご都合が悪くなったときは、日時を決め直していただけます。</p>'
+    + '<p><a class="btn" href="?mode=rebook">日時を決め直す</a></p></div>';
+}
+
 function viewSurvey() {
   function scale(name) {
     // 「よかった」を上に（越前谷さん・11/4）
