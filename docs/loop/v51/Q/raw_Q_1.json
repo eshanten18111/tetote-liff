@@ -1,0 +1,2353 @@
+{
+ "script": "Q",
+ "user": "t-51-Q",
+ "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+ "closed_at": 8,
+ "turns": [
+  {
+   "query": "仕事のことでずっと悩んでいます。",
+   "answer": "ご連絡いただきありがとうございます。\nお仕事のことで、ずっと悩んでいらっしゃるのですね。おつらい気持ちを抱えながら、これまで過ごされてきたのかもしれません。\n\nもし差し支えなければ、「仕事のことでずっと悩んでいる」ことについて、もう少し詳しくお聞かせいただけますか。\n\n（このチャットでお話しできるやり取りの回数や文字の量には、1日ごとの上限があります。上限に近づいたら、こちらからお知らせします。続きは、日付が変わってからお話しできます。）",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "コード（相談外の連続カウント）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161331",
+      "jst_text": "9月23日（水）20時02分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 1,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22064,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.016548",
+       "completion_tokens": 125,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0004688",
+       "total_tokens": 22189,
+       "total_price": "0.0170168",
+       "currency": "USD",
+       "latency": 1.8396319370003766,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "3",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 3,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 29,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "3"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "ご連絡いただきありがとうございます。\nお仕事のことで、ずっと悩んでいらっしゃるのですね。おつらい気持ちを抱えながら、これまで過ごされてきたのかもしれません。\n\nもし差し支えなければ、「仕事のことでずっと悩んでいる」ことについて、もう少し詳しくお聞かせいただけますか。\n\n（このチャットでお話しできるやり取りの回数や文字の量には、1日ごとの上限があります。上限に近づいたら、こちらからお知らせします。続きは、日付が変わってからお話しできます。）",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "「仕事のことでずっと悩んでいる」と打ち明けてくれた。",
+      "day_heavy": "悩みが「ずっと」続いていることのつらさ。まだ具体的な内容は不明。",
+      "day_next": "悩みの具体的な内容（何が、いつから、どのようにしてつらいのか）。",
+      "turn_notice": "1通目のお知らせ"
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1181,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008858",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1187,
+       "total_price": "0.0009083",
+       "currency": "USD",
+       "latency": 1.0205003120000242,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:02:03.522793+09:00",
+   "elapsed": 24.2,
+   "created_at": 1790161324,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 1
+  },
+  {
+   "query": "どうしても納得できないんです。",
+   "answer": "「どうしても納得できない」のですね。そのお気持ちを抱えながらお仕事のことを考え続けるのは、とてもおつらいことと思います。\n\n差し支えなければ、どのようなことについて「納得できない」と感じていらっしゃるのか、もう少し教えていただけますか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161349",
+      "jst_text": "9月23日（水）20時02分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 2,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22182,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0166365",
+       "completion_tokens": 125,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0004688",
+       "total_tokens": 22307,
+       "total_price": "0.0171053",
+       "currency": "USD",
+       "latency": 2.3209374470000057,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "4",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 4,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 28,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "4"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "「どうしても納得できない」のですね。そのお気持ちを抱えながらお仕事のことを考え続けるのは、とてもおつらいことと思います。\n\n差し支えなければ、どのようなことについて「納得できない」と感じていらっしゃるのか、もう少し教えていただけますか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "仕事のことでずっと悩んでおり、「どうしても納得できない」と感じている。",
+      "day_heavy": "仕事上の何かについて、強い不満や理不尽さを感じ、それが解消されないまま長期間続いていること。",
+      "day_next": "何に対して「納得できない」と感じているのか、その具体的な出来事や状況。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1184,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.000888",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1190,
+       "total_price": "0.0009105",
+       "currency": "USD",
+       "latency": 1.1736265560000447,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:02:28.773345+09:00",
+   "elapsed": 18.9,
+   "created_at": 1790161349,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 2
+  },
+  {
+   "query": "どうしても納得できないんです。",
+   "answer": "お気持ちを伝えてくださり、ありがとうございます。\n「どうしても納得できない」という強いお気持ちを、おひとりで抱え続けるのはとても苦しいことと思います。\n\nもし言葉にするのが難しいと感じていらっしゃったら、無理にお話しいただかなくて大丈夫です。\n\nもしよろしければ、少しだけ角度を変えてお聞きしてもよいでしょうか。その「納得できない」というお気持ちは、どのようなことに関連していると感じますか。例えば、誰かとの関係についてでしょうか。それとも、お仕事の評価や内容についてでしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161370",
+      "jst_text": "9月23日（水）20時02分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 3,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22247,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0166853",
+       "completion_tokens": 93,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0003488",
+       "total_tokens": 22340,
+       "total_price": "0.0170341",
+       "currency": "USD",
+       "latency": 2.0050888199998553,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "4",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 4,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 27,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "4"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "お気持ちを伝えてくださり、ありがとうございます。\n「どうしても納得できない」という強いお気持ちを、おひとりで抱え続けるのはとても苦しいことと思います。\n\nもし言葉にするのが難しいと感じていらっしゃったら、無理にお話しいただかなくて大丈夫です。\n\nもしよろしければ、少しだけ角度を変えてお聞きしてもよいでしょうか。その「納得できない」というお気持ちは、どのようなことに関連していると感じますか。例えば、誰かとの関係についてでしょうか。それとも、お仕事の評価や内容についてでしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "",
+      "day_heavy": "",
+      "day_next": "",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1154,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0008655",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1160,
+       "total_price": "0.000888",
+       "currency": "USD",
+       "latency": 1.7213009550000038,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:02:48.639292+09:00",
+   "elapsed": 19.4,
+   "created_at": 1790161369,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 3
+  },
+  {
+   "query": "どうしても納得できないんです。",
+   "answer": "おつらい中、繰り返しお気持ちを伝えてくださり、ありがとうございます。\n「どうしても納得できない」という言葉を何度も使われるほど、そのお気持ちが、今あなたの中でとても大きく、そして重くのしかかっているのですね。\n\nここでお伝えしておきたいことがあります。\n私はAIです。お話をうかがって、気持ちを整理するお手伝いはできますが、いま起きていることを止めたり、すぐに何かを変えたりすることはできません。\n\nもしかしたら、今のあなたには、文字ではなく声で直接気持ちを話せる相手が必要なのかもしれないと感じました。\nもしよろしければ、以下のような相談先もあります。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n\nまた、当法人の相談員（人）から折り返しのご連絡をすることもできます。ご希望でしたら、そのようにお伝えくださいね。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161393",
+      "jst_text": "9月23日（水）20時03分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 4,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22371,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0167783",
+       "completion_tokens": 126,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0004725",
+       "total_tokens": 22497,
+       "total_price": "0.0172508",
+       "currency": "USD",
+       "latency": 2.119941911000069,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "4",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "反芻",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "反芻",
+      "rum_streak": 1
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 4,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 26,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "4"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "おつらい中、繰り返しお気持ちを伝えてくださり、ありがとうございます。\n「どうしても納得できない」という言葉を何度も使われるほど、そのお気持ちが、今あなたの中でとても大きく、そして重くのしかかっているのですね。\n\nここでお伝えしておきたいことがあります。\n私はAIです。お話をうかがって、気持ちを整理するお手伝いはできますが、いま起きていることを止めたり、すぐに何かを変えたりすることはできません。\n\nもしかしたら、今のあなたには、文字ではなく声で直接気持ちを話せる相手が必要なのかもしれないと感じました。\nもしよろしければ、以下のような相談先もあります。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n\nまた、当法人の相談員（人）から折り返しのご連絡をすることもできます。ご希望でしたら、そのようにお伝えくださいね。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "「仕事のことでずっと悩んでいる」「どうしても納得できない」と繰り返し話されている。",
+      "day_heavy": "納得できないという強い気持ちを抱え、それを言葉にして整理することが難しい状態にあること。",
+      "day_next": "もし話せるようであれば、「納得できない」という気持ちの背景にある具体的な出来事や感情について。あるいは、声で話すなど、別の方法を検討すること。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1362,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0010215",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1368,
+       "total_price": "0.001044",
+       "currency": "USD",
+       "latency": 1.1790920910000295,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:03:09.067120+09:00",
+   "elapsed": 24.1,
+   "created_at": 1790161392,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 4
+  },
+  {
+   "query": "どうしても納得できないんです。",
+   "answer": "おつらい中、何度もお気持ちを伝えてくださり、ありがとうございます。\nその「どうしても納得できない」という一言に、言葉にしきれないほどの、たくさんの苦しいお気持ちが込められているのだと感じています。\n\nこれほど強いお気持ちは、文字でやりとりするよりも、どなたかに直接声で聴いてもらうことで、少し気持ちが落ち着くことがあるかもしれません。\n\nもしお気持ちが向きましたら、このような場所でお話しすることもできます。専門の相談員が直接お話を聴いてくれます。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n\nもちろん、ここでのお話も続きますので、もし話したいことがあれば、お聞かせくださいね。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "コード（相談外の連続カウント）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161415",
+      "jst_text": "9月23日（水）20時03分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 5,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "反芻",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 1,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22601,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0169508",
+       "completion_tokens": 94,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0003525",
+       "total_tokens": 22695,
+       "total_price": "0.0173033",
+       "currency": "USD",
+       "latency": 1.5374684720000005,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "4",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "反芻",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "反芻",
+      "rum_streak": 2
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 4,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 25,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "4"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "おつらい中、何度もお気持ちを伝えてくださり、ありがとうございます。\nその「どうしても納得できない」という一言に、言葉にしきれないほどの、たくさんの苦しいお気持ちが込められているのだと感じています。\n\nこれほど強いお気持ちは、文字でやりとりするよりも、どなたかに直接声で聴いてもらうことで、少し気持ちが落ち着くことがあるかもしれません。\n\nもしお気持ちが向きましたら、このような場所でお話しすることもできます。専門の相談員が直接お話を聴いてくれます。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n\nもちろん、ここでのお話も続きますので、もし話したいことがあれば、お聞かせくださいね。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "仕事のことでずっと悩んでおり、「どうしても納得できない」という言葉を4回繰り返されている。",
+      "day_heavy": "「どうしても納得できない」という、言葉にしきれない強い感情を一人で抱え、身動きが取れなくなっていること。",
+      "day_next": "もし話せる状態になれば、「納得できない」と感じる具体的な出来事や背景について話を聴く。あるいは、声の窓口につながることを支援する。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1339,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0010043",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1345,
+       "total_price": "0.0010268",
+       "currency": "USD",
+       "latency": 1.0598399900000004,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:03:34.162493+09:00",
+   "elapsed": 25.0,
+   "created_at": 1790161414,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 5
+  },
+  {
+   "query": "どうしても納得できないんです。",
+   "answer": "おつらい中、そのお気持ちを伝えてくださり、ありがとうございます。\n「どうしても納得できない」という一言に、言葉にならないほどの、たくさんの苦しいお気持ちが込められているのだと感じています。\n\nもし、このどうしようもないお気持ちを、誰かに直接声で聴いてほしいと感じることがあれば、頼れる場所があります。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n\nもちろん、ここでのお話も続けていただけますので、もし何か言葉にできそうなことがあれば、お聞かせください。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161441",
+      "jst_text": "9月23日（水）20時04分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 6,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "反芻",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 2,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22797,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0170978",
+       "completion_tokens": 121,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0004538",
+       "total_tokens": 22918,
+       "total_price": "0.0175516",
+       "currency": "USD",
+       "latency": 1.6373734079999736,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "4",
+      "need_basis": "",
+      "contact_safety_risk": "1",
+      "crisis_category": "",
+      "support_type": "こころ",
+      "interaction_pattern": "反芻",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "反芻",
+      "rum_streak": 3
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 4,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 24,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "4"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "おつらい中、そのお気持ちを伝えてくださり、ありがとうございます。\n「どうしても納得できない」という一言に、言葉にならないほどの、たくさんの苦しいお気持ちが込められているのだと感じています。\n\nもし、このどうしようもないお気持ちを、誰かに直接声で聴いてほしいと感じることがあれば、頼れる場所があります。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n\nもちろん、ここでのお話も続けていただけますので、もし何か言葉にできそうなことがあれば、お聞かせください。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "いつでも2語を削除",
+      "day_today": "仕事のことでずっと悩んでおり、「どうしても納得できない」という言葉を繰り返し発信されている。",
+      "day_heavy": "「納得できない」という強い気持ちを抱え、言葉にして整理することが難しい状態にあること。",
+      "day_next": "もし言葉が出てくるようであれば、その「納得できない」気持ちの背景にある具体的な出来事や感情。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1286,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009645",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1292,
+       "total_price": "0.000987",
+       "currency": "USD",
+       "latency": 1.1229015529997923,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:04:00.169383+09:00",
+   "elapsed": 17.7,
+   "created_at": 1790161441,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 6
+  },
+  {
+   "query": "どうしても納得できないんです。",
+   "answer": "おつらい中、そのお気持ちを伝えてくださり、ありがとうございます。\n「どうしても納得できない」のですね。その一言に、言葉にしきれないほどの、たくさんの苦しいお気持ちが込められているのだと感じています。\n\nもし、このどうしようもないお気持ちを、誰かに直接声で聴いてほしいと感じることがあれば、頼れる場所があります。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n\nもちろん、ここでのお話も続けていただけますので、もし何か言葉にできそうなことがあれば、お聞かせください。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161520",
+      "jst_text": "9月23日（水）20時05分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 7,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "反芻",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 3,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22958,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0172185",
+       "completion_tokens": 139,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0005213",
+       "total_tokens": 23097,
+       "total_price": "0.0177398",
+       "currency": "USD",
+       "latency": 2.9955907930000194,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "仕事に関する深い葛藤があり、複数回にわたり「どうしても納得できない」と訴え続けており、孤立感や精神的な負担が好転しない状況が続いているため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "社会的に孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "反芻",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "反芻",
+      "rum_streak": 4
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 1,
+      "max_support_need": 5,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 23,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "おつらい中、そのお気持ちを伝えてくださり、ありがとうございます。\n「どうしても納得できない」のですね。その一言に、言葉にしきれないほどの、たくさんの苦しいお気持ちが込められているのだと感じています。\n\nもし、このどうしようもないお気持ちを、誰かに直接声で聴いてほしいと感じることがあれば、頼れる場所があります。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n\nもちろん、ここでのお話も続けていただけますので、もし何か言葉にできそうなことがあれば、お聞かせください。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "仕事のことでずっと悩んでおり、「どうしても納得できない」という言葉を繰り返し発信されている。",
+      "day_heavy": "言葉にできないほどの強い葛藤を抱え、納得できないという気持ちが思考を占めていること。",
+      "day_next": "もし可能であれば、「納得できない」という気持ちの背景にある具体的な出来事や感情について、少しでも言葉にできるよう伴走すること。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1298,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009735",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1304,
+       "total_price": "0.000996",
+       "currency": "USD",
+       "latency": 1.9594907489999969,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:05:18.912171+09:00",
+   "elapsed": 25.0,
+   "created_at": 1790161520,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 7
+  },
+  {
+   "query": "どうしても納得できないんです。",
+   "answer": "おつらい中、何度もそのお気持ちを伝えてくださり、ありがとうございます。「どうしても納得できない」という言葉を繰り返されるほど、その思いがどれほど強いものか、胸が締め付けられるようです。\n\n同じお気持ちを抱え続けるのは、とてもおつらいことと思います。\n\n言葉にするのが難しいほどの強いお気持ちは、文字でのやりとりよりも、どなたかに直接声で聴いてもらうことで、少し楽になることがあるかもしれません。もしお気持ちが向きましたら、このような場所でお話しすることもできます。専門の相談員が直接お話を聴いてくれます。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n・いのちの電話：0120-783-556（毎日16時～21時）\n\n次にお話しできるのは、日付が変わってからになります。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "変数代入（長時間アラートタイムスタンプ）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "コード（その日のまとめの本文組み立て）",
+    "HTTP リクエスト（その日のまとめ登録）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161546",
+      "jst_text": "9月23日（水）20時05分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 8,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "反芻",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 4,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 23124,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.017343",
+       "completion_tokens": 148,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.000555",
+       "total_tokens": 23272,
+       "total_price": "0.017898",
+       "currency": "USD",
+       "latency": 2.48157829999991,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "5",
+      "need_basis": "仕事に関して強い納得のいかなさを抱え、具体的な言葉が出てこないまま同じ訴えを繰り返しており、気持ちの支えや孤立の解消に向けた外部の支援がなければ状況が好転しないと判断されるため。",
+      "contact_safety_risk": "1",
+      "crisis_category": "社会的孤立",
+      "support_type": "こころ",
+      "interaction_pattern": "反芻",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "反芻",
+      "rum_streak": 5
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "true",
+      "alerted_at": "1790161546",
+      "closing": "true",
+      "max_safety_risk": 1,
+      "max_support_need": 5,
+      "phase": "終了",
+      "closing_reason": "反芻",
+      "left": 22,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "5"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "おつらい中、何度もそのお気持ちを伝えてくださり、ありがとうございます。「どうしても納得できない」という言葉を繰り返されるほど、その思いがどれほど強いものか、胸が締め付けられるようです。\n\n同じお気持ちを抱え続けるのは、とてもおつらいことと思います。\n\n言葉にするのが難しいほどの強いお気持ちは、文字でのやりとりよりも、どなたかに直接声で聴いてもらうことで、少し楽になることがあるかもしれません。もしお気持ちが向きましたら、このような場所でお話しすることもできます。専門の相談員が直接お話を聴いてくれます。\n\n・#いのちSOS：0120-061-338（24時間365日）\n・よりそいホットライン：0120-279-338（24時間）\n・いのちの電話：0120-783-556（毎日16時～21時）\n\n次にお話しできるのは、日付が変わってからになります。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "問い1文を削除",
+      "day_today": "仕事のことでずっと悩んでおり、「どうしても納得できない」という訴えを繰り返している。",
+      "day_heavy": "具体的な内容を話すことができないほど、仕事に関して強い納得のいかなさを抱えていること。",
+      "day_next": "もし次回お話しいただけるときには、その「納得できない」気持ちの背景にある具体的な出来事や感情について、少しずつ伺っていくこと。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（その日のまとめの本文組み立て）",
+     "outputs": {
+      "fields": "\"conversationId\": \"c283bd31-f51d-420d-a9f7-4197dbfba178\", \"dialogueCount\": \"8\", \"stage\": \"chat\", \"summary\": \"仕事のことでずっと悩んでおり、「どうしても納得できない」という訴えを繰り返している。／いちばん重いこと：具体的な内容を話すことができないほど、仕事に関して強い納得のいかなさを抱えていること。\", \"nextAction\": \"もし次回お話しいただけるときには、その「納得できない」気持ちの背景にある具体的な出来事や感情について、少しずつ伺っていくこと。\", \"supportNeed\": \"5\", \"addendumText\": \"【その日のまとめ】区切りの理由：反芻／やり取り8往復／支援必要度の最高値5／連絡の危険度1\\n今日話されたこと：仕事のことでずっと悩んでおり、「どうしても納得できない」という訴えを繰り返している。\\nいちばん重いこと：具体的な内容を話すことができないほど、仕事に関して強い納得のいかなさを抱えていること。\\n次に一緒に見たいこと：もし次回お話しいただけるときには、その「納得できない」気持ちの背景にある具体的な出来事や感情について、少しずつ伺っていくこと。\"",
+      "day_text": "【その日のまとめ】区切りの理由：反芻／やり取り8往復／支援必要度の最高値5／連絡の危険度1\n今日話されたこと：仕事のことでずっと悩んでおり、「どうしても納得できない」という訴えを繰り返している。\nいちばん重いこと：具体的な内容を話すことができないほど、仕事に関して強い納得のいかなさを抱えていること。\n次に一緒に見たいこと：もし次回お話しいただけるときには、その「納得できない」気持ちの背景にある具体的な出来事や感情について、少しずつ伺っていくこと。"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1370,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0010275",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1376,
+       "total_price": "0.00105",
+       "currency": "USD",
+       "latency": 1.8812715669998852,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:05:44.884393+09:00",
+   "elapsed": 20.9,
+   "created_at": 1790161545,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 8
+  },
+  {
+   "query": "もう少しだけ話してもいいですか。",
+   "answer": "お知らせいただき、ありがとうございます。\nいただいた内容は、記録として残ります。\n\n今日はここで一度お休みとさせてください。お気持ちが落ち着いてお話しできる時をお待ちしております。\n\nいま伝えておきたいことがあれば、下記からご記入ください。\nこちらも記録として残ります。\n\n▼ お伝えしたいこと・状況の変化\nhttps://liff.line.me/2010836980-ms5nFPQE?mode=note\n\nお急ぎでどなたかとお話ししたいときは、下記もご利用いただけます。\n・#いのちSOS　0120-061-338（24時間365日）\n・よりそいホットライン　0120-279-338（24時間）",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "定数生成（true文字列）／版 2026-09-23c",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "追記本文抽出",
+    "コード（着地後書き込みの速報判定と本文）",
+    "HTTP リクエスト（相談記録登録：追記）",
+    "IF/ELSE 15（着地後書き込みの速報判定）",
+    "IF/ELSE 18（区切りのあと・緊急でなく採点やり直しでもない）",
+    "回答（長時間相談区切り）",
+    "コード（追記保存の結果判定）",
+    "IF/ELSE 13（追記保存の失敗チェック）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-09-23c",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790161568",
+      "jst_text": "9月23日（水）20時06分",
+      "office_open": "false",
+      "next_open": "明日（9月24日・木）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20719"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "true",
+      "length_alerted": "true",
+      "phase": "終了",
+      "session_turns": 9,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "## 【全国の相談窓口一覧】（検証済み・2026年時点）\n\n・[こころ] #いのちSOS　0120-061-338　24時間365日／無料\n・[こころ] よりそいホットライン　0120-279-338／0120-279-226　24時間／無料\n・[こころ] いのちの電話　0120-783-556／0570-783-556　毎日16:00〜21:00 ／ 毎月10日は8:00〜翌8:00（…／通話料あり\n・[こころ] こころの健康相談統一ダイヤル　0570-064-556　都道府県により異なる／通話料あり\n・[子ども] チャイルドライン　0120-99-7777　毎日16:00〜21:00（12月29日〜1月3日は休止）／無料\n・[いじめ・不登校] 24時間子供SOSダイヤル　0120-0-78310　24時間／無料\n・[いじめ・不登校] こどもの人権110番　0120-007-110　平日8:30〜17:15（強化週間は延長）／無料\n・[自死遺族] 全国自死遺族総合支援センター　03-3261-4350　木曜・日曜 12:00〜18:00／通話料あり\n・[消費者被害] 金融サービス利用者相談室（金融庁）　0570-016811　平日10:00〜17:00／通話料あり\n・[就労] こころの耳（働く人のメンタルヘルス）　0120-565-455　平日17:00〜22:00、土日10:00〜16:00（祝日・年末…／無料\n・[法律・人権] 日本司法支援センター（法テラス）　0570-078374　平日9:00〜21:00 ／ 土曜9:00〜17:00／通話料あり\n・[法律・人権] みんなの人権110番（法務省）　0570-003-110　平日8:30〜17:15／通話料あり\n・[法律・人権] 警察相談専用電話　#9110　平日8:30〜17:15（地域により異なる）／通話料あり\n・[法律・人権] 行政相談（総務省）　0570-090110　平日9:00〜16:45／通話料あり\n・[認知症] 認知症の人と家族の会 電話相談　0120-294-456／050-5358-6578　平日10:00〜15:00／無料\n・[認知症] 若年性認知症コールセンター　0800-100-2707　月〜土10:00〜15:00（水曜は10:00〜19:00）／無料\n・[消費者被害] 消費者ホットライン（188）　188　原則毎日（つながる窓口の開設時間は地域により異なる）／通話料あり\n・[消費者被害] 国民生活センター 平日バックアップ相談　03-3446-0999　平日10:00〜16:00／通話料あり\n・[障害] 障害者差別に関する相談窓口「つなぐ窓口」　0120-262-701　公式サイトに受付時間の記載なし／無料\n・[精神保健] みんなねっと相談室　03-5941-6346　水曜10:00〜15:00（12:00〜13:00を除く）／通話料あり\n・[依存症] ギャンブル依存症問題を考える会 相談専用電話　070-4501-9625　公式サイトに受付時間の記載なし／通話料あり\n・[ひきこもり] KHJ全国ひきこもり家族会連合会 相談窓口　03-5944-5250　月・水・金 13:00〜19:00／通話料あり\n・[児童虐待] 児童相談所虐待対応ダイヤル（189）　189　公式ページに受付時間の明記なし（管轄の児童相談所へ接続）／無料\n・[児童虐待] 児童相談所相談専用ダイヤル　0120-189-783　公式ページに受付時間の明記なし／無料\n・[ひとり親] 養育費・親子交流相談支援センター　0120-965-419／03-3980-4108　平日（水曜を除く）10:00〜20:00／水曜12:00〜22:0…／無料\n・[DV・女性支援] DV相談＋（プラス）　0120-279-889　電話24時間365日／チャット12:00〜22:00／メール24時…／無料\n・[DV・女性支援] DV相談ナビ（#8008）　#8008　各配偶者暴力相談支援センターの受付時間内／通話料あり\n・[DV・女性支援] 女性相談支援センター（#8778）　#8778　各都道府県の女性相談支援センターの受付時間／通話料あり\n・[性暴力被害] 性犯罪・性暴力被害者のためのワンストップ支援センター（#8891）　#8891／0120-8891-77　つながる先のセンターにより異なる（24時間対応のセンターもある）／無料\n・[性暴力被害] 性犯罪被害相談電話（#8103）　#8103　各都道府県警察の窓口。土日祝・執務時間外は当直が対応／通話料あり\n・[犯罪被害] 法テラス 犯罪被害者支援ダイヤル　0120-079714　平日9:00〜21:00、土曜9:00〜17:00／無料\n・[犯罪被害] 被害者支援センター 全国共通ナビダイヤル　0570-783-554　毎日7:30〜22:00（12月29日〜1月3日を除く）／通話料あり\n・[外国人] 外国人在留総合インフォメーションセンター　0570-013904／03-5796-7112　平日8:30〜17:15／通話料あり\n・[外国人] 外国語人権相談ダイヤル　0570-090-911　平日9:00〜17:00／通話料あり\n・[LGBTQ] よりそいホットライン 性別や同性愛などに関する相談（ガイダンス4番）　0120-279-338　24時間／無料\n\n",
+      "post_landing_note": "true",
+      "offtrack_streak": 0,
+      "last_pattern": "反芻",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20719",
+      "rum_streak": 5,
+      "locked": "true",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "post-landing-note"
+     }
+    },
+    {
+     "title": "コード（着地後書き込みの速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "day": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 15（着地後書き込みの速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 18（区切りのあと・緊急でなく採点やり直しでもない）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "after-break"
+     }
+    },
+    {
+     "title": "IF/ELSE 13（追記保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-09-23T20:06:06.773558+09:00",
+   "elapsed": 2.4,
+   "created_at": 1790161567,
+   "conversation_id": "c283bd31-f51d-420d-a9f7-4197dbfba178",
+   "error": null,
+   "turn": 9
+  }
+ ],
+ "note_more": "5回の繰り返しでは締まらなかったが rum_streak が伸びていたため、指示書の8往復の枠内であと2回送って続けた（ループの判断）"
+}

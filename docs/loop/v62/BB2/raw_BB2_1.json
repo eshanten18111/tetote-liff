@@ -1,0 +1,902 @@
+{
+ "script": "BB2",
+ "user": "t-62-BB2",
+ "conversation_id": "ecc4f685-2007-43d5-bcb0-ca53fe6cec14",
+ "sent_log": [
+  {
+   "turn": 1,
+   "query": "夫から毎日怒鳴られていて、子どもと家を出たいと思っています。市役所にも行きましたが、どうにもなりませんでした。",
+   "why": "台本どおり"
+  },
+  {
+   "turn": 2,
+   "query": "はい。それで弁護士さんにも相談しましたが、お金がかかると言われて、それきりです。",
+   "why": "台本どおり"
+  },
+  {
+   "turn": 3,
+   "query": "このあと、どうしたらいいでしょうか。",
+   "why": "台本どおり"
+  }
+ ],
+ "turns": [
+  {
+   "query": "夫から毎日怒鳴られていて、子どもと家を出たいと思っています。市役所にも行きましたが、どうにもなりませんでした。",
+   "answer": "ご連絡ありがとうございます。\n夫から毎日怒鳴られているとのこと、とてもつらく、怖い思いをされているのですね。お子さんと一緒に家を出たい、と考えるほど追い詰められたお気持ち、お察しします。\n\n勇気を出して市役所にも相談に行かれたのに、「どうにもならなかった」と伺い、本当に心細い気持ちになられたことと思います。\n\nもし差し支えなければ、市役所ではどのようなお話をされて、どんなお返事があったのか、もう少し詳しく教えていただけますか。\n\n（このチャットでお話しできるやり取りの回数や文字の量には、1日ごとの上限があります。上限に近づいたら、こちらからお知らせします。続きは、日付が変わってからお話しできます。）",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-10-02d",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 21（AIの気づきがあるか）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-10-02d",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790943846",
+      "jst_text": "10月2日（金）21時24分",
+      "office_open": "false",
+      "next_open": "10月5日（月）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20728"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "受付",
+      "session_turns": 1,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20728",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22084,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.016563",
+       "completion_tokens": 161,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006038",
+       "total_tokens": 22245,
+       "total_price": "0.0171668",
+       "currency": "USD",
+       "latency": 1.9408711040005073,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "7",
+      "need_basis": "夫からの暴言が日常化しており、子どもとともに家を出たいと望んでいるが、役所に相談しても支援につながらず孤立している。",
+      "contact_safety_risk": "3",
+      "crisis_category": "DV・虐待",
+      "support_type": "両方",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 3,
+      "max_support_need": 7,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 39,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "7"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "ご連絡ありがとうございます。\n夫から毎日怒鳴られているとのこと、とてもつらく、怖い思いをされているのですね。お子さんと一緒に家を出たい、と考えるほど追い詰められたお気持ち、お察しします。\n\n勇気を出して市役所にも相談に行かれたのに、「どうにもならなかった」と伺い、本当に心細い気持ちになられたことと思います。\n\nもし差し支えなければ、市役所ではどのようなお話をされて、どんなお返事があったのか、もう少し詳しく教えていただけますか。\n\n（このチャットでお話しできるやり取りの回数や文字の量には、1日ごとの上限があります。上限に近づいたら、こちらからお知らせします。続きは、日付が変わってからお話しできます。）",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "夫から毎日怒鳴られており、子どもと家を出たいと考えている。市役所に相談したが「どうにもならなかった」とのこと。",
+      "day_heavy": "夫からの暴言が日常化し、逃げたいと思っているが、公的な支援につながれず孤立していること。",
+      "day_next": "市役所でどのような相談をし、どのような対応をされたのか。支援につながらなかった具体的な理由。",
+      "turn_notice": "1通目のお知らせ"
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 21（AIの気づきがあるか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1256,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.000942",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1262,
+       "total_price": "0.0009645",
+       "currency": "USD",
+       "latency": 1.2588983789992199,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-10-02T21:23:57.046117+09:00",
+   "elapsed": 29.8,
+   "created_at": 1790943838,
+   "conversation_id": "ecc4f685-2007-43d5-bcb0-ca53fe6cec14",
+   "error": null,
+   "turn": 1,
+   "why": "台本どおり"
+  },
+  {
+   "query": "はい。それで弁護士さんにも相談しましたが、お金がかかると言われて、それきりです。",
+   "answer": "市役所に続き、弁護士さんにも相談されたのですね。それなのに、お金のことが壁になって「それきりです」となってしまったとのこと、頼れる先が見つからないような、本当に心細いお気持ちだと思います。\n\nお話の途中ですみません、とても大切なことなので、ひとつだけ確認させてください。\n毎日怒鳴られるという状況は、いつ何が起きるか分からず、心も体も休まらないと思います。今夜、ご自身とお子さんは、身の安全が守られた状態で過ごすことができそうでしょうか。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-10-02d",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "コード（相談外の連続カウント）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "HTTP リクエスト（危機速報Slack通知）",
+    "変数代入（危機速報済み）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 21（AIの気づきがあるか）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-10-02d",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790943876",
+      "jst_text": "10月2日（金）21時24分",
+      "office_open": "false",
+      "next_open": "10月5日（月）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20728"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 2,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20728",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22268,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.016701",
+       "completion_tokens": 185,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006938",
+       "total_tokens": 22453,
+       "total_price": "0.0173948",
+       "currency": "USD",
+       "latency": 1.9969352170001002,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "8",
+      "need_basis": "夫から毎日怒鳴られる暴力的な環境にあり子どもと家を出たいと考えているが、役所や弁護士などの相談先で支援につながっておらず、助けがない状態で暴力のある家に留まらざるを得ない危険な状態にあるため。",
+      "contact_safety_risk": "4",
+      "crisis_category": "DV・虐待",
+      "support_type": "両方",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 4,
+      "max_support_need": 8,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 38,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "true",
+      "payload": "{\"text\": \"🚨 支援必要度が高い相談が進行中です（まだ引き継ぎ前です）\\n必要度：8／10\\n種別：DV・虐待\\n根拠：夫から毎日怒鳴られる暴力的な環境にあり子どもと家を出たいと考えているが、役所や弁護士などの相談先で支援につながっておらず、助けがない状態で暴力のある家に留まらざるを得ない危険な状態にあるため。\\n相談記録シートをご確認ください。\"}",
+      "need": "8"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "市役所に続き、弁護士さんにも相談されたのですね。それなのに、お金のことが壁になって「それきりです」となってしまったとのこと、頼れる先が見つからないような、本当に心細いお気持ちだと思います。\n\nお話の途中ですみません、とても大切なことなので、ひとつだけ確認させてください。\n毎日怒鳴られるという状況は、いつ何が起きるか分からず、心も体も休まらないと思います。今夜、ご自身とお子さんは、身の安全が守られた状態で過ごすことができそうでしょうか。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "夫から毎日怒鳴られており、子どもと家を出たいと考えている。市役所や弁護士に相談したが、支援にはつながっていない。",
+      "day_heavy": "暴力的な環境から逃れたいが、公的な支援や専門家につながれず、助けがないまま危険な家に留まらざるを得ないこと。",
+      "day_next": "今夜の安全を確保できるか。その上で、具体的な避難の方法や、つながれる支援について一緒に考えること。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 21（AIの気づきがあるか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1286,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0009645",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1292,
+       "total_price": "0.000987",
+       "currency": "USD",
+       "latency": 1.3013113559999283,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-10-02T21:24:27.839183+09:00",
+   "elapsed": 25.8,
+   "created_at": 1790943868,
+   "conversation_id": "ecc4f685-2007-43d5-bcb0-ca53fe6cec14",
+   "error": null,
+   "turn": 2,
+   "why": "台本どおり"
+  },
+  {
+   "query": "このあと、どうしたらいいでしょうか。",
+   "answer": "「このあと、どうしたらいいでしょうか」というお気持ち、本当に切実なものだと思います。市役所や弁護士さんにも相談されたのに、具体的な助けにつながっていない状況で、途方に暮れてしまいますよね。\n\nここまでのお話をうかがって、少し整理させてください。\n夫から毎日怒鳴られる状況にあり、お子さんと一緒に家を出たいと考えている。けれど、勇気を出して市役所や弁護士に相談しても具体的な支援にはつながらず、頼れる先がないと感じていらっしゃる。\nこのような状況で、たった一人で次の一歩を考えるのは本当に大変なことだと思います。\n\nもしよろしければ、ここでお話しいただいた内容を当法人の相談員（人）に直接お伝えして、今後の具体的な動き方や、利用できる公的な支援について、一緒に考えていくというのはいかがでしょうか。専門の相談員が、お気持ちに寄り添いながら、どうすれば安全な生活を確保できるか、一緒に道筋を探していきます。",
+   "titles": [
+    "ユーザー入力",
+    "IF/ELSE 16（カルテ照会はまだか）",
+    "HTTP リクエスト（カルテ照会）",
+    "コード（カルテの整形）",
+    "変数代入（カルテ）",
+    "定数生成（true文字列）／版 2026-10-02d",
+    "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+    "経過時間判定（ロック解除チェック）",
+    "コード（期限切れの解除・経過ターン計算）",
+    "変数代入（期限切れの解除）",
+    "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+    "パラメータ抽出",
+    "コード（入口フォーム判定・初回受付の本文組み立て）",
+    "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+    "HTTP リクエスト（相談記録登録：初回受付）",
+    "変数代入（初回受付ログ済みフラグ）",
+    "コード（初回受付の保存の結果判定）",
+    "IF/ELSE 14（初回受付の保存の失敗チェック）",
+    "コード（相談外の連続カウント）",
+    "変数代入（相談外カウント更新）",
+    "コード（支援必要度の保持・フェーズ・着地判定）",
+    "変数代入（支援必要度・フェーズ・着地）",
+    "コード（危機の速報判定と本文）",
+    "IF/ELSE 11（危機の速報判定）",
+    "IF/ELSE 10（着地したときだけ通知する）",
+    "IF/ELSE 19（採点やり直しの関門）",
+    "LLM",
+    "返信整形（サマリー除去）",
+    "回答",
+    "IF/ELSE 6（引き継ぎサマリー有無）",
+    "IF/ELSE 21（AIの気づきがあるか）",
+    "IF/ELSE 20（その日のまとめを残すか）",
+    "パラメータ抽出3（有人対応同意）",
+    "IF/ELSE 4（有人対応同意判定）"
+   ],
+   "outs": [
+    {
+     "title": "IF/ELSE 16（カルテ照会はまだか）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "定数生成（true文字列）／版 2026-10-02d",
+     "outputs": {
+      "value": "true"
+     }
+    },
+    {
+     "title": "現在時刻取得（UNIX秒・日本時間・窓口の開閉）",
+     "outputs": {
+      "value": "1790943897",
+      "jst_text": "10月2日（金）21時24分",
+      "office_open": "false",
+      "next_open": "10月5日（月）の朝8時30分",
+      "holiday_known": "true"
+     }
+    },
+    {
+     "title": "経過時間判定（ロック解除チェック）",
+     "outputs": {
+      "length_expired": "false",
+      "summary_expired": "false",
+      "today": "20728"
+     }
+    },
+    {
+     "title": "コード（期限切れの解除・経過ターン計算）",
+     "outputs": {
+      "closing": "",
+      "length_alerted": "",
+      "phase": "傾聴",
+      "session_turns": 3,
+      "summary_notified": "",
+      "turn_base": 0,
+      "madoguchi": "",
+      "post_landing_note": "",
+      "offtrack_streak": 0,
+      "last_pattern": "通常",
+      "urgent": "",
+      "urgent_used": "",
+      "crisis_word": "",
+      "rescore": "",
+      "today": "20728",
+      "rum_streak": 0,
+      "locked": "",
+      "crisis_hard": ""
+     }
+    },
+    {
+     "title": "変数代入（期限切れの解除）",
+     "outputs": {}
+    },
+    {
+     "title": "IF/ELSE 7（会話継続チェック：重複防止・長時間対策）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 22402,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0168015",
+       "completion_tokens": 186,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0006975",
+       "total_tokens": 22588,
+       "total_price": "0.017499",
+       "currency": "USD",
+       "latency": 2.116453915999955,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "support_need": "8",
+      "need_basis": "夫から毎日怒鳴られて子どもと家を出たいと考えているが、市役所や弁護士に相談しても支援に繋がらず断たれており、家庭内での精神的圧力・DVリスクに晒され頼れる先がない状況であるため。",
+      "contact_safety_risk": "4",
+      "crisis_category": "DV・虐待",
+      "support_type": "生活・制度",
+      "interaction_pattern": "通常",
+      "extracted_user_name": "",
+      "extracted_prefecture": "",
+      "extracted_age_group": "",
+      "extracted_gender": "",
+      "extracted_main_issue": "",
+      "next_phase": "傾聴"
+     }
+    },
+    {
+     "title": "IF/ELSE 8（事前情報の登録：入口フォーム、または最初の5往復）",
+     "outputs": {
+      "result": true,
+      "selected_case_id": "true"
+     }
+    },
+    {
+     "title": "IF/ELSE 14（初回受付の保存の失敗チェック）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "コード（相談外の連続カウント）",
+     "outputs": {
+      "new_streak": 0,
+      "pattern": "通常",
+      "rum_streak": 0
+     }
+    },
+    {
+     "title": "変数代入（相談外カウント更新）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（支援必要度の保持・フェーズ・着地判定）",
+     "outputs": {
+      "alerted": "",
+      "alerted_at": "",
+      "closing": "",
+      "max_safety_risk": 4,
+      "max_support_need": 8,
+      "phase": "傾聴",
+      "closing_reason": "",
+      "left": 37,
+      "near": ""
+     }
+    },
+    {
+     "title": "変数代入（支援必要度・フェーズ・着地）",
+     "outputs": {}
+    },
+    {
+     "title": "コード（危機の速報判定と本文）",
+     "outputs": {
+      "should_alert": "",
+      "payload": "",
+      "need": "8"
+     }
+    },
+    {
+     "title": "IF/ELSE 11（危機の速報判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 10（着地したときだけ通知する）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 19（採点やり直しの関門）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "返信整形（サマリー除去）",
+     "outputs": {
+      "main_category": "",
+      "next_action": "",
+      "related_issue": "",
+      "result": "「このあと、どうしたらいいでしょうか」というお気持ち、本当に切実なものだと思います。市役所や弁護士さんにも相談されたのに、具体的な助けにつながっていない状況で、途方に暮れてしまいますよね。\n\nここまでのお話をうかがって、少し整理させてください。\n夫から毎日怒鳴られる状況にあり、お子さんと一緒に家を出たいと考えている。けれど、勇気を出して市役所や弁護士に相談しても具体的な支援にはつながらず、頼れる先がないと感じていらっしゃる。\nこのような状況で、たった一人で次の一歩を考えるのは本当に大変なことだと思います。\n\nもしよろしければ、ここでお話しいただいた内容を当法人の相談員（人）に直接お伝えして、今後の具体的な動き方や、利用できる公的な支援について、一緒に考えていくというのはいかがでしょうか。専門の相談員が、お気持ちに寄り添いながら、どうすれば安全な生活を確保できるか、一緒に道筋を探していきます。",
+      "summary": "",
+      "urgency": "",
+      "consent": "",
+      "phone_removed": "",
+      "forced_close": "",
+      "day_today": "夫から毎日怒鳴られており、子どもと家を出たいと考えている。市役所や弁護士に相談したが、支援につながっていない。「このあと、どうしたらいいでしょうか」と尋ねている。",
+      "day_heavy": "公的な窓口や専門家に助けを求めても断られ、逃げ場がなく、孤立していることのつらさ。",
+      "day_next": "具体的な支援につなぐための方法。当法人の相談員への引き継ぎの意向確認。",
+      "turn_notice": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 6（引き継ぎサマリー有無）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 21（AIの気づきがあるか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "IF/ELSE 20（その日のまとめを残すか）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    },
+    {
+     "title": "パラメータ抽出3（有人対応同意）",
+     "outputs": {
+      "__is_success": 1,
+      "__reason": null,
+      "__usage": {
+       "prompt_tokens": 1381,
+       "prompt_unit_price": "0.75",
+       "prompt_price_unit": "0.000001",
+       "prompt_price": "0.0010358",
+       "completion_tokens": 6,
+       "completion_unit_price": "3.75",
+       "completion_price_unit": "0.000001",
+       "completion_price": "0.0000225",
+       "total_tokens": 1387,
+       "total_price": "0.0010583",
+       "currency": "USD",
+       "latency": 1.1605644100000063,
+       "time_to_first_token": null,
+       "time_to_generate": null
+      },
+      "consent_status": ""
+     }
+    },
+    {
+     "title": "IF/ELSE 4（有人対応同意判定）",
+     "outputs": {
+      "result": false,
+      "selected_case_id": "false"
+     }
+    }
+   ],
+   "sent_jst": "2026-10-02T21:24:54.662506+09:00",
+   "elapsed": 22.7,
+   "created_at": 1790943895,
+   "conversation_id": "ecc4f685-2007-43d5-bcb0-ca53fe6cec14",
+   "error": null,
+   "turn": 3,
+   "why": "台本どおり"
+  }
+ ]
+}
